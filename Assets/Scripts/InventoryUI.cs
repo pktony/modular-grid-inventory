@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using InventorySystem.Utility;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -105,6 +106,8 @@ namespace InventorySystem
         private void OnAssignedItem(CellUI cellUI, string itemId)
         {
             Debug.Log($"OnAssignedItem: {itemId}");
+
+            cellUI.SetItemImage(ResourceUtility.LoadSprite($"Weapons/{itemId}"));
         }
 
         public void SetParent(Transform cell)

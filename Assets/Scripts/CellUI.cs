@@ -1,4 +1,5 @@
 using System;
+using InventorySystem.Utility;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -38,7 +39,10 @@ namespace InventorySystem
         public void AssignItem(ItemData itemData, Action<CellUI, string> callback)
         {
             this.itemData = itemData;
-            Test(itemData.itemId);
+            
+            #if DEBUG
+            test.text = itemData.itemId;
+            #endif
 
             ApplySize();
 
@@ -50,11 +54,6 @@ namespace InventorySystem
             itemImage.sprite = sprite;
         }
 
-        public void Test(string itemId)
-        {
-            test.text = itemId;
-        }
-
         protected virtual void ApplySize()
         {
             if (itemData == null)
@@ -64,7 +63,12 @@ namespace InventorySystem
             }
 
             itemImageRect.gameObject.SetActive(true);
-            itemImageRect.sizeDelta = GetRotateCellSize();
+            var rotateCellSize = GetRotateCellSize();
+            itemImageRect.sizeDelta = GetCellSize();
+            itemImageRect.anchoredPosition = new Vector2(rotateCellSize.x * 0.5f, -rotateCellSize.y * 0.5f);
+            itemImageRect.rotation = itemData.itemDirection == ItemDirection.Horizontal ? 
+                Quaternion.identity :
+                Quaternion.Euler(0, 0, -90);
             // target.sizeDelta = GetCellSize();
             // target.localEulerAngles = Vector3.forward * (CellData?.IsRotate ?? false ? 90 : 0);
         }
@@ -97,7 +101,7 @@ namespace InventorySystem
             //  - 놓을 수 없으면 빨간색
             //  - 놓을 수 있으면 초록색
 
-            itemImage.color = Color.white;
+            itemImage.color = Color.gray;
         }
 
         public void OnPointerExit(PointerEventData eventData)
@@ -105,7 +109,7 @@ namespace InventorySystem
             // 아이템 정보 표기 해제
             // 아이템 놓을 수 있는지 판별한 색 원상복구
 
-            itemImage.color = Color.gray;
+            itemImage.color = Color.white;
         }
 
         public void OnPointerUp(PointerEventData eventData)
