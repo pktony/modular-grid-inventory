@@ -15,8 +15,8 @@ namespace InventorySystem.Tests
         {
             var inventory = Object.FindAnyObjectByType<Inventory>();
             Assert.That(inventory.Model.Count, Is.EqualTo(7));
-            Assert.That(Object.FindObjectsByType<InventoryUI>(FindObjectsSortMode.None).Length, Is.EqualTo(1));
-            Assert.That(Object.FindObjectsByType<InventoryItemView>(FindObjectsSortMode.None).Length, Is.EqualTo(7));
+            Assert.That(Object.FindObjectsByType<InventoryUI>().Length, Is.EqualTo(1));
+            Assert.That(Object.FindObjectsByType<InventoryItemView>().Length, Is.EqualTo(7));
             foreach (var entry in inventory.Model.Entries) Assert.That(entry.Item.Definition.Icon, Is.Not.Null);
             LogAssert.NoUnexpectedReceived(); yield return null;
         }
@@ -38,7 +38,7 @@ namespace InventorySystem.Tests
             var reset = GameObject.Find("Reset").GetComponent<Button>();
             reset.onClick.Invoke(); reset.onClick.Invoke(); yield return null;
             Assert.That(inventory.Model.Count, Is.EqualTo(7));
-            Assert.That(Object.FindObjectsByType<InventoryItemView>(FindObjectsSortMode.None).Length, Is.EqualTo(7));
+            Assert.That(Object.FindObjectsByType<InventoryItemView>().Length, Is.EqualTo(7));
             LogAssert.NoUnexpectedReceived();
         }
     }
