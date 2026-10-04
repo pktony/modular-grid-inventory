@@ -90,12 +90,8 @@ namespace InventorySystem.Editor
                 ExecuteEvents.Execute(draggedObject,new PointerEventData(EventSystem.current) {
                     position=cursorPosition,pressPosition=pressPosition,button=PointerEventData.InputButton.Left
                 },ExecuteEvents.dragHandler);
-            string action=dragging ? "HOLD" : "";
-            if(acted && phase<2 && (stage==1 || stage==4 || stage==13 || stage==14)) action="CLICK";
-            if(acted && stage==6) action="R / HOLD";
-            if(acted && stage==11) action="ESC";
-            if(acted && stage==12) action="DELETE";
-            cursor.Show(cursorPosition,action,dragging || action=="CLICK",elapsed);
+            bool clicking=acted && phase<1.2f && (stage==1 || stage==4 || stage==12 || stage==13 || stage==14);
+            cursor.Show(cursorPosition,dragging || clicking);
         }
         public void Dispose() => cursor.Dispose();
     }
