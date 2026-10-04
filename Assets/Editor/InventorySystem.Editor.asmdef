@@ -1,0 +1,1 @@
+{"name":"InventorySystem.Editor","references":["InventorySystem.Runtime","Unity.ugui"],"includePlatforms":["Editor"]}
