@@ -1,118 +1,54 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using InventorySystem.Utility;
 using UnityEngine;
-using UnityEngine.UI;
-
 namespace InventorySystem
 {
-    public class InventoryUI : MonoBehaviour
+    public sealed class InventoryUI : MonoBehaviour, IInventoryView, IDemoInventoryView
     {
-        [SerializeField] private RectTransform inventoryAttachPoint;
-
-        private CellUI[] cellUIs;
-
-        private int completeCount;
-        private int cellCount;
-
-        private int width;
-        private int height;
-
-        private GridLayoutGroup layoutGroup;
-
-        private InventoryCellData inventoryData;
-
-        public Action<ItemData> OnClickedCell;
-
-        public void Initialize(InventoryCellData inventoryData)
+        private InventoryScreenBindings bindings;
+        private InventoryGridGeometry geometry;
+        private InventoryGridView gridView;
+        private InventoryItemPresenter itemPresenter;
+        private InventoryPreviewPresenter preview;
+        private InventoryHudPresenter hud;
+        private IInventoryModel model;
+        private ItemData selected, dragging;
+        public InventoryPointerEvents PointerEvents { get; } = new();
+        public event Action AddRequested, RemoveRequested, ResetRequested;
+        public void Initialize(IInventoryModel inventory)
         {
-            this.inventoryData = inventoryData;
-
-            layoutGroup = inventoryAttachPoint.GetComponent<GridLayoutGroup>();
-            layoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-            layoutGroup.constraintCount = inventoryData.capacityWidth;
-            layoutGroup.cellSize = new Vector2(66, 66);
-
-            height = inventoryData.capacityHeight;
-            width = inventoryData.capacityWidth;
-            cellCount = height * width;
-            CreateCellUIs();
+            DisposeView(); model = inventory;
+            bindings = new InventoryScreenBuilder().Build(transform);
+            geometry = new InventoryGridGeometry(bindings.Grid, 80);
+            gridView = new InventoryGridView(bindings.Grid, geometry, model.capacityWidth, model.capacityHeight);
+            bindings.ItemLayer.SetAsLastSibling();
+            itemPresenter = new InventoryItemPresenter(bindings.ItemLayer, geometry, PointerEvents);
+            preview = new InventoryPreviewPresenter(bindings.Overlay, geometry, gridView);
+            hud = new InventoryHudPresenter(bindings);
+            bindings.Add.onClick.AddListener(() => AddRequested?.Invoke());
+            bindings.Delete.onClick.AddListener(() => RemoveRequested?.Invoke());
+            bindings.Reset.onClick.AddListener(() => ResetRequested?.Invoke());
+            model.Changed += Refresh; Refresh();
         }
-
-        public void SetListeners(Action<ItemData> onClickedCell)
+        public Vector2Int CellAt(Vector2 point) => geometry.CellAt(point);
+        public bool IsOverGrid(Vector2 point) => RectTransformUtility.RectangleContainsScreenPoint(bindings.Viewport, point, null);
+        public void SetSelection(ItemData item) { selected = item; hud.ShowItem(item); Refresh(); }
+        public void ShowItem(ItemData item) => hud.ShowItem(item ?? selected);
+        public void SetStatus(string message) => hud.SetStatus(message);
+        public void ShowPreview(ItemData item, int x, int y, ItemDirection direction, bool valid)
+        { dragging = item; preview.Show(item, x, y, direction, valid); Refresh(); }
+        public void ClearPreview() { dragging = null; preview.Clear(); Refresh(); }
+        private void Refresh()
         {
-            this.OnClickedCell = onClickedCell;
+            if (model == null) return;
+            if (selected != null && model.GetEntry(selected) == null) selected = null;
+            itemPresenter.Render(model.Entries, selected, dragging); hud.SetCount(model);
+            if (selected != null) hud.ShowItem(selected);
         }
-
-        private void CreateCellUIs()
+        private void DisposeView()
         {
-            cellUIs = new CellUI[width * height];
-            for (int j = 0; j < height; j++)
-            {
-                for (int i = 0; i < width; i++)
-                {
-                    InstantiateCellUI(i, j);
-                }
-            }
+            if (model != null) model.Changed -= Refresh;
+            if (bindings != null) { bindings.Root.gameObject.SetActive(false); Destroy(bindings.Root.gameObject); }
         }
-
-        private async void InstantiateCellUI(int xCoordinate, int yCoordinate)
-        {
-            var cell = Resources.LoadAsync<CellUI>("Cell");
-            while (!cell.isDone) await Task.Yield();
-            
-            var cellAsset = cell.asset as CellUI;
-            var cellUI = Instantiate(cellAsset);
-            cellUI.SetListeners(OnClickedCell);
-            cellUI.InitializeCells(xCoordinate, yCoordinate);
-
-            cellUIs[xCoordinate + yCoordinate * width] = cellUI;
-
-            completeCount++;
-
-            TryPositionCellUIs();
-        }
-
-        private void TryPositionCellUIs()
-        {
-            if (completeCount < cellCount) return;
-
-            for (int j = 0; j < height; j++)
-            {
-                for (int i = 0; i < width; i++)
-                {
-                    SetParent(cellUIs[i + j * width].transform);
-                }
-            }
-
-            Debug.Log($"Cell UI Created Succesfully - cellCount : {cellCount}/{cellUIs.Length}, completeCount : {completeCount}");
-            AssignItemData();
-        }
-
-        private void AssignItemData()
-        {   
-            for (int x = 0; x < inventoryData.itemData.Length; x++)
-            {
-                var itemData = inventoryData.itemData[x];
-                if (itemData == null)
-                    continue;
-                
-                cellUIs[x].AssignItem(itemData, OnAssignedItem);
-            }
-        }
-
-        private void OnAssignedItem(CellUI cellUI, string itemId)
-        {
-            Debug.Log($"OnAssignedItem: {itemId}");
-
-            cellUI.SetItemImage(ResourceUtility.LoadSprite($"Weapons/{itemId}"));
-        }
-
-        public void SetParent(Transform cell)
-        {
-            cell.SetParent(inventoryAttachPoint);
-        }
+        private void OnDestroy() => DisposeView();
     }
 }

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 namespace InventorySystem
 {
-    public sealed class InventoryCellData
+    public sealed class InventoryCellData : IInventoryModel, IDemoInventoryModel
     {
         private readonly Dictionary<string, InventoryEntry> entries = new();
         private readonly ItemData[] occupancy;
@@ -59,6 +59,7 @@ namespace InventorySystem
             if (item == null || !entries.Remove(item.InstanceId)) return false;
             RebuildOccupancy(); return true;
         }
+        public void Clear() { entries.Clear(); RebuildOccupancy(); }
         public bool AddItem(int coordinate, ItemData item) => coordinate >= 0 && coordinate < occupancy.Length &&
             TryAdd(item, coordinate % capacityWidth, coordinate / capacityWidth);
         public int GetNextEmptyIndex(ItemData item)
