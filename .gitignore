@@ -73,3 +73,5 @@ crashlytics-build.properties
 
 /unity-editor.log
 /TestResults/
+
+/Screenshots/
