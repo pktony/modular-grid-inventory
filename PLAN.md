@@ -22,7 +22,7 @@ Escape from Tarkov의 격자형 인벤토리 단일 기능을 Unity로 구현한
 - [x] 드래그·회전·취소·삭제·추가·초기화, 툴팁과 초록·빨강 미리보기.
 - [x] Edit Mode 18개 및 Play Mode 2개 테스트 통과.
 - [x] Windows 빌드, README와 60초 시연 영상 생성.
-- [ ] Windows 빌드에서 마우스·키보드 전체 조작 확인; 현재 화면 잠금 해제 대기.
+- [ ] Windows 빌드에서 마우스·키보드 전체 조작 확인; 자동 드래그 입력 호환 확인 필요.
 - 증거: [검증 결과](docs/validation.md), [README](README.md), [시연 영상](docs/inventory-walkthrough.mp4).
 
 ## 단계

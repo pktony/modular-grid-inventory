@@ -78,10 +78,10 @@ Unity Test Runner에서 `InventorySystem.Tests`(Edit Mode), `InventorySystem.Pla
 
 1. `InventorySceneBuilder`로 데모 씬을 재생성하려면 변경된 씬을 먼저 저장합니다.
 2. Play 모드에서 `Inventory > Set Capture Resolution 1280x720`을 선택합니다.
-3. `Inventory > Record Walkthrough (Play Mode)`로 조작 경로의 120개 프레임을 캡처하고 60초 뒤 Play를 종료합니다.
+3. `Inventory > Record Walkthrough (Play Mode)`로 1,800개 프레임을 캡처합니다. `TestResults/recording.txt`가 갱신되면 Play를 종료합니다.
 4. 프로젝트 루트에서 `uv run --with imageio-ffmpeg python scripts/encode_walkthrough.py`를 실행합니다.
 
-영상은 자동 조작 시나리오를 2fps로 캡처하고 24fps로 인코딩한 60초 단계별 시연입니다. 생성기는 에디터 전용이며 Windows 실행 빌드에 포함되지 않습니다.
+영상은 실행 중인 Game View를 30fps로 캡처한 60초 자동 조작 시연입니다. 흰 포인터, 클릭·홀드 링과 `CLICK`·`HOLD`·`R`·`ESC`·`DELETE` 표시로 입력 위치와 종류를 시각화합니다. 이동은 실제 아이템의 Unity 포인터 핸들러를 통해 처리합니다. 포인터는 시연용 오버레이이며 생성기는 에디터 전용입니다. 캡처 속도에 따라 생성에는 60초보다 오래 걸릴 수 있습니다.
 
 ## 에셋
 
