@@ -2,9 +2,10 @@ namespace InventorySystem
 {
     public class ItemData
     {
-        public string itemId;
-        public int width;
-        public int height;
+        public string InstanceId { get; } = System.Guid.NewGuid().ToString("N");
+        public string itemId { get; }
+        public int width { get; }
+        public int height { get; }
 
         public ItemDirection itemDirection;
 
