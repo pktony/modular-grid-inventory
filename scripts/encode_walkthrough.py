@@ -10,14 +10,14 @@ def main():
     parser.add_argument("--frames", type=Path, default=Path("Recordings/frames"))
     parser.add_argument("--output", type=Path, default=Path("docs/inventory-walkthrough.mp4"))
     args = parser.parse_args()
-    for frame in range(120):
+    for frame in range(1800):
         if not (args.frames / f"frame-{frame:04d}.png").is_file():
             raise SystemExit(f"Missing frame: {frame}")
     args.output.parent.mkdir(parents=True, exist_ok=True)
     subprocess.run([
         imageio_ffmpeg.get_ffmpeg_exe(), "-hide_banner", "-loglevel", "error", "-y",
-        "-framerate", "2", "-i", str(args.frames / "frame-%04d.png"),
-        "-vf", "fps=24", "-c:v", "libx264", "-pix_fmt", "yuv420p",
+        "-framerate", "30", "-i", str(args.frames / "frame-%04d.png"),
+        "-frames:v", "1800", "-c:v", "libx264", "-pix_fmt", "yuv420p",
         "-crf", "20", "-movflags", "+faststart", str(args.output)
     ], check=True)
     print(args.output.resolve())
