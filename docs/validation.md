@@ -2,9 +2,11 @@
 
 검증 환경: Windows, Unity `6000.6.4f1`, `Assets/Scenes/Inventory.unity`. 날짜: 2026-10-05.
 
+자동 테스트는 `feature/inventory-expansion`의 불변 카탈로그 반영 후 실행했다. 화면·영상·Windows 빌드 기록은 기존 데모 기준이며 확장 브랜치 빌드는 재생성 전이다.
+
 | 검증 | 결과 | 범위 |
 |---|---|---|
-| Edit Mode | 18/18 통과 | 경계·충돌·공간 부족·자기 점유·회전·삭제·독립 인스턴스, 드래그 기준점·취소·이벤트 해제 |
+| Edit Mode | 32/32 통과 | 기존 배치·조작 18개와 불변 카탈로그·ID 조회·SO 변경 독립·잘못된 정의 거절 14개 |
 | Play Mode | 2/2 통과 | 단일 UI와 7개 이미지, 실제 포인터 핸들러 경유 이동, 반복 초기화 후 7개 뷰 |
 | 해상도·스크롤 | 통과 | 1280×720·1920×1080 좌표 왕복 변환; 하단 스크롤에서 (8,19) 셀 조회 |
 | 화면·영상 | 통과 | 1,800개 Game View 프레임·30fps, 포인터·클릭·홀드 시각화, 이동·회전·겹침 거절·취소·삭제·추가·초기화 |
@@ -20,6 +22,6 @@
 4. `Esc`로 취소, 선택 후 `Delete`, `ADD ITEM`, `RESET DEMO` 실행.
 5. 휠로 아래쪽까지 스크롤한 뒤 이동·회전 반복.
 
-테스트 코드: `Assets/Tests/EditMode`, `Assets/Tests/PlayMode`. 최종 MCP 테스트 작업 ID: Edit Mode `fb40ace13387491ba90f05974fe9aba9`, Play Mode `e4e358ea58d64a61b73fdd5443a0c9fc`.
+테스트 코드: `Assets/Tests/EditMode`, `Assets/Tests/PlayMode`. MCP 테스트 작업 ID: Edit Mode `a6495be3093440e3bc2b2920c81015dd`, Play Mode `ade3d669e8d54b24b91eabbe439e4e8b`.
 
 로컬 증거는 Git에서 제외된 `TestResults/`, `Screenshots/`, `Recordings/frames/`에 있다. 플레이어 로그에는 이 환경의 오디오 장치 초기화 안내가 있으며 프로젝트 코드 예외는 없었다. 기존 이미지의 공개 배포 조건 확인은 별도 후속 작업이다.

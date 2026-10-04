@@ -5,7 +5,6 @@ namespace InventorySystem
     public sealed class ItemCatalog : ScriptableObject
     {
         [SerializeField] private ItemDefinition[] definitions;
-        public System.Collections.Generic.IReadOnlyList<ItemDefinition> Definitions => definitions;
-        public void Configure(ItemDefinition[] items) => definitions = items;
+        internal System.Collections.Generic.IReadOnlyList<ItemDefinition> Definitions => definitions;
     }
 }

@@ -6,11 +6,11 @@ namespace InventorySystem
         public string itemId { get; }
         public int width { get; }
         public int height { get; }
-        public ItemDefinition Definition { get; }
+        public ItemDefinitionView Definition { get; }
 
         public ItemDirection itemDirection { get; internal set; }
 
-        public ItemData(ItemDefinition definition, ItemDirection direction = ItemDirection.Horizontal)
+        public ItemData(ItemDefinitionView definition, ItemDirection direction = ItemDirection.Horizontal)
             : this(definition.Identifier, definition.Width, definition.Height)
         {
             Definition = definition;

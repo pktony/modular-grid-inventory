@@ -13,12 +13,13 @@ namespace InventorySystem
         public InventoryUI View => view;
         private void Start()
         {
-            Model = new DemoInventoryFactory(catalog).Create();
+            var definitions = new ItemCatalogSnapshotFactory().Create(catalog);
+            Model = new DemoInventoryFactory(definitions).Create();
             view.Initialize(Model);
             controller = new InventoryController(Model, view);
             input = new InventoryInputPump(point => { controller.UpdatePointer(point); view.UpdateTooltip(point); },
                 controller.Rotate, controller.Cancel, controller.RemoveSelected);
-            demo = new DemoInventoryActions(Model, catalog, view, controller.Cancel);
+            demo = new DemoInventoryActions(Model, definitions, view, controller.Cancel);
         }
         private void Update() => input?.Tick();
         private void OnDestroy() { controller?.Dispose(); demo?.Dispose(); }

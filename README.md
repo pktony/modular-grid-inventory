@@ -48,7 +48,9 @@ flowchart LR
 | 조립 | `Inventory` | 의존성 연결과 수명 관리 |
 | 배치 상태 | `InventoryCellData`, `InventoryEntry` | 아이템 위치·점유 상태 변경 |
 | 배치 규칙 | `InventoryPlacementRules` | 경계·충돌·자기 점유 검증 |
-| 정의·인스턴스 | `ItemDefinition`, `ItemCatalog`, `ItemData` | 공유 에셋과 개별 아이템 데이터 |
+| 정의·조회 | `ItemDefinitionView`, `IItemCatalog`, `ItemCatalogSnapshot` | 불변 정의 공유와 ID 조회 |
+| 에셋 읽기 | `ItemCatalogSnapshotFactory` | SO를 검증된 불변 카탈로그로 변환 |
+| 인스턴스 | `ItemData` | 개별 아이템 데이터와 공유 정의 뷰 참조 |
 | 입력 수신 | `InventoryInputPump`, `InventoryItemPointerHandler` | 키보드·마우스 입력 전달 |
 | 조작 | `InventoryController`, `InventoryDragSession` | 선택·드래그·확정·취소 상태 전환 |
 | 표시 | `InventoryUI`와 `UI/`의 Presenter·View | 화면 갱신, 미리보기, 정보 표시 |
@@ -64,11 +66,15 @@ flowchart LR
 - 리스코프 치환 원칙(LSP): 테스트용 뷰가 같은 계약으로 동작하며 실제 UI 없이 조작 로직을 검증합니다.
 - Factory: 아이템 뷰 생성과 데모 데이터 생성을 캡슐화했습니다.
 - Observer: 모델 변경 이벤트와 포인터 이벤트로 입력·표시를 연결했습니다.
+- 카탈로그는 세션 시작 시 검증하고 불변 정의 뷰로 복사합니다. 실행 중 SO의 이름·크기·ID·스택 상한을 편집해도 현재 아이템은 유지되며 다음 세션에서 반영됩니다.
+- 중복 ID·빈 카탈로그·누락 참조·잘못된 크기/스택 상한·누락 이미지로는 데모를 시작할 수 없습니다. SO 작성 API는 에디터 어셈블리에만 있습니다.
 - 드래그 미리보기는 원본을 변경하지 않으며 검증된 드롭만 모델에 반영합니다.
 
 ## 검증
 
 Unity Test Runner에서 `InventorySystem.Tests`(Edit Mode), `InventorySystem.PlayModeTests`(Play Mode)를 실행합니다.
+
+`ItemCatalogTests`는 SO 편집·카탈로그 교체 후 기존 정의 유지, 입력 배열과 공개 컬렉션의 변경 차단, ID 조회, 잘못된 정의의 전체 거절을 검증합니다.
 
 [검증 결과](docs/validation.md) · [계획](PLAN.md) · [흐름 문서](docs/inventory-flow.html)
 
