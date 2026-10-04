@@ -13,7 +13,7 @@ namespace InventorySystem.Tests
         { yield return SceneManager.LoadSceneAsync("Inventory"); yield return null; }
         [UnityTest] public IEnumerator SceneHasOneViewAndAllIcons()
         {
-            var inventory = Object.FindFirstObjectByType<Inventory>();
+            var inventory = Object.FindAnyObjectByType<Inventory>();
             Assert.That(inventory.Model.Count, Is.EqualTo(7));
             Assert.That(Object.FindObjectsByType<InventoryUI>(FindObjectsSortMode.None).Length, Is.EqualTo(1));
             Assert.That(Object.FindObjectsByType<InventoryItemView>(FindObjectsSortMode.None).Length, Is.EqualTo(7));
@@ -22,7 +22,7 @@ namespace InventorySystem.Tests
         }
         [UnityTest] public IEnumerator PointerDropMovesItemAndResetDoesNotDuplicateViews()
         {
-            var inventory = Object.FindFirstObjectByType<Inventory>();
+            var inventory = Object.FindAnyObjectByType<Inventory>();
             var itemView = GameObject.Find("Assault rifle 1").GetComponent<InventoryItemView>();
             var geometry = new InventoryGridGeometry(GameObject.Find("Grid").GetComponent<RectTransform>(), 80);
             var start = RectTransformUtility.WorldToScreenPoint(null, geometry.WorldPosition(0, 0) + new Vector3(8, -8));
