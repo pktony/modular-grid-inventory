@@ -16,7 +16,8 @@ namespace InventorySystem
             Model = new DemoInventoryFactory(catalog).Create();
             view.Initialize(Model);
             controller = new InventoryController(Model, view);
-            input = new InventoryInputPump(controller.UpdatePointer, controller.Rotate, controller.Cancel, controller.RemoveSelected);
+            input = new InventoryInputPump(point => { controller.UpdatePointer(point); view.UpdateTooltip(point); },
+                controller.Rotate, controller.Cancel, controller.RemoveSelected);
             demo = new DemoInventoryActions(Model, catalog, view, controller.Cancel);
         }
         private void Update() => input?.Tick();

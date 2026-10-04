@@ -21,6 +21,7 @@ namespace InventorySystem
         public static TextMeshProUGUI Label(string name, Transform parent, Vector2 position, Vector2 size, string text, int fontSize, Color color)
         {
             var label = Rect(name, parent, position, size).gameObject.AddComponent<TextMeshProUGUI>();
+            label.font = Resources.Load<TMP_FontAsset>("InventoryFont");
             label.text = text; label.fontSize = fontSize; label.color = color;
             label.raycastTarget = false; label.textWrappingMode = TextWrappingModes.Normal;
             return label;

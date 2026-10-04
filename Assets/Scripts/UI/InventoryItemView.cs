@@ -9,6 +9,7 @@ namespace InventorySystem
         public RectTransform Rect => (RectTransform)transform;
         public void Initialize(Image bg, Image image)
         { background = bg; icon = image; group = gameObject.AddComponent<CanvasGroup>(); }
+        public void SetTint(Color color) => background.color = color;
         public void Present(Vector2 size, ItemDirection direction, bool selected, float alpha = 1)
         {
             Rect.sizeDelta = size; group.alpha = alpha;

@@ -17,6 +17,7 @@ namespace InventorySystem
             int h = direction == ItemDirection.Horizontal ? data.height : data.width;
             ghost.Rect.position = geometry.WorldPosition(x, y);
             ghost.Present(geometry.Size(w, h), direction, valid, 0.8f);
+            ghost.SetTint(valid ? InventoryTheme.Valid : InventoryTheme.Invalid);
             grid.Preview(x, y, w, h, valid);
         }
         public void Clear()
