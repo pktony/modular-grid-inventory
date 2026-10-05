@@ -27,9 +27,6 @@ namespace InventorySystem.Editor
             var berkut = Container("berkut", new[] { ("main", 4, 5, 0f, 0f) });
             var ammo = Container("ammo-case", new[] { ("main", 7, 7, 0f, 0f) }, categories["Ammo"]);
             var medical = Container("medicine-case", new[] { ("main", 7, 7, 0f, 0f) }, categories["Consumable/Medical"]);
-            var rig = Container("rig", new[] { ("tall-a", 1, 2, 0f, 0f), ("tall-b", 1, 2, 2f, 0f), ("tall-c", 1, 2, 4f, 0f), ("tall-d", 1, 2, 6f, 0f),
-                ("large-a", 2, 2, 0f, 3f), ("large-b", 2, 2, 3f, 3f), ("small-a", 1, 1, 0f, 6f), ("small-b", 1, 1, 2f, 6f),
-                ("small-c", 1, 1, 4f, 6f), ("small-d", 1, 1, 6f, 6f) });
             var items = new[] {
                 Item("mbss", "Flyye MBSS", categories["Container/Backpack"], 4, 4, 1, mbss),
                 Item("berkut", "WARTECH Berkut", categories["Container/Backpack"], 4, 5, 1, berkut),
@@ -39,13 +36,13 @@ namespace InventorySystem.Editor
                 Item("ps", "5.45x39 PS gs", categories["Ammo/5.45x39"], 1, 1, 60),
                 Item("ai2", "AI-2 medkit", categories["Consumable/Medical/Medkit"], 1, 1, 1),
                 Item("aks74u", "AKS-74U", categories["Weapon/AssaultRifle"], 4, 2, 1),
-                Item("rk0", "Zenit RK-0", categories["WeaponPart/Foregrip"], 1, 1, 1),
-                Item("rig", "Split rig / BlackRock study", categories["Container/Rig"], 3, 4, 1, rig) };
+                Item("rk0", "Zenit RK-0", categories["WeaponPart/Foregrip"], 1, 1, 1) }
+                .Concat(RigCatalogBuilder.Build(categories["Container/Rig"])).ToArray();
             var catalog = InventoryAssetStore.GetOrCreate<InventoryCatalogAsset>("Catalog"); var source = new SerializedObject(catalog);
             InventorySerializedFields.References(source.FindProperty("categories"), categories.Values.Cast<UnityEngine.Object>().ToArray());
             InventorySerializedFields.References(source.FindProperty("items"), items); source.ApplyModifiedPropertiesWithoutUndo();
             new InventoryCatalogSnapshotFactory().Create(catalog);
-            AssetDatabase.SaveAssets(); Debug.Log("Expanded catalog validated: 10 definitions.");
+            AssetDatabase.SaveAssets(); Debug.Log($"Expanded catalog validated: {items.Length} definitions.");
         }
         private static ItemDefinition Item(string id, string title, ItemCategoryDefinition category, int width, int height,
             int maxStack, ContainerDefinition container = null) => ItemDefinitionAssetWriter.Write(id, title, category, width, height,

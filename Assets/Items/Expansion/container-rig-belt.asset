@@ -10,10 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2df7403579c34af4392a888400a263c0, type: 3}
-  m_Name: container-rig
+  m_Name: container-rig-belt
   m_EditorClassIdentifier: InventorySystem.Catalog::InventorySystem.ContainerDefinition
-  identifier: rig
+  identifier: rig-belt
   sections:
+  - identifier: small-a
+    width: 1
+    height: 1
+    policy:
+      mode: 0
+      allowedCategories: []
+      deniedCategories: []
+      allowedItemIds: []
+      deniedItemIds: []
   - identifier: tall-a
     width: 1
     height: 2
@@ -35,24 +44,6 @@ MonoBehaviour:
   - identifier: tall-c
     width: 1
     height: 2
-    policy:
-      mode: 0
-      allowedCategories: []
-      deniedCategories: []
-      allowedItemIds: []
-      deniedItemIds: []
-  - identifier: tall-d
-    width: 1
-    height: 2
-    policy:
-      mode: 0
-      allowedCategories: []
-      deniedCategories: []
-      allowedItemIds: []
-      deniedItemIds: []
-  - identifier: small-a
-    width: 1
-    height: 1
     policy:
       mode: 0
       allowedCategories: []
@@ -86,8 +77,17 @@ MonoBehaviour:
       deniedCategories: []
       allowedItemIds: []
       deniedItemIds: []
-  - identifier: large-a
-    width: 2
+  - identifier: small-e
+    width: 1
+    height: 1
+    policy:
+      mode: 0
+      allowedCategories: []
+      deniedCategories: []
+      allowedItemIds: []
+      deniedItemIds: []
+  - identifier: tall-d
+    width: 1
     height: 2
     policy:
       mode: 0
@@ -113,10 +113,82 @@ MonoBehaviour:
       deniedCategories: []
       allowedItemIds: []
       deniedItemIds: []
+  - identifier: small-f
+    width: 1
+    height: 1
+    policy:
+      mode: 0
+      allowedCategories: []
+      deniedCategories: []
+      allowedItemIds: []
+      deniedItemIds: []
+  - identifier: small-g
+    width: 1
+    height: 1
+    policy:
+      mode: 0
+      allowedCategories: []
+      deniedCategories: []
+      allowedItemIds: []
+      deniedItemIds: []
+  - identifier: small-h
+    width: 1
+    height: 1
+    policy:
+      mode: 0
+      allowedCategories: []
+      deniedCategories: []
+      allowedItemIds: []
+      deniedItemIds: []
+  - identifier: small-i
+    width: 1
+    height: 1
+    policy:
+      mode: 0
+      allowedCategories: []
+      deniedCategories: []
+      allowedItemIds: []
+      deniedItemIds: []
+  - identifier: small-j
+    width: 1
+    height: 1
+    policy:
+      mode: 0
+      allowedCategories: []
+      deniedCategories: []
+      allowedItemIds: []
+      deniedItemIds: []
+  - identifier: small-k
+    width: 1
+    height: 1
+    policy:
+      mode: 0
+      allowedCategories: []
+      deniedCategories: []
+      allowedItemIds: []
+      deniedItemIds: []
+  - identifier: small-l
+    width: 1
+    height: 1
+    policy:
+      mode: 0
+      allowedCategories: []
+      deniedCategories: []
+      allowedItemIds: []
+      deniedItemIds: []
+  - identifier: small-m
+    width: 1
+    height: 1
+    policy:
+      mode: 0
+      allowedCategories: []
+      deniedCategories: []
+      allowedItemIds: []
+      deniedItemIds: []
   policy:
     mode: 0
     allowedCategories: []
     deniedCategories: []
     allowedItemIds: []
     deniedItemIds: []
-  layout: {fileID: 11400000, guid: 995285cd5e31db245acd040807307e64, type: 2}
+  layout: {fileID: 11400000, guid: c4cdd7a696fc1de429e0d3c0e69196f3, type: 2}

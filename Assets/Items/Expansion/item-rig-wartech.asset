@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74ae0e816fb804946a5aabec93e6753a, type: 3}
-  m_Name: item-rig
-  m_EditorClassIdentifier: InventorySystem.Catalog::InventorySystem.InventoryItemDefinition
-  identifier: rig
-  title: BlackRock
+  m_Name: item-rig-wartech
+  m_EditorClassIdentifier: InventorySystem.Catalog::InventorySystem.ItemDefinition
+  identifier: rig-wartech
+  title: WARTECH TV-109 + TV-106
   category: {fileID: 11400000, guid: 48698c53ad2a77742bb8c49569dbf996, type: 2}
   width: 3
-  height: 4
+  height: 3
   maxStack: 1
-  icon: {fileID: 21300000, guid: e76cebaeb2c9ef941950b0c2b2797953, type: 3}
-  container: {fileID: 11400000, guid: fb64943015dfcb1419346d1800f89fc4, type: 2}
+  icon: {fileID: 21300000, guid: 5cb0d01fc120c8a45b64c312414251e7, type: 3}
+  container: {fileID: 11400000, guid: f772fd2f85c20a94b991695a833da6a3, type: 2}
