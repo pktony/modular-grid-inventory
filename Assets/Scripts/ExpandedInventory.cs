@@ -7,6 +7,9 @@ namespace InventorySystem
     {
         [SerializeField] private InventoryCatalogAsset catalog;
         [SerializeField] private Canvas canvas;
+        [SerializeField] private InventoryAudioSettings audioSettings;
+        private InventorySoundPresenter sound;
+        private InventoryAudioOutput audioOutput;
         private InventoryRuntime runtime;
         private InventoryPresenter presenter;
         private InventoryInteractionInput input;
@@ -36,8 +39,13 @@ namespace InventorySystem
             indicator = new ClickIndicator(Screen.Overlay);
             input = new InventoryInteractionInput(Interaction, Screen.Quantity, indicator);
             Screen.Reset.onClick.AddListener(ResetDemo);
+            var audio = new GameObject("InventoryAudio"); audio.transform.SetParent(transform, false);
+            audioOutput = audio.AddComponent<InventoryAudioOutput>();
+            var settings = audioSettings != null ? audioSettings : Resources.Load<InventoryAudioSettings>("InventoryAudioSettings");
+            audioOutput.Initialize(settings);
+            sound = new InventorySoundPresenter(runtime.ReadModel, Interaction, Windows, Screen, new InventorySoundResolver(settings, definitions), audioOutput);
         }
-        public void ResetDemo() { Interaction.Cancel(); ResetState(); }
+        public void ResetDemo() => ResetState();
         private void ResetState()
         {
             var result = runtime.Reset.Replace(new ExpandedDemoSeed().Create(definitions));
@@ -47,7 +55,8 @@ namespace InventorySystem
         private void OnDestroy()
         {
             if (Screen?.Reset != null) Screen.Reset.onClick.RemoveListener(ResetDemo);
-            Interaction?.Dispose(); presenter?.Dispose(); indicator?.Dispose(); runtime?.Dispose();
+            sound?.Dispose(); Interaction?.Dispose(); presenter?.Dispose(); indicator?.Dispose(); runtime?.Dispose();
+            if (audioOutput != null) Destroy(audioOutput.gameObject);
             if (Screen?.Root != null) Destroy(Screen.Root.gameObject);
         }
     }

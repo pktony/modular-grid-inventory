@@ -21,9 +21,10 @@ namespace InventorySystem.Editor
             var inventory = new GameObject("InventoryDemo").AddComponent<ExpandedInventory>();
             var so = new SerializedObject(inventory);
             so.FindProperty("catalog").objectReferenceValue = catalog;
+            so.FindProperty("audioSettings").objectReferenceValue = AssetDatabase.LoadAssetAtPath<Presentation.InventoryAudioSettings>("Assets/Resources/InventoryAudioSettings.asset");
             so.FindProperty("canvas").objectReferenceValue = canvas.GetComponent<Canvas>(); so.ApplyModifiedPropertiesWithoutUndo();
             new GameObject("EventSystem", typeof(EventSystem), typeof(StandaloneInputModule));
-            var camera = new GameObject("Main Camera", typeof(Camera)); camera.tag = "MainCamera";
+            var camera = new GameObject("Main Camera", typeof(Camera), typeof(AudioListener)); camera.tag = "MainCamera";
             camera.GetComponent<Camera>().backgroundColor = Presentation.InventoryPalette.Background;
             camera.GetComponent<Camera>().clearFlags = CameraClearFlags.SolidColor;
             EditorSceneManager.SaveScene(scene,"Assets/Scenes/Inventory.unity");
