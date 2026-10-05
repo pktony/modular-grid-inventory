@@ -33,6 +33,8 @@ Escape from Tarkov에서 영감을 받은 Unity 인벤토리 포트폴리오입�
 
 초록 미리보기는 배치 가능, 빨강은 불가이며 실패 이유를 함께 표시합니다. 구획 경계·빈 여백·뷰포트 밖 드롭, 가방의 자기/자손 수납은 거절됩니다. 클릭 중에만 흰 원이 보입니다.
 
+이동·수납, 가방 열기/닫기, 회전·취소, 스택 합치기/분할, 삭제·거절에 효과음이 있습니다. `Assets/Resources/InventoryAudioSettings.asset`에서 전체 음량·음소거·동작별 클립·유형별 이동음을 편집합니다. [사운드 설정과 음원 출처](docs/inventory-audio.md).
+
 창 위치·앞뒤 순서는 UI만 소유하며 아이템 배치와 분리됩니다. 가방을 다른 가방으로 옮겨도 열린 창과 내용물 ID가 유지됩니다. 얇은 회색 테두리·짧은 제목 막대·빨간 닫기 버튼·오른쪽 보관함은 [타르코프 다중 창 참고 화면](https://forums.d2jsp.org/topic.php?f=208&t=78030958)의 구성을 적용했습니다.
 
 시작 상태는 보관함의 두 Berkut, 전용 케이스와 리그, 무기·탄약·부품입니다. 첫 Berkut 안의 MBSS 안에 AI-2가 있습니다. 같은 가방 정의를 사용하는 두 인스턴스의 내용은 독립적입니다.
@@ -89,7 +91,7 @@ SRP에 따라 생성·검증·확정·알림·입력·표시를 별도 타입으
 
 ## 검증과 시연 재생성
 
-Unity Test Runner의 `InventorySystem.Tests`(Edit Mode 61개), `InventorySystem.PlayModeTests`(Play Mode 15개)를 실행합니다. Windows 실행 파일의 `-inventory-smoke-test` 옵션은 실제 플레이어에서 27단계 Unity 입력 이벤트 시나리오를 검증하고 종료합니다.
+Unity Test Runner의 `InventorySystem.Tests`와 `InventorySystem.PlayModeTests`를 실행합니다. [검증 문서](docs/validation.md)에 기능별 테스트 결과를 기록합니다. Windows 실행 파일의 `-inventory-smoke-test` 옵션은 실제 플레이어에서 27단계 Unity 입력 이벤트 시나리오를 검증하고 종료합니다.
 
 1. Play에서 `Inventory > Set Capture Resolution 1280x720`을 선택합니다.
 2. `Inventory > Record Walkthrough (Play Mode)`를 실행합니다.

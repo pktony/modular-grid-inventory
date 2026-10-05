@@ -1,6 +1,18 @@
 # 인벤토리 검증 결과
 
-2026-10-05, Windows, Unity `6000.6.4f1`, `Assets/Scenes/Inventory.unity`, `feature/inventory-expansion`.
+2026-10-06, Windows, Unity `6000.6.4f1`, `Assets/Scenes/Inventory.unity`, `feature/inventory-expansion`.
+
+## 인벤토리 사운드 추가 검증
+
+2026-10-06, Edit Mode **87/87**, Play Mode **24/24** 통과. 보고서는 `TestResults/audio-editmode.json`과 `TestResults/audio-playmode.json`이다. 기존 테스트에 분류 계층별 음원 선택·빈 클립 상속·클립 교대·13개 동작 기본값·전체 음원 샘플 검사 3개, 실제 Unity 입력 및 출력 검증 8개를 추가했다.
+
+실제 포인터 이벤트로 미리보기 20회가 무음이고 거절 드롭은 한 번만 재생하며 원래 스냅샷을 유지하는 것을 확인했다. 성공 배치에 취소음이 섞이지 않고, 회전/명시적 취소·원본 인스턴스가 사라지는 스택 합치기·분할 성공/수량 오류를 구분한다. 기존 창 재사용은 열기음이 없고 RESET은 여러 창의 닫기음 없이 한 번만 재생한다. 구독 해제 후 효과음이 발생하지 않는다.
+
+장면에는 활성 AudioListener 1개와 2D AudioSource 6개가 있다. 실제 AudioSource 재생, 음소거/0 음량에서의 재생 생략, Play 중 음량 변경, 연속 20회 요청에서 출력 수 유지, 인벤토리 컴포넌트 제거 시 오디오 오브젝트 해제를 검증했다. 물리 스피커 청취 검증은 자동 테스트에 포함하지 않는다.
+
+Kenney CC0 OGG **21개·162,259 bytes**의 전체 디코딩과 Unity 샘플 데이터를 확인했다. Mono·PCM·Decompress On Load·Preload 설정이며 기본 SO는 전체 음량 0.65와 유형별 프로필 7개다. 사운드 구독·클립 선택·실제 재생을 각각 별도 타입이 담당하고 Domain과 아이템 정의에는 오디오 의존성을 추가하지 않았다. [설정과 원본 출처](inventory-audio.md).
+
+Windows 재빌드 성공: **오류 0·경고 0**, 실제 빌드 파일 합계 **118,331,014 bytes**. 새 플레이어의 **27/27단계** 입력 시나리오와 종료 코드 0을 확인했다. 보고서는 `TestResults/audio-build.txt`, `TestResults/audio-player-smoke.txt`, `TestResults/audio-player.log`다. 플레이어 환경에서는 FMOD가 오디오 출력 장치 초기화에 실패해 소프트웨어 출력으로 실행됐다. 따라서 스피커에서 들리는지는 검증하지 못했다. Unity Editor는 Play 상태이며 음소거가 꺼져 있고 기본 설정과 6개 출력이 연결돼 있다. 기존 영상은 사운드 추가 이전 캡처를 편집한 기록이다.
 
 ## 커스텀 Inspector 추가 검증
 
@@ -64,8 +76,8 @@ Windows 검증은 `-inventory-smoke-test` 옵션으로 실제 플레이어를 �
 ## 산출물
 
 - 실행 파일: `Build/TacticalInventory.exe`.
-- 배포 묶음: `Builds/TacticalInventory-Windows.zip`, 41,331,618 bytes.
-- ZIP SHA-256: `6df6287b0bbb0f84dd84cdb5a6bcca1105fd293ea094bbb161da85d80e8b42b2`.
+- 배포 묶음: `Builds/TacticalInventory-Windows.zip`, 41,633,752 bytes, 사운드 추가 빌드.
+- ZIP SHA-256: `584072421c31be792c6680498b956d6f2c3b4f2a4a7a1bf31f90cd9df2d35d55`.
 - [13.5초 영상](inventory-walkthrough.mp4) · [중첩 화면](inventory.png) · [분할 리그](inventory-rig.png) · [수량 입력](inventory-split.png).
 - [29.8초 Inspector 편집·Play·수납 영상](inventory-inspector-walkthrough.mp4).
 - [30.8초 다양한 수납·거절 영상](inventory-container-showcase.mp4).
