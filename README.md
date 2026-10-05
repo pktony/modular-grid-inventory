@@ -11,6 +11,7 @@ Escape from Tarkov에서 영감을 받은 Unity 인벤토리 포트폴리오입�
 - 로컬 배포 묶음: `Builds/TacticalInventory-Windows.zip`을 풀고 실행합니다. 빌드 산출물은 Git에서 제외됩니다.
 - 생성 메뉴: `Inventory > Build Windows Demo`.
 - [13.5초 실제 Game View 영상](docs/inventory-walkthrough.mp4) · [검증 결과](docs/validation.md) · [계획](PLAN.md) · [전체 흐름](docs/inventory-flow.html).
+- [29.8초 Inspector 편집 → Play → 수납 시연](docs/inventory-inspector-walkthrough.mp4): 실제 Unity Inspector 입력·즉시 미리보기·포켓 추가/Undo와 현재 프로젝트의 빠른 Game View 시연을 연결했습니다.
 
 ## 조작
 

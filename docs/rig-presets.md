@@ -21,6 +21,8 @@
 
 ![실제 Unity 커스텀 Inspector](rig-inspector.png)
 
+[Inspector 수정부터 실제 Play까지의 29.8초 영상](inventory-inspector-walkthrough.mp4). Micro Rig의 Y 위치·포켓 높이·칸 수 변경, 포켓 추가·Undo와 실행 결과를 보여준다. 녹화 후 샘플은 원래 8칸으로 복원했다.
+
 - Play를 종료하고 Project의 `Assets/Items/Expansion/item-rig-*.asset` 또는 BlackRock의 `item-rig.asset`을 선택한다. Catalog Table의 `Inspect`도 같은 편집기를 사용한다.
 - 아이템 Inspector에서 외부 크기·이름·아이콘·스택을, 아래 Container pockets에서 내부 구획·배치·공통/포켓 정책을 편집한다. 미리보기에서 포켓을 클릭하거나 Selected pocket으로 선택하고 Width/Height/X/Y를 수정한다. Enter 또는 포커스 이동 시 값이 적용되고 미리보기와 총 칸 수가 갱신된다.
 - Add pocket / Remove selected는 구획과 레이아웃을 함께 변경한다. 포켓 이름 변경도 연결된 레이아웃 ID와 함께 반영한다. Ctrl+Z / Ctrl+Y는 두 SO를 함께 되돌린다. X/Y는 표시 셀 단위이며 왼쪽 위가 `(0, 0)`이다. 음수·중복 ID·잘못된 크기는 거절하고 표시 겹침은 오류로 보여준다.
