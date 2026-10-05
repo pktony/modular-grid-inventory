@@ -11,6 +11,7 @@ namespace InventorySystem.Presentation
         public TextMeshProUGUI Status, EmptyBag;
         public Button Open, Split, Delete, Reset, Back, Close;
         public RectTransform Breadcrumb;
+        public ScrollRect BreadcrumbScroll;
         public InventoryInspectorPresenter Inspector;
         public InventoryDragPresenter Drag;
         public StackQuantityDialog Quantity;

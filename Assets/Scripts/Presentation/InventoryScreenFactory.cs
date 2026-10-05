@@ -11,6 +11,12 @@ namespace InventorySystem.Presentation
         {
             var root = InventoryElementFactory.Panel("InventoryScreen", parent, Vector2.zero, new Vector2(1280, 720), InventoryPalette.Background).rectTransform;
             var events = new InventoryInputEvents();
+            var pathViewport = InventoryElementFactory.Rect("BreadcrumbViewport", root, new Vector2(716, -90), new Vector2(472, 32));
+            pathViewport.gameObject.AddComponent<RectMask2D>();
+            var pathContent = InventoryElementFactory.Rect("Breadcrumb", pathViewport, Vector2.zero, new Vector2(472, 32));
+            var pathScroll = pathViewport.gameObject.AddComponent<ScrollRect>();
+            pathScroll.viewport = pathViewport; pathScroll.content = pathContent; pathScroll.vertical = false; pathScroll.horizontal = true;
+            pathScroll.movementType = ScrollRect.MovementType.Clamped;
             InventoryElementFactory.Label("Heading", root, new Vector2(24, -16), new Vector2(420, 35), "TACTICAL / INVENTORY", 26, InventoryPalette.Text);
             InventoryElementFactory.Label("Controls", root, new Vector2(24, -56), new Vector2(900, 22), "DRAG to move   /   R rotate   /   ESC cancel   /   Double-click bags   /   Right-click actions", 14, InventoryPalette.Muted);
             var bindings = new InventoryScreenBindings { Root = root, Events = events,
@@ -21,7 +27,7 @@ namespace InventorySystem.Presentation
                 Reset = InventoryElementFactory.Button("Reset", root, new Vector2(1012, -20), new Vector2(104, 34), "RESET"),
                 Back = InventoryElementFactory.Button("Back", root, new Vector2(648, -90), new Vector2(60, 32), "UP"),
                 Close = InventoryElementFactory.Button("Close", root, new Vector2(1196, -90), new Vector2(60, 32), "X"),
-                Breadcrumb = InventoryElementFactory.Rect("Breadcrumb", root, new Vector2(716, -90), new Vector2(472, 32)),
+                Breadcrumb = pathContent, BreadcrumbScroll = pathScroll,
                 EmptyBag = InventoryElementFactory.Label("EmptyBag", root, new Vector2(672, -300), new Vector2(550, 90), "OPEN A CONTAINER\nDouble-click a backpack, case or rig.", 22, InventoryPalette.Muted),
                 Status = InventoryElementFactory.Label("Status", root, new Vector2(24, -679), new Vector2(1232, 30), "Ready", 16, InventoryPalette.Accent),
                 Inspector = new InventoryInspectorPresenter(InventoryElementFactory.Label("Inspector", root, new Vector2(24, -636), new Vector2(1232, 38), "", 14, InventoryPalette.Text)) };

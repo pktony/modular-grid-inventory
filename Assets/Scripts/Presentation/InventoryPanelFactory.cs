@@ -13,8 +13,18 @@ namespace InventorySystem.Presentation
             viewport.gameObject.AddComponent<RectMask2D>(); viewport.gameObject.AddComponent<GridPointerHandler>().Initialize(events);
             var content = InventoryElementFactory.Rect("Content", viewport, Vector2.zero, new Vector2(560, 410));
             var scroll = viewport.gameObject.AddComponent<ScrollRect>(); scroll.viewport = viewport; scroll.content = content;
-            scroll.horizontal = false; scroll.vertical = true; scroll.movementType = ScrollRect.MovementType.Clamped;
+            scroll.horizontal = true; scroll.vertical = true; scroll.movementType = ScrollRect.MovementType.Clamped;
             scroll.scrollSensitivity = 32;
+            var bar = InventoryElementFactory.Panel("ScrollBar", root, new Vector2(588, -66), new Vector2(12, 410), InventoryPalette.Cell, true);
+            var scrollbar = bar.gameObject.AddComponent<Scrollbar>(); scrollbar.direction = Scrollbar.Direction.BottomToTop;
+            var handle = InventoryElementFactory.Panel("Handle", bar.transform, Vector2.zero, new Vector2(12, 100), InventoryPalette.Muted, true);
+            scrollbar.handleRect = handle.rectTransform; scrollbar.targetGraphic = handle;
+            scroll.verticalScrollbar = scrollbar; scroll.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHide;
+            var horizontalBar = InventoryElementFactory.Panel("HorizontalScrollBar", root, new Vector2(16, -478), new Vector2(576, 10), InventoryPalette.Cell, true);
+            var horizontal = horizontalBar.gameObject.AddComponent<Scrollbar>(); horizontal.direction = Scrollbar.Direction.LeftToRight;
+            var horizontalHandle = InventoryElementFactory.Panel("Handle", horizontalBar.transform, Vector2.zero, new Vector2(100, 10), InventoryPalette.Muted, true);
+            horizontal.handleRect = horizontalHandle.rectTransform; horizontal.targetGraphic = horizontalHandle;
+            scroll.horizontalScrollbar = horizontal; scroll.horizontalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHide;
             return new InventoryPanelBindings { Root = root, Viewport = viewport, Content = content, Scroll = scroll,
                 Title = InventoryElementFactory.Label("Title", root, new Vector2(16, -12), new Vector2(560, 25), name, 20, InventoryPalette.Text),
                 Policy = InventoryElementFactory.Label("Policy", root, new Vector2(16, -40), new Vector2(560, 21), "", 13, InventoryPalette.Muted) };
@@ -23,7 +33,7 @@ namespace InventorySystem.Presentation
         {
             foreach (Transform child in panel.Content) { child.gameObject.SetActive(false); UnityEngine.Object.Destroy(child.gameObject); }
             panel.Sections.Clear(); panel.Container = state.Id;
-            float height = 0;
+            float height = 0, width = 0;
             foreach (var layout in state.Definition.Layout.Sections)
             {
                 var id = new GridSectionId(layout.SectionId); var definition = state.Sections[id].Definition;
@@ -39,8 +49,10 @@ namespace InventorySystem.Presentation
                 var layer = InventoryElementFactory.Rect("Items", rect, Vector2.zero, rect.sizeDelta);
                 panel.Sections.Add(id, new InventorySectionView(new InventorySectionGeometry(rect, definition), cells, layer));
                 height = Mathf.Max(height, (layout.Y + definition.Height) * 50);
+                width = Mathf.Max(width, (layout.X + definition.Width) * 50);
             }
-            panel.Content.sizeDelta = new Vector2(560, Mathf.Max(410, height)); panel.Scroll.verticalNormalizedPosition = 1;
+            panel.Content.sizeDelta = new Vector2(Mathf.Max(560, width), Mathf.Max(410, height));
+            panel.Scroll.verticalNormalizedPosition = 1; panel.Scroll.horizontalNormalizedPosition = 0;
         }
     }
 }

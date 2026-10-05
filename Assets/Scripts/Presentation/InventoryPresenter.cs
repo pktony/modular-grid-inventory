@@ -9,6 +9,7 @@ namespace InventorySystem.Presentation
         private readonly IInventoryReadModel model;
         private readonly InventoryScreenBindings screen;
         private readonly InventoryPanelPresenter stash, bag;
+        private readonly ContainerBreadcrumbPresenter breadcrumb;
         public event Action<ItemInstanceId> NavigationRequested;
         public ContainerNavigation Navigation { get; }
         public ItemInstanceId Selected { get; private set; }
@@ -19,7 +20,8 @@ namespace InventorySystem.Presentation
             this.model = model; this.screen = screen; Navigation = navigation;
             stash = new InventoryPanelPresenter(screen.Stash, panels, items, screen.Events);
             bag = new InventoryPanelPresenter(screen.Bag, panels, items, screen.Events);
-            model.Changed += OnChanged; RenderAll();
+            breadcrumb = new ContainerBreadcrumbPresenter(screen.Breadcrumb, screen.BreadcrumbScroll, new ContainerBreadcrumbFactory());
+            model.Changed += OnChanged; screen.Events.Hovered += Hover; RenderAll();
         }
         public void Select(ItemInstanceId id)
         {
@@ -42,9 +44,11 @@ namespace InventorySystem.Presentation
             var snapshot = model.Snapshot;
             if (batch.Reset) { Selected = default; Dragging = default; Navigation.Close(); screen.Drag.Clear(); screen.Quantity.Hide(); screen.Context.Hide(); }
             if (!snapshot.Items.ContainsKey(Selected)) Selected = default;
-            Navigation.Reconcile(snapshot);
+            var previousContainer = Navigation.Current; Navigation.Reconcile(snapshot);
             if (batch.Reset || batch.Containers.Contains(snapshot.RootContainerId)) RenderStash();
-            RenderBag(); screen.Inspector.Show(snapshot, Selected); UpdateActions();
+            if (batch.Reset || previousContainer != Navigation.Current || batch.Containers.Contains(Navigation.Current)) RenderBag();
+            else UpdateBagHeader();
+            screen.Inspector.Show(snapshot, Selected); UpdateActions();
         }
         private void RenderAll() { RenderStash(); RenderBag(); screen.Inspector.Show(model.Snapshot, Selected); UpdateActions(); }
         private void RenderStash()
@@ -55,19 +59,17 @@ namespace InventorySystem.Presentation
         }
         private void RenderBag()
         {
+            bag.Render(model.Snapshot, Navigation.Current, Selected, Dragging);
+            UpdateBagHeader();
+        }
+        private void UpdateBagHeader()
+        {
             var snapshot = model.Snapshot;
-            bag.Render(snapshot, Navigation.Current, Selected, Dragging);
             screen.EmptyBag.gameObject.SetActive(Navigation.Current.IsEmpty);
             screen.Back.interactable = screen.Close.interactable = !Navigation.Current.IsEmpty;
-            foreach (Transform child in screen.Breadcrumb) { child.gameObject.SetActive(false); UnityEngine.Object.Destroy(child.gameObject); }
+            var path = Navigation.Path(snapshot);
+            breadcrumb.Render(snapshot, path, id => NavigationRequested?.Invoke(id));
             if (Navigation.Current.IsEmpty) return;
-            var path = Navigation.Path(snapshot); float x = 0;
-            foreach (var id in path)
-            {
-                var title = snapshot.Items[id].Definition.DisplayName;
-                var button = InventoryElementFactory.Button("Path-" + id, screen.Breadcrumb, new Vector2(x, 0), new Vector2(142, 32), title);
-                button.onClick.AddListener(() => NavigationRequested?.Invoke(id)); x += 146;
-            }
             screen.Bag.Title.text = path.Count > 0 ? snapshot.Items[path[path.Count - 1]].Definition.DisplayName : "CONTAINER";
             screen.Bag.Policy.text = InventoryInspectorPresenter.Policy(snapshot.Containers[Navigation.Current].Definition);
         }
@@ -78,6 +80,7 @@ namespace InventorySystem.Presentation
             screen.Split.interactable = item != null && item.Quantity > 1 && item.Definition.MaxStack > 1;
             screen.Delete.interactable = item != null;
         }
-        public void Dispose() => model.Changed -= OnChanged;
+        private void Hover(ItemInstanceId id) => screen.Inspector.Show(model.Snapshot, id.IsEmpty ? Selected : id);
+        public void Dispose() { model.Changed -= OnChanged; screen.Events.Hovered -= Hover; }
     }
 }

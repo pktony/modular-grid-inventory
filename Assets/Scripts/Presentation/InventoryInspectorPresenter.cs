@@ -12,7 +12,7 @@ namespace InventorySystem.Presentation
             if (!snapshot.Items.TryGetValue(id, out var item)) { label.text = "Select an item to inspect. Double-click a bag to open it."; return; }
             var d = item.Definition;
             string details = $"{d.DisplayName}   |   {d.CategoryId}   |   {d.Width} x {d.Height}   |   {item.Quantity}/{d.MaxStack}";
-            if (d.Container != null) details += $"   |   {d.Container.Sections.Sum(s => s.Width * s.Height)} internal cells / {snapshot.Containers[item.ChildContainerId].Entries.Count} items";
+            if (d.Container != null) details += $"   |   {d.Container.Sections.Sum(s => s.Width * s.Height)} internal cells / {snapshot.Containers[item.ChildContainerId].Entries.Count} items   |   {Policy(d.Container)}";
             label.text = details;
         }
         public static string Policy(ContainerDefinitionView container)

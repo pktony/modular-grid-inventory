@@ -21,7 +21,7 @@ namespace InventorySystem.Presentation
         public static TextMeshProUGUI Label(string name, Transform parent, Vector2 position, Vector2 size, string text, int fontSize, Color color)
         {
             var label = Rect(name, parent, position, size).gameObject.AddComponent<TextMeshProUGUI>();
-            label.font = Resources.Load<TMP_FontAsset>("InventoryFont");
+            label.font = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
             label.text = text; label.fontSize = fontSize; label.color = color;
             label.raycastTarget = false; label.textWrappingMode = TextWrappingModes.Normal;
             return label;
@@ -31,8 +31,12 @@ namespace InventorySystem.Presentation
             var panel = Panel(name, parent, position, size, InventoryPalette.Cell, true);
             var button = panel.gameObject.AddComponent<Button>();
             button.targetGraphic = panel;
-            button.navigation = new Navigation { mode = Navigation.Mode.None };
-            var colors = button.colors; colors.highlightedColor = InventoryPalette.Accent; button.colors = colors;
+            button.navigation = new Navigation { mode = Navigation.Mode.Automatic };
+            panel.color = Color.white;
+            var colors = button.colors; colors.normalColor = InventoryPalette.Cell;
+            colors.highlightedColor = new Color(0.2f, 0.26f, 0.22f); colors.selectedColor = new Color(0.28f, 0.34f, 0.23f);
+            colors.pressedColor = new Color(0.34f, 0.41f, 0.26f); colors.disabledColor = new Color(0.08f, 0.1f, 0.09f);
+            button.colors = colors;
             var label = Label("Label", panel.transform, Vector2.zero, size, text, 15, InventoryPalette.Text);
             label.alignment = TextAlignmentOptions.Center;
             return button;
