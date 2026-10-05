@@ -22,6 +22,9 @@ namespace InventorySystem.Presentation
         {
             var label = Rect(name, parent, position, size).gameObject.AddComponent<TextMeshProUGUI>();
             label.font = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
+            label.fontSharedMaterial = label.font.material;
+            label.fontStyle = FontStyles.Normal;
+            label.fontWeight = FontWeight.Regular;
             label.text = text; label.fontSize = fontSize; label.color = color;
             label.raycastTarget = false; label.textWrappingMode = TextWrappingModes.Normal;
             return label;
