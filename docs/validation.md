@@ -16,6 +16,16 @@ Edit Mode **84/84** 통과: `TestResults/inspector-editmode-final.xml`. 기존 7
 
 완성 MP4 전체 디코딩 통과: **895프레임·30fps·29.83초·1280×720**, H.264/yuv420p, 1,010,007 bytes. 대표 프레임으로 필드 입력·미리보기 변화·추가/Undo·Play 반영·수납 장면과 자막의 버튼 비가림을 확인했다. 이 작업은 영상·문서만 추가하며 기존 테스트와 빌드를 다시 실행하지 않았다.
 
+## 다양한 수납·거절 영상 검증
+
+2026-10-05 [24.5초 수납 시연](inventory-container-showcase.mp4): 현재 Game View를 새로 촬영해 **49/49단계**를 검증했다. 탄약 40발·AI-2·RK-0를 BlackRock의 서로 다른 포켓에 넣고, 내용물이 든 리그를 Berkut 모달에 넣은 뒤 Berkut을 다른 Berkut 모달로 이동했다. 가방 → 가방 → 리그 → 아이템의 소속과 내용물이 유지되며 열린 창도 그대로다. MBSS 안의 AI-2, MBSS를 보관함으로 꺼내기, 가방 아이콘 위 드롭도 포함한다.
+
+다른 탄약이 있는 칸, 1×2보다 큰 4×2 무기, 리그의 연속 공간 부족, 리그가 들어 있는 가방의 빈 공간 부족, 부모 가방을 자손 가방에 넣기, 의료품 케이스에 탄약, 탄약 케이스에 무기·의료품의 **8회 거절**을 확인했다. 각 드롭 후 변경 전과 동일한 스냅샷인지를 검사하고 모든 단계에서 수량 범위와 소유권을 검증했다. 실제 빨간 미리보기 및 UI 거절 사유도 원본 프레임으로 대조했다. 의료품·탄약 케이스의 허용 아이템은 정상 수납된다.
+
+원본 PNG **1,764개·1280×720·연속 번호**, 30fps·58.8초; 49개 자막을 검사했다. 2.4배 재생한 완성 MP4 전체 디코딩은 **735프레임·30fps·24.5초·1280×720**, H.264/yuv420p, 1,087,387 bytes로 통과했다. 실제 Unity 포인터 이벤트 자동 시연이며 클릭/홀드 중 원형 표시, 0.42초 감속 이징, 위쪽 한국어 자막을 사용한다. 아래쪽 거절 사유와 수량은 가리지 않는다.
+
+공통 프레임 녹화기를 분리한 뒤 기존 시연도 다시 촬영해 **27/27단계·1,215프레임** 회귀 검증을 통과했다. 보고서는 `TestResults/container-showcase.txt`와 `TestResults/recording.txt`다. Unity Console 오류는 0개이며 샘플 SO 변경은 없다. 게임 실행 코드·도메인 규칙·빌드는 변경하지 않았다.
+
 ## 리그 10종 구현 검증
 
 | 검증 | 결과 | 범위 |
@@ -56,6 +66,7 @@ Windows 검증은 `-inventory-smoke-test` 옵션으로 실제 플레이어를 �
 - ZIP SHA-256: `6df6287b0bbb0f84dd84cdb5a6bcca1105fd293ea094bbb161da85d80e8b42b2`.
 - [13.5초 영상](inventory-walkthrough.mp4) · [중첩 화면](inventory.png) · [분할 리그](inventory-rig.png) · [수량 입력](inventory-split.png).
 - [29.8초 Inspector 편집·Play·수납 영상](inventory-inspector-walkthrough.mp4).
+- [24.5초 다양한 수납·거절 영상](inventory-container-showcase.mp4).
 - [리그 10종 원본·설정](rig-presets.md) · [생성 아이콘 프롬프트와 경로](item-icons.md) · [실행·SO 편집 안내](../README.md).
 
 빌드·테스트 원시 결과·캡처 프레임은 Git에서 제외된 `Build/`, `Builds/`, `TestResults/`, `Captures/`, `Recordings/frames/`에 있다. 공유하는 README·PNG·MP4·계획·검증 문서는 저장소에 포함한다.

@@ -12,6 +12,7 @@ Escape from Tarkov에서 영감을 받은 Unity 인벤토리 포트폴리오입�
 - 생성 메뉴: `Inventory > Build Windows Demo`.
 - [13.5초 실제 Game View 영상](docs/inventory-walkthrough.mp4) · [검증 결과](docs/validation.md) · [계획](PLAN.md) · [전체 흐름](docs/inventory-flow.html).
 - [29.8초 Inspector 편집 → Play → 수납 시연](docs/inventory-inspector-walkthrough.mp4): 실제 Unity Inspector 입력·즉시 미리보기·포켓 추가/Undo와 현재 프로젝트의 빠른 Game View 시연을 연결했습니다.
+- [24.5초 다양한 수납·거절 시연](docs/inventory-container-showcase.mp4): 리그에 탄약·의료품·부품 넣기, 내용물이 든 리그를 가방에 넣기, 가방 → 가방 → 리그 중첩과 크기·공간·유형·순환 중첩 거절을 보여줍니다.
 
 ## 조작
 
@@ -96,6 +97,14 @@ Unity Test Runner의 `InventorySystem.Tests`(Edit Mode 61개), `InventorySystem.
 4. 프로젝트 루트에서 `uv run --with imageio-ffmpeg python scripts/encode_walkthrough.py`를 실행합니다. 기본 3배 재생으로 405프레임·13.5초를 생성합니다. `--speed 1`은 원래 속도입니다.
 
 영상은 실행 중인 Game View 캡처입니다. 이동은 실제 Unity 포인터 핸들러를, 회전·취소는 키보드 입력과 공유하는 명령을 사용합니다. 물리 마우스·키보드 수동 시연은 아닙니다. 클릭 위치 원은 누르는 동안만 표시되며 캡처 단계는 1.5초, 이동은 0.48초 감속 이징이며 완성 영상은 3배 재생으로 단계 0.5초·이동 0.16초입니다. 사용자 드래그는 포인터를 즉시 따라갑니다. 녹화는 PC 성능에 따라 40.5초보다 오래 걸릴 수 있습니다.
+
+다양한 수납 시연은 Play에서 `Inventory > Record Container Showcase (Play Mode)`를 실행합니다. `TestResults/container-showcase.txt`에 `1764 frames`와 `49 verified stages`가 기록되면 완료입니다. 다음 명령으로 한국어 자막과 2.4배 재생을 적용합니다. 자막은 위쪽에 배치해 아래쪽 실제 수납 거절 사유를 유지합니다.
+
+```powershell
+uv run --with imageio-ffmpeg python scripts/encode_walkthrough.py --frames Recordings/container-showcase --count 1764 --speed 2.4 --captions Recordings/container-showcase/captions.txt --output docs/inventory-container-showcase.mp4
+```
+
+원본은 단계 1.2초·드래그 0.42초 감속 이징이고, 완성 영상은 단계 0.5초·드래그 약 0.175초입니다. 녹화 입력, 시연 순서, 상태 검증, 프레임 저장은 각각 `ShowcasePointerDriver`, `ContainerShowcaseScenario`, `ContainerShowcaseVerifier`, `InventoryFrameRecorder`가 담당합니다.
 
 ## 에셋과 범위
 
