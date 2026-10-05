@@ -24,8 +24,11 @@ namespace InventorySystem.Presentation
             icon.rectTransform.localRotation = Quaternion.Euler(0, 0, entry.Rotated ? -90 : 0);
             SetSelected(selected);
             group.alpha = dragging ? 0.3f : 1;
-            quantity.text = item.Definition.MaxStack > 1 ? item.Quantity.ToString() : item.Definition.Container != null ? "+" : "";
-            title.text = w >= 3 ? item.Definition.DisplayName : "";
+            quantity.text = item.Definition.MaxStack > 1 ? item.Quantity.ToString() : "";
+            title.rectTransform.sizeDelta = new Vector2(Rect.sizeDelta.x - 8, 16);
+            title.textWrappingMode = TextWrappingModes.NoWrap; title.overflowMode = TextOverflowModes.Ellipsis;
+            title.alignment = TextAlignmentOptions.TopRight;
+            title.text = item.Definition.DisplayName;
         }
         public void SetSelected(bool selected) { background.color = InventoryPalette.Item; outline.enabled = selected; }
         public void SetDragging(bool dragging) => group.alpha = dragging ? 0.3f : 1;

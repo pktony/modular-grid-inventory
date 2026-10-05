@@ -20,12 +20,12 @@ namespace InventorySystem.Presentation
             Bindings.Root.gameObject.SetActive(true);
             if (Bindings.Container != id) { views.Clear(); panels.BuildSections(Bindings, state, events); }
             foreach (var removed in views.Keys.Where(k => !state.Entries.ContainsKey(k)).ToArray())
-            { views[removed].Rect.gameObject.SetActive(false); Object.Destroy(views[removed].Rect.gameObject); views.Remove(removed); }
+            { views[removed].Rect.gameObject.SetActive(false); Object.Destroy(views[removed].Rect.gameObject); views.Remove(removed); Bindings.ItemRects.Remove(removed); }
             foreach (var entry in state.Entries.Values)
             {
                 var layer = Bindings.Sections[entry.SectionId].ItemLayer;
                 if (!views.TryGetValue(entry.ItemId, out var view))
-                { view = items.Create(layer, entry.ItemId, events); views.Add(entry.ItemId, view); }
+                { view = items.Create(layer, entry.ItemId, events); views.Add(entry.ItemId, view); Bindings.ItemRects.Add(entry.ItemId, view.Rect); }
                 if (view.Rect.parent != layer) view.Rect.SetParent(layer, false);
                 view.Present(snapshot.Items[entry.ItemId], entry, entry.ItemId == selected, entry.ItemId == dragging);
             }

@@ -6,5 +6,6 @@ namespace InventorySystem.Presentation
     {
         bool TryHit(Vector2 screen, out PlacementTarget target);
         InventorySectionView Find(PlacementTarget target);
+        RectTransform FindItem(ItemInstanceId id);
     }
 }

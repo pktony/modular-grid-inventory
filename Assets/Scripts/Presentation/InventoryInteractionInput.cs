@@ -12,7 +12,7 @@ namespace InventorySystem.Presentation
         {
             controller.UpdatePointer(Input.mousePosition);
             indicator.Show(Input.mousePosition, Input.GetMouseButton(0) || Input.GetMouseButton(1));
-            if (Input.GetKeyDown(KeyCode.Escape)) controller.Cancel();
+            if (Input.GetKeyDown(KeyCode.Escape)) controller.Escape();
             if (quantity.IsOpen) { if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) quantity.Confirm(); return; }
             if (Input.GetKeyDown(KeyCode.R)) controller.Rotate();
             if (Input.GetKeyDown(KeyCode.Delete)) controller.DeleteSelected();

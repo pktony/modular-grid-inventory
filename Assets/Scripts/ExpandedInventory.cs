@@ -15,6 +15,8 @@ namespace InventorySystem
         public IInventoryReadModel ReadModel => runtime?.ReadModel;
         public IInventoryTransferService Transfer => runtime.Transfer;
         public IInventoryStackService Stack => runtime.Stack;
+        public IInventoryStorageService Storage => runtime.Storage;
+        public ContainerWindowManager Windows { get; private set; }
         public IInventoryEditService Edit => runtime.Edit;
         public InventoryInteractionController Interaction { get; private set; }
         public Presentation.InventoryScreenBindings Screen { get; private set; }
@@ -25,11 +27,13 @@ namespace InventorySystem
             runtime = new InventoryRuntime(definitions, ExpandedDemoSeed.StashDefinition(), Debug.LogException);
             ResetState();
             var panels = new InventoryPanelFactory(); Screen = new InventoryScreenFactory(panels).Create(canvas.transform);
-            var navigation = new ContainerNavigation();
-            presenter = new InventoryPresenter(runtime.ReadModel, Screen, panels, new InventoryItemVisualFactory(), navigation);
-            Interaction = new InventoryInteractionController(runtime.ReadModel, runtime.Transfer, runtime.Stack, runtime.Edit,
-                presenter, new InventoryGridHitTester(Screen.Stash, Screen.Bag), Screen);
-            indicator = new ClickIndicator(Screen.Root);
+            var items = new InventoryItemVisualFactory();
+            Windows = new ContainerWindowManager(new ContainerWindowFactory(Screen.WindowLayer, panels, items, Screen.Events), Screen.Stash);
+            presenter = new InventoryPresenter(runtime.ReadModel, Screen, panels, items, Windows);
+            var hitTest = new InventoryGridHitTester(Windows);
+            var drops = new InventoryDropResolver(runtime.ReadModel, runtime.Transfer, runtime.Stack, runtime.Storage, hitTest);
+            Interaction = new InventoryInteractionController(runtime.ReadModel, runtime.Edit, presenter, hitTest, drops, Screen);
+            indicator = new ClickIndicator(Screen.Overlay);
             input = new InventoryInteractionInput(Interaction, Screen.Quantity, indicator);
             Screen.Reset.onClick.AddListener(ResetDemo);
         }
@@ -44,6 +48,7 @@ namespace InventorySystem
         {
             if (Screen?.Reset != null) Screen.Reset.onClick.RemoveListener(ResetDemo);
             Interaction?.Dispose(); presenter?.Dispose(); indicator?.Dispose(); runtime?.Dispose();
+            if (Screen?.Root != null) Destroy(Screen.Root.gameObject);
         }
     }
 }

@@ -11,6 +11,7 @@ namespace InventorySystem.Presentation
         public ScrollRect Scroll;
         public TextMeshProUGUI Title, Policy;
         public readonly Dictionary<GridSectionId, InventorySectionView> Sections = new();
+        public readonly Dictionary<ItemInstanceId, RectTransform> ItemRects = new();
         public ContainerId Container { get; internal set; }
     }
 }
