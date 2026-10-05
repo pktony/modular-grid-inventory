@@ -3,6 +3,7 @@ namespace InventorySystem.Domain
     public sealed class InventoryStackService : IInventoryStackService
     {
         private readonly InventorySession session;
+        private readonly InventoryPreviewCache preview = new();
         private readonly InventoryMutationPipeline pipeline;
         private readonly StackRules rules;
         private readonly InventoryPlacementRules placement;
@@ -10,7 +11,7 @@ namespace InventorySystem.Domain
         internal InventoryStackService(InventorySession session, InventoryMutationPipeline pipeline, StackRules rules,
             InventoryPlacementRules placement, ItemInstanceFactory factory)
         { this.session = session; this.pipeline = pipeline; this.rules = rules; this.placement = placement; this.factory = factory; }
-        public MutationResult PreviewMerge(MergeRequest request) => ValidateMerge(new InventoryDraft(session.Snapshot), request);
+        public MutationResult PreviewMerge(MergeRequest request) => ValidateMerge(preview.Get(session.Snapshot), request);
         public MutationResult Merge(MergeRequest request) => pipeline.Execute(draft =>
         {
             var result = ValidateMerge(draft, request);
@@ -25,7 +26,7 @@ namespace InventorySystem.Domain
             draft.Touch(sourceOwner, source.Id); draft.Touch(targetOwner, destination.Id);
             return result;
         });
-        public MutationResult PreviewSplit(SplitRequest request) => ValidateSplit(new InventoryDraft(session.Snapshot), request);
+        public MutationResult PreviewSplit(SplitRequest request) => ValidateSplit(preview.Get(session.Snapshot), request);
         public MutationResult Split(SplitRequest request) => pipeline.Execute(draft =>
         {
             var result = ValidateSplit(draft, request);

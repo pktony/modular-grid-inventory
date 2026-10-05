@@ -3,11 +3,12 @@ namespace InventorySystem.Domain
     public sealed class InventoryTransferService : IInventoryTransferService
     {
         private readonly InventorySession session;
+        private readonly InventoryPreviewCache preview = new();
         private readonly InventoryMutationPipeline pipeline;
         private readonly InventoryPlacementRules placement;
         internal InventoryTransferService(InventorySession session, InventoryMutationPipeline pipeline, InventoryPlacementRules placement)
         { this.session = session; this.pipeline = pipeline; this.placement = placement; }
-        public MutationResult Preview(TransferRequest request) => Validate(new InventoryDraft(session.Snapshot), request);
+        public MutationResult Preview(TransferRequest request) => Validate(preview.Get(session.Snapshot), request);
         public MutationResult Transfer(TransferRequest request) => pipeline.Execute(draft =>
         {
             var result = Validate(draft, request);
