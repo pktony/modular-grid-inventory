@@ -10,7 +10,7 @@ Escape from Tarkov에서 영감을 받은 Unity 인벤토리 포트폴리오입�
 - Windows: `Build/TacticalInventory.exe`. 실행 파일과 `_Data`, Unity DLL 파일을 함께 유지합니다.
 - 로컬 배포 묶음: `Builds/TacticalInventory-Windows.zip`을 풀고 실행합니다. 빌드 산출물은 Git에서 제외됩니다.
 - 생성 메뉴: `Inventory > Build Windows Demo`.
-- [72초 실제 Game View 영상](docs/inventory-walkthrough.mp4) · [검증 결과](docs/validation.md) · [계획](PLAN.md) · [전체 흐름](docs/inventory-flow.html).
+- [40.5초 실제 Game View 영상](docs/inventory-walkthrough.mp4) · [검증 결과](docs/validation.md) · [계획](PLAN.md) · [전체 흐름](docs/inventory-flow.html).
 
 ## 조작
 
@@ -18,9 +18,10 @@ Escape from Tarkov에서 영감을 받은 Unity 인벤토리 포트폴리오입�
 |---|---|
 | 좌클릭 / 드래그 | 선택·정보 확인 / 잡은 칸을 유지하며 이동 |
 | 드래그 중 R | 미리보기 회전 |
-| Esc | 드래그·분할·메뉴 취소 |
-| 가방 더블클릭 / OPEN | 오른쪽 패널에서 내용물 열기 |
-| 경로 클릭 / UP / X | 상위 컨테이너 탐색 / 한 단계 위 / 닫기 |
+| Esc | 드래그·분할·메뉴 취소; 대기 중 가장 앞 창 닫기 |
+| 가방 더블클릭 / OPEN | 독립 창 열기; 같은 가방은 기존 창 앞으로 |
+| 창 제목 드래그 / X | 창 이동·맨 앞으로 표시 / 해당 창 닫기 |
+| 가방 창 격자 / 가방 아이템 위 드롭 | 지정 칸 배치 / 허용된 내부 빈 칸 자동 수납 |
 | 우클릭 | 열기·분할·삭제 메뉴 |
 | SPLIT | 수량 입력 → 확인 → 빈 칸 클릭으로 확정 |
 | 같은 탄약 위 드롭 | 최대 스택까지 합치고 잔량은 원래 칸 유지 |
@@ -29,6 +30,8 @@ Escape from Tarkov에서 영감을 받은 Unity 인벤토리 포트폴리오입�
 | RESET | 가방 트리와 수량을 초기 13개 인스턴스로 복원 |
 
 초록 미리보기는 배치 가능, 빨강은 불가이며 실패 이유를 함께 표시합니다. 구획 경계·빈 여백·뷰포트 밖 드롭, 가방의 자기/자손 수납은 거절됩니다. 클릭 중에만 흰 원이 보입니다.
+
+창 위치·앞뒤 순서는 UI만 소유하며 아이템 배치와 분리됩니다. 가방을 다른 가방으로 옮겨도 열린 창과 내용물 ID가 유지됩니다. 얇은 회색 테두리·짧은 제목 막대·빨간 닫기 버튼·오른쪽 보관함은 [타르코프 다중 창 참고 화면](https://forums.d2jsp.org/topic.php?f=208&t=78030958)의 구성을 적용했습니다.
 
 시작 상태는 보관함의 두 Berkut, 전용 케이스와 리그, 무기·탄약·부품입니다. 첫 Berkut 안의 MBSS 안에 AI-2가 있습니다. 같은 가방 정의를 사용하는 두 인스턴스의 내용은 독립적입니다.
 
@@ -59,12 +62,12 @@ Escape from Tarkov에서 영감을 받은 Unity 인벤토리 포트폴리오입�
 | 어셈블리 / 경로 | 책임 |
 |---|---|
 | `Catalog` | SO 원본, 불변 정의·카탈로그, 분류·정책·레이아웃 검증 |
-| `Domain` | 인스턴스·배치·점유 스냅샷, 순수 규칙, 이동·스택·편집·초기화 서비스 |
-| `Presentation` | 입력 이벤트, 좌표 판별, 드래그 임시 상태, 패널·경로·정보 Presenter와 화면 Factory |
+| `Domain` | 인스턴스·배치·점유 스냅샷, 순수 규칙, 이동·자동 수납·스택·편집·초기화 서비스 |
+| `Presentation` | 입력 이벤트, 좌표 판별, 드래그 임시 상태, 패널·창·정보 Presenter와 화면 Factory |
 | `Runtime` | `ExpandedInventory` 구성 루트, 초기 데이터와 시연 시나리오 |
 | `Editor` | SO 편집·표, 씬·Windows 빌드, 프레임 녹화 |
 
-SRP에 따라 생성·검증·확정·알림·입력·표시를 별도 타입으로 분리합니다. 입력은 `IInventoryReadModel`과 이동·스택·편집 서비스만 사용하고, 가변 상태와 확정 API는 Domain 내부에 제한됩니다. Presentation은 Runtime을 참조하지 않습니다.
+SRP에 따라 생성·검증·확정·알림·입력·표시를 별도 타입으로 분리합니다. 입력은 `IInventoryReadModel`과 이동·자동 수납·스택·편집 서비스만 사용하고, 가변 상태와 확정 API는 Domain 내부에 제한됩니다. Presentation은 Runtime을 참조하지 않습니다.
 
 - Factory: 아이템/뷰 생성. MVP: 입력·표시와 모델 분리. Composition Root: 의존성 조립. Observer: 확정 완료 알림.
 - 정의·인스턴스·컨테이너·구획 ID를 구분하고, 소속·좌표·회전은 배치가 단독 소유합니다. 가방 이동은 내부 ID와 내용물을 유지합니다.
@@ -75,14 +78,14 @@ SRP에 따라 생성·검증·확정·알림·입력·표시를 별도 타입으
 
 ## 검증과 시연 재생성
 
-Unity Test Runner의 `InventorySystem.Tests`(Edit Mode 55개), `InventorySystem.PlayModeTests`(Play Mode 10개)를 실행합니다. Windows 실행 파일의 `-inventory-smoke-test` 옵션은 실제 플레이어에서 18단계 Unity 입력 이벤트 시나리오를 검증하고 종료합니다.
+Unity Test Runner의 `InventorySystem.Tests`(Edit Mode 61개), `InventorySystem.PlayModeTests`(Play Mode 15개)를 실행합니다. Windows 실행 파일의 `-inventory-smoke-test` 옵션은 실제 플레이어에서 27단계 Unity 입력 이벤트 시나리오를 검증하고 종료합니다.
 
 1. Play에서 `Inventory > Set Capture Resolution 1280x720`을 선택합니다.
 2. `Inventory > Record Walkthrough (Play Mode)`를 실행합니다.
-3. `TestResults/recording.txt`가 `2160 frames / 30 fps / 72 seconds`로 갱신되면 캡처가 완료됩니다.
+3. `TestResults/recording.txt`가 `1215 frames / 30 fps / 40.5 seconds`로 갱신되면 캡처가 완료됩니다.
 4. 프로젝트 루트에서 `uv run --with imageio-ffmpeg python scripts/encode_walkthrough.py`를 실행합니다.
 
-영상은 실행 중인 Game View 캡처입니다. 이동은 실제 Unity 포인터 핸들러를, 회전·취소는 키보드 입력과 공유하는 명령을 사용합니다. 물리 마우스·키보드 수동 시연은 아닙니다. 클릭 위치 원은 누르는 동안만 표시되며 녹화는 PC 성능에 따라 72초보다 오래 걸릴 수 있습니다.
+영상은 실행 중인 Game View 캡처입니다. 이동은 실제 Unity 포인터 핸들러를, 회전·취소는 키보드 입력과 공유하는 명령을 사용합니다. 물리 마우스·키보드 수동 시연은 아닙니다. 클릭 위치 원은 누르는 동안만 표시되며 시연 단계는 1.5초, 이동은 0.48초 감속 이징입니다. 사용자 드래그는 포인터를 즉시 따라갑니다. 녹화는 PC 성능에 따라 40.5초보다 오래 걸릴 수 있습니다.
 
 ## 에셋과 범위
 
