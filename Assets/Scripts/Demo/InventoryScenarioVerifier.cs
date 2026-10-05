@@ -12,7 +12,7 @@ namespace InventorySystem
             var windows = inventory.Windows.Windows;
             switch (stage)
             {
-                case 0: Require(state.Items.Count == 13 && windows.Count == 0, "Initial seed"); break;
+                case 0: Require(state.Items.Count == 22 && windows.Count == 0, "Initial seed"); break;
                 case 1: Require(windows.Count == 1, "First window"); break;
                 case 2: case 3: Require(windows.Count == 2, "Two independent windows"); break;
                 case 4: case 5: case 6: case 7: Require(windows.Count == 3, "Nested window and reuse"); break;
@@ -35,7 +35,7 @@ namespace InventorySystem
                 case 22: Require(pst.Length == 3 && pst.Sum(i => i.Quantity) == 60 && inventory.Interaction.Drag.Rotated, "Split and rotation preview"); break;
                 case 23: Require(state.Containers[root].Entries.Values.Single(e => state.Items[e.ItemId].Definition.Identifier == "aks74u").Rotated, "Rotated placement"); break;
                 case 24: Require(inventory.Interaction.Drag == null && !state.Items.Values.Any(i => i.Definition.Identifier == "rk0"), "Cancel and delete"); break;
-                case 25: case 26: Require(state.Items.Count == 13 && windows.Count == 2, "Reset and ready windows"); break;
+                case 25: case 26: Require(state.Items.Count == 22 && windows.Count == 2, "Reset and ready windows"); break;
             }
             foreach (var item in state.Items.Values)
                 Require(item.Quantity >= 1 && item.Quantity <= item.Definition.MaxStack && state.Registry.TryGetOwner(item.Id, out _), "Quantity and ownership");

@@ -22,3 +22,5 @@
 > Remove ONLY the soft halo, vignette and colored background around these objects. Preserve every object, shape, material, lighting, composition and detail. Make the complete area outside the hard object silhouettes fully transparent with no fog, glow, shadow, ground or residual backdrop. True alpha cutout for a small game inventory icon.
 
 10개 이미지를 직접 확인하고 PNG의 RGBA 알파와 바깥 모서리의 투명도를 확인했다. 이 렌더는 포트폴리오용 참고 이미지이며 실물이나 게임 원본의 정확한 복제는 아니다. 기존 저장소 `Sprites` 이미지는 현재 데모에서 사용하지 않는다.
+
+리그 10종 추가 이후에는 위 생성 아이콘 중 `rig.png` 대신 `Assets/Resources/RigIcons/`의 실재 리그 아이콘 10개를 사용한다. 나머지 생성 아이콘 9개는 유지한다. 원본 이미지 URL·포켓 배치 및 출처는 [리그 프리셋](rig-presets.md)에 기록했다.
