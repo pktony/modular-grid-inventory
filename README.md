@@ -10,7 +10,7 @@ Escape from Tarkov에서 영감을 받은 Unity 인벤토리 포트폴리오입�
 - Windows: `Build/TacticalInventory.exe`. 실행 파일과 `_Data`, Unity DLL 파일을 함께 유지합니다.
 - 로컬 배포 묶음: `Builds/TacticalInventory-Windows.zip`을 풀고 실행합니다. 빌드 산출물은 Git에서 제외됩니다.
 - 생성 메뉴: `Inventory > Build Windows Demo`.
-- [40.5초 실제 Game View 영상](docs/inventory-walkthrough.mp4) · [검증 결과](docs/validation.md) · [계획](PLAN.md) · [전체 흐름](docs/inventory-flow.html).
+- [13.5초 실제 Game View 영상](docs/inventory-walkthrough.mp4) · [검증 결과](docs/validation.md) · [계획](PLAN.md) · [전체 흐름](docs/inventory-flow.html).
 
 ## 조작
 
@@ -83,9 +83,9 @@ Unity Test Runner의 `InventorySystem.Tests`(Edit Mode 61개), `InventorySystem.
 1. Play에서 `Inventory > Set Capture Resolution 1280x720`을 선택합니다.
 2. `Inventory > Record Walkthrough (Play Mode)`를 실행합니다.
 3. `TestResults/recording.txt`가 `1215 frames / 30 fps / 40.5 seconds`로 갱신되면 캡처가 완료됩니다.
-4. 프로젝트 루트에서 `uv run --with imageio-ffmpeg python scripts/encode_walkthrough.py`를 실행합니다.
+4. 프로젝트 루트에서 `uv run --with imageio-ffmpeg python scripts/encode_walkthrough.py`를 실행합니다. 기본 3배 재생으로 405프레임·13.5초를 생성합니다. `--speed 1`은 원래 속도입니다.
 
-영상은 실행 중인 Game View 캡처입니다. 이동은 실제 Unity 포인터 핸들러를, 회전·취소는 키보드 입력과 공유하는 명령을 사용합니다. 물리 마우스·키보드 수동 시연은 아닙니다. 클릭 위치 원은 누르는 동안만 표시되며 시연 단계는 1.5초, 이동은 0.48초 감속 이징입니다. 사용자 드래그는 포인터를 즉시 따라갑니다. 녹화는 PC 성능에 따라 40.5초보다 오래 걸릴 수 있습니다.
+영상은 실행 중인 Game View 캡처입니다. 이동은 실제 Unity 포인터 핸들러를, 회전·취소는 키보드 입력과 공유하는 명령을 사용합니다. 물리 마우스·키보드 수동 시연은 아닙니다. 클릭 위치 원은 누르는 동안만 표시되며 캡처 단계는 1.5초, 이동은 0.48초 감속 이징이며 완성 영상은 3배 재생으로 단계 0.5초·이동 0.16초입니다. 사용자 드래그는 포인터를 즉시 따라갑니다. 녹화는 PC 성능에 따라 40.5초보다 오래 걸릴 수 있습니다.
 
 ## 에셋과 범위
 

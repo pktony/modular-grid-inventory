@@ -10,14 +10,14 @@
 | Windows 빌드 | 성공, 오류 0·경고 0 | 빌드 폴더의 실제 파일 합계 116,075,878 bytes |
 | 아이콘 | 10/10 연결·투명도 확인 | 생성 PNG·RGBA 알파, 현재 카탈로그 이미지 누락 0 |
 | 화면 | 1280×720·1920×1080 확인 | 실제 Game View, 글자·패널·아이콘·선택 표시·모달, 샘플 프레임 직접 확인 |
-| 영상 | 1,215프레임·30fps·40.5초 | 실제 Game View, 클릭/홀드 원형 표시, 다중 창 이동·재사용·두 수납 경로·케이스 거절·리그·스택·회전·취소·삭제·초기화 |
+| 영상 | 405프레임·30fps·13.5초 | 실제 Game View, 클릭/홀드 원형 표시, 다중 창 이동·재사용·두 수납 경로·케이스 거절·리그·스택·회전·취소·삭제·초기화 |
 | 계획 문서 | 1280px·390px 확인 | 6단계 완료 상태, 3개 SVG, 페이지 가로 넘침 없음 |
 
 테스트 작업 ID: Edit Mode `fd43f82e669945639d8bcd7177ae23e6`, 최종 Play Mode `8ee27a09615c4e93845c7d3342b5dc38`. 테스트는 `Assets/Tests/EditMode`와 `Assets/Tests/PlayMode`에 있다.
 
 Windows 검증은 `-inventory-smoke-test` 옵션으로 실제 플레이어를 실행했다. 결과는 `TestResults/player-smoke.txt`의 `Passed / 27 scenario stages / actual Windows player / Unity pointer events`이며 새 빌드에서 다시 확인했다. 프로젝트 코드 예외는 없었다. 환경 로그의 오디오 장치·그래픽 드라이버 안내는 기능 테스트 실패를 발생시키지 않았다.
 
-영상 이동은 실제 포인터 이벤트 인터페이스를, 회전·취소는 키보드 입력과 공유하는 컨트롤러 명령을 사용한다. 물리 마우스·키보드 수동 검증은 수행하지 않았다. 단계 간격은 1.5초, 드래그 이동은 0.48초 감속 이징이며 실제 사용자의 드래그는 포인터를 즉시 따른다. 캡처 폴더를 비우고 프레임별 저장 완료를 기다리며 녹화한 뒤 1,215개 파일의 연속 번호·1280×720 크기·생성 시간을 검사하고 MP4 전체 디코딩의 1,215프레임·30fps·40.5초를 확인했다.
+영상 이동은 실제 포인터 이벤트 인터페이스를, 회전·취소는 키보드 입력과 공유하는 컨트롤러 명령을 사용한다. 물리 마우스·키보드 수동 검증은 수행하지 않았다. 원본 캡처의 단계 간격은 1.5초, 드래그 이동은 0.48초 감속 이징이며 실제 사용자의 드래그는 포인터를 즉시 따른다. 캡처 폴더를 비우고 프레임별 저장 완료를 기다리며 녹화한 뒤 1,215개 파일의 연속 번호·1280×720 크기·생성 시간을 검사하고 3배 재생으로 편집한 MP4 전체 디코딩의 405프레임·30fps·13.5초를 확인했다. 완성 영상의 단계는 0.5초, 이동은 0.16초다.
 
 ## 검증한 상태 규약
 
@@ -36,7 +36,7 @@ Windows 검증은 `-inventory-smoke-test` 옵션으로 실제 플레이어를 �
 - 실행 파일: `Build/TacticalInventory.exe`.
 - 배포 묶음: `Builds/TacticalInventory-Windows.zip`, 40,629,806 bytes.
 - ZIP SHA-256: `d7d7b1d6a0b0123b8d02182e88226f72d7e2d3691ac4965985ee49dd627f5a82`.
-- [40.5초 영상](inventory-walkthrough.mp4) · [중첩 화면](inventory.png) · [분할 리그](inventory-rig.png) · [수량 입력](inventory-split.png).
+- [13.5초 영상](inventory-walkthrough.mp4) · [중첩 화면](inventory.png) · [분할 리그](inventory-rig.png) · [수량 입력](inventory-split.png).
 - [생성 아이콘 프롬프트와 경로](item-icons.md) · [실행·SO 편집 안내](../README.md).
 
 빌드·테스트 원시 결과·캡처 프레임은 Git에서 제외된 `Build/`, `Builds/`, `TestResults/`, `Captures/`, `Recordings/frames/`에 있다. 공유하는 README·PNG·MP4·계획·검증 문서는 저장소에 포함한다.
