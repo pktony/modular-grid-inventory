@@ -22,10 +22,12 @@ namespace InventorySystem
             int checkedStages = 0; string failure = null;
             for (int stage = 0; stage < InventoryWalkthroughScenario.StageCount; stage++)
             {
-                try { Canvas.ForceUpdateCanvases(); scenario.Tick(stage * 4); verifier.Verify(inventory, stage); checkedStages++; }
+                try { Canvas.ForceUpdateCanvases(); scenario.Tick(stage * InventoryWalkthroughScenario.StageDuration); verifier.Verify(inventory, stage); checkedStages++; }
                 catch (Exception error) { failure = error.ToString(); break; }
                 yield return new WaitForSecondsRealtime(0.15f);
-                scenario.Tick(stage * 4 + 2); yield return new WaitForSecondsRealtime(0.15f);
+                try { scenario.Tick(stage * InventoryWalkthroughScenario.StageDuration + 0.9f); }
+                catch (Exception error) { failure = error.ToString(); break; }
+                yield return new WaitForSecondsRealtime(0.15f);
             }
             InventorySmokeReportWriter.Write(directory, checkedStages, failure);
             scenario.Dispose(); Application.Quit(failure == null ? 0 : 1);

@@ -30,17 +30,17 @@ namespace InventorySystem.Editor
         {
             if (EditorApplication.timeSinceStartup < nextCapture) return;
             if (frame > 0 && !File.Exists(Path.Combine(output, $"frame-{frame - 1:D4}.png"))) return;
-            if (frame >= InventoryWalkthroughScenario.Duration * 30)
+            if (frame >= InventoryWalkthroughScenario.FrameCount)
             {
-                if (!File.Exists(Path.Combine(output, $"frame-{InventoryWalkthroughScenario.Duration * 30 - 1:D4}.png"))) return;
+                if (!File.Exists(Path.Combine(output, $"frame-{InventoryWalkthroughScenario.FrameCount - 1:D4}.png"))) return;
                 string results = Path.GetFullPath(Path.Combine(Application.dataPath, "../TestResults"));
-                Directory.CreateDirectory(results); File.WriteAllText(Path.Combine(results,"recording.txt"), $"{InventoryWalkthroughScenario.Duration * 30} frames / 30 fps / {InventoryWalkthroughScenario.Duration} seconds / Unity pointer events / click indicator");
+                Directory.CreateDirectory(results); File.WriteAllText(Path.Combine(results,"recording.txt"), $"{InventoryWalkthroughScenario.FrameCount} frames / 30 fps / {InventoryWalkthroughScenario.Duration} seconds / Unity pointer events / click indicator");
                 Stop(); return;
             }
             try
             {
                 scenario.Tick(frame / 30f);
-                if (frame % 120 == 0) verifier.Verify(inventory, frame / 120);
+                if (frame % InventoryWalkthroughScenario.FramesPerStage == 0) verifier.Verify(inventory, frame / InventoryWalkthroughScenario.FramesPerStage);
             }
             catch (System.Exception error)
             {

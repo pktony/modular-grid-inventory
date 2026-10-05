@@ -9,7 +9,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--frames", type=Path, default=Path("Recordings/frames"))
     parser.add_argument("--output", type=Path, default=Path("docs/inventory-walkthrough.mp4"))
-    parser.add_argument("--count", type=int, default=2160)
+    parser.add_argument("--count", type=int, default=1215)
     args = parser.parse_args()
     for frame in range(args.count):
         if not (args.frames / f"frame-{frame:04d}.png").is_file():
