@@ -24,7 +24,7 @@ namespace InventorySystem.Editor
             so.FindProperty("canvas").objectReferenceValue = canvas.GetComponent<Canvas>(); so.ApplyModifiedPropertiesWithoutUndo();
             new GameObject("EventSystem", typeof(EventSystem), typeof(StandaloneInputModule));
             var camera = new GameObject("Main Camera", typeof(Camera)); camera.tag = "MainCamera";
-            camera.GetComponent<Camera>().backgroundColor = InventoryTheme.Background;
+            camera.GetComponent<Camera>().backgroundColor = Presentation.InventoryPalette.Background;
             camera.GetComponent<Camera>().clearFlags = CameraClearFlags.SolidColor;
             EditorSceneManager.SaveScene(scene,"Assets/Scenes/Inventory.unity");
             EditorBuildSettings.scenes = new[] {new EditorBuildSettingsScene("Assets/Scenes/Inventory.unity", true)};

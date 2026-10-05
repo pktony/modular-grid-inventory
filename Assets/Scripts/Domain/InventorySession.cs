@@ -1,7 +1,7 @@
 using System;
 namespace InventorySystem.Domain
 {
-    public sealed class InventorySession : IInventoryReadModel, IDisposable
+    internal sealed class InventorySession : IInventoryReadModel, IDisposable
     {
         private readonly InventoryChangePublisher publisher;
         internal bool Mutating { get; set; }

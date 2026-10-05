@@ -4,16 +4,15 @@ namespace InventorySystem.Editor
 {
     public static class ItemDefinitionAssetWriter
     {
-        public static void Write(ItemDefinition definition, string id, string title, int width, int height, Sprite icon, int maxStack = 1)
+        public static ItemDefinition Write(string id, string title, ItemCategoryDefinition category, int width, int height,
+            int maxStack, Sprite icon, ContainerDefinition container)
         {
-            var data = new SerializedObject(definition);
-            data.FindProperty("identifier").stringValue = id;
-            data.FindProperty("displayName").stringValue = title;
-            data.FindProperty("width").intValue = width;
-            data.FindProperty("height").intValue = height;
-            data.FindProperty("maxStack").intValue = maxStack;
-            data.FindProperty("icon").objectReferenceValue = icon;
-            data.ApplyModifiedPropertiesWithoutUndo();
+            var asset = InventoryAssetStore.GetOrCreate<ItemDefinition>("item-" + id); var data = new SerializedObject(asset);
+            InventorySerializedFields.String(data, "identifier", id); InventorySerializedFields.String(data, "title", title);
+            data.FindProperty("category").objectReferenceValue = category;
+            data.FindProperty("width").intValue = width; data.FindProperty("height").intValue = height;
+            data.FindProperty("maxStack").intValue = maxStack; data.FindProperty("icon").objectReferenceValue = icon;
+            data.FindProperty("container").objectReferenceValue = container; data.ApplyModifiedPropertiesWithoutUndo(); return asset;
         }
     }
 }

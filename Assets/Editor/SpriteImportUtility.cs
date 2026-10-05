@@ -8,13 +8,9 @@ namespace InventorySystem.Editor
         {
             var importer = AssetImporter.GetAtPath(path) as TextureImporter;
             if (importer == null) throw new System.InvalidOperationException($"Missing image: {path}");
-            if (importer.textureType != TextureImporterType.Sprite || importer.spriteImportMode != SpriteImportMode.Single)
-            {
-                importer.textureType = TextureImporterType.Sprite;
-                importer.spriteImportMode = SpriteImportMode.Single;
-                importer.alphaIsTransparency = true;
-                importer.SaveAndReimport();
-            }
+            importer.textureType = TextureImporterType.Sprite; importer.spriteImportMode = SpriteImportMode.Single;
+            importer.alphaIsTransparency = true; importer.maxTextureSize = 512; importer.mipmapEnabled = false;
+            importer.spritePixelsPerUnit = 100; importer.SaveAndReimport();
             return AssetDatabase.LoadAssetAtPath<Sprite>(path);
         }
     }

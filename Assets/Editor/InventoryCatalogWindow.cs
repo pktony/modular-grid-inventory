@@ -19,8 +19,7 @@ namespace InventorySystem.Editor
             if (catalog == null) return;
             if (GUILayout.Button("Save and validate catalog"))
             {
-                AssetDatabase.SaveAssets();
-                try { new InventoryCatalogSnapshotFactory().Create(catalog); ShowNotification(new GUIContent("Catalog valid")); }
+                try { new InventoryCatalogSnapshotFactory().Create(catalog); AssetDatabase.SaveAssets(); ShowNotification(new GUIContent("Catalog valid")); }
                 catch (System.Exception error) { Debug.LogError(error.Message); ShowNotification(new GUIContent("Catalog invalid; see Console")); }
             }
             scroll = EditorGUILayout.BeginScrollView(scroll);

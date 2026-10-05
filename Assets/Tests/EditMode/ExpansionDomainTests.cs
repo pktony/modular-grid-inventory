@@ -39,6 +39,27 @@ namespace InventorySystem.Tests
                 new PlacementTarget(container.IsEmpty ? root : container, section.IsEmpty ? main : section, x, y)));
             Assert.That(result.Success, Is.True, result.Reason); return result.CreatedItemId;
         }
+        [TestCase(-1, 0)] [TestCase(0, -1)] [TestCase(12, 0)] [TestCase(0, 20)]
+        public void BoundaryAddRejectsRegistration(int x, int y)
+        {
+            var before = State;
+            var result = runtime.Edit.Add(new AddRequest(new DefinitionId("weapon"), 1, new PlacementTarget(root, main, x, y)));
+            Assert.That(result.Success, Is.False); Assert.That(State, Is.SameAs(before));
+        }
+        [Test] public void SelfMergeAndOversizedQuantityLeaveStateUnchanged()
+        {
+            var ammo = Add("ammo", 0, 0, 20); var before = State;
+            Assert.That(runtime.Stack.Merge(new MergeRequest(ammo, ammo)).Success, Is.False);
+            Assert.That(runtime.Edit.Add(new AddRequest(new DefinitionId("ammo"), 51, new PlacementTarget(root, main, 1, 0))).Success, Is.False);
+            Assert.That(State, Is.SameAs(before));
+        }
+        [Test] public void BagRegistrationPublishesItsChildContainer()
+        {
+            InventoryChangeBatch observed = null; runtime.ReadModel.Changed += batch => observed = batch;
+            var bag = Add("bag", 0, 0);
+            Assert.That(observed.Containers, Does.Contain(State.Items[bag].ChildContainerId));
+            Assert.That(observed.Containers, Does.Contain(root));
+        }
         [Test] public void TwoBagsHaveIndependentContents()
         {
             var a = Add("bag", 0, 0); var b = Add("bag", 3, 0);
