@@ -1,27 +1,40 @@
 # 인벤토리 검증 결과
 
-검증 환경: Windows, Unity `6000.6.4f1`, `Assets/Scenes/Inventory.unity`. 날짜: 2026-10-05.
-
-자동 테스트는 `feature/inventory-expansion`의 불변 카탈로그 반영 후 실행했다. 화면·영상·Windows 빌드 기록은 기존 데모 기준이며 확장 브랜치 빌드는 재생성 전이다.
+2026-10-05, Windows, Unity `6000.6.4f1`, `Assets/Scenes/Inventory.unity`, `feature/inventory-expansion`.
 
 | 검증 | 결과 | 범위 |
 |---|---|---|
-| Edit Mode | 32/32 통과 | 기존 배치·조작 18개와 불변 카탈로그·ID 조회·SO 변경 독립·잘못된 정의 거절 14개 |
-| Play Mode | 2/2 통과 | 단일 UI와 7개 이미지, 실제 포인터 핸들러 경유 이동, 반복 초기화 후 7개 뷰 |
-| 해상도·스크롤 | 통과 | 1280×720·1920×1080 좌표 왕복 변환; 하단 스크롤에서 (8,19) 셀 조회 |
-| 화면·영상 | 통과 | 1,800개 Game View 프레임·30fps, 포인터·클릭·홀드 시각화, 이동·회전·겹침 거절·취소·삭제·추가·초기화 |
-| Windows 빌드 | 성공 | StandaloneWindows64, 오류 0·경고 0, 최종 BuildReport 111,585,358 bytes |
-| 플레이어 시작 | 확인 | 프로세스와 `Tactical Inventory` 창 생성, 입력 초기화 완료, 프로젝트 예외 없음 |
-| 빌드 직접 조작 | 일부 확인 | 클릭 선택·Delete 키 삭제·추가 버튼 확인; 자동 마우스 드래그는 인식되지 않아 이동·회전 직접 검증은 남음 |
+| Edit Mode | 55/55 통과 | 불변 카탈로그·분류·정책·레이아웃·소유권·순환·구획·원자적 반영·예외/재진입·스택·초기화 |
+| Play Mode | 10/10 통과 | 실제 Unity 포인터 핸들러로 중첩 탐색·이동·수납 거절·회전/취소·합치기·수량 입력/분할·구획·반복 초기화·클릭 표시 |
+| Windows 플레이어 | 18/18 단계 통과 | 실제 StandaloneWindows64 실행 파일에서 UI 입력 이벤트 시나리오와 상태 검증 |
+| Windows 빌드 | 성공, 오류 0·경고 0 | 빌드 폴더의 실제 파일 합계 116,060,118 bytes |
+| 아이콘 | 10/10 연결·투명도 확인 | 생성 PNG·RGBA 알파, 현재 카탈로그 이미지 누락 0 |
+| 화면 | 1280×720·1920×1080 확인 | 실제 Game View, 글자·패널·아이콘·선택 표시·모달, 샘플 프레임 직접 확인 |
+| 영상 | 2,160프레임·30fps·72초 | 실제 Game View, 클릭/홀드 원형 표시, 중첩·케이스 거절·리그·스택·회전·취소·삭제·초기화 |
+| 계획 문서 | 1280px·390px 확인 | 6단계 완료 상태, 3개 SVG, 페이지 가로 넘침 없음 |
 
-자동 조작 검증은 Unity 이벤트 경로와 컨트롤러를 사용한다. 물리 키보드의 `R`·`Esc` 입력 및 빌드에서의 전체 직접 조작 통과를 의미하지 않는다. 직접 드래그 입력이 가능한 환경에서 아래 순서를 확인한다.
+테스트 작업 ID: Edit Mode `ca3dc0ca037248bb88a10604cffe9849`, 최종 Play Mode `bf1d82c943b444788cd4bf75df1a2eea`. 테스트는 `Assets/Tests/EditMode`와 `Assets/Tests/PlayMode`에 있다.
 
-1. 소총의 끝 칸을 잡아 빈 공간으로 이동하고 잡은 위치가 유지되는지 확인.
-2. 드래그 중 `R`로 회전하고 유효 영역에서 드롭.
-3. 기존 아이템 위와 격자 바깥에 드롭하고 원래 위치·방향 유지 확인.
-4. `Esc`로 취소, 선택 후 `Delete`, `ADD ITEM`, `RESET DEMO` 실행.
-5. 휠로 아래쪽까지 스크롤한 뒤 이동·회전 반복.
+Windows 검증은 `-inventory-smoke-test` 옵션으로 실제 플레이어를 실행했다. 결과는 `TestResults/player-smoke.txt`의 `Passed / 18 scenario stages / actual Windows player / Unity pointer events`이며 새 빌드에서 다시 확인했다. 프로젝트 코드 예외는 없었다. 환경 로그의 오디오 장치·그래픽 드라이버 안내는 기능 테스트 실패를 발생시키지 않았다.
 
-테스트 코드: `Assets/Tests/EditMode`, `Assets/Tests/PlayMode`. MCP 테스트 작업 ID: Edit Mode `a6495be3093440e3bc2b2920c81015dd`, Play Mode `ade3d669e8d54b24b91eabbe439e4e8b`.
+영상 이동은 실제 포인터 이벤트 인터페이스를, 회전·취소는 키보드 입력과 공유하는 컨트롤러 명령을 사용한다. 물리 마우스·키보드 수동 검증은 수행하지 않았다. 캡처 폴더를 비우고 프레임별 저장 완료를 기다리며 녹화한 뒤 전체 파일과 MP4 길이를 검사했다.
 
-로컬 증거는 Git에서 제외된 `TestResults/`, `Screenshots/`, `Recordings/frames/`에 있다. 플레이어 로그에는 이 환경의 오디오 장치 초기화 안내가 있으며 프로젝트 코드 예외는 없었다. 기존 이미지의 공개 배포 조건 확인은 별도 후속 작업이다.
+## 검증한 상태 규약
+
+- 동일 정의의 두 가방은 서로 다른 컨테이너와 내용물을 가진다. 가방 이동은 모든 내부 ID와 배치를 유지한다.
+- 자기/자손 수납·구획 경계·겹침·금지 유형·잘못된 수량은 전체 상태를 변경하지 않는다.
+- 공통 정책과 구획 정책의 교집합을 적용하며 부모 허용보다 자손 금지와 개별 금지가 우선한다.
+- 40+20은 상한 50에서 50+10이 된다. 분할은 빈 칸 확정 시 새 ID를 등록하며 취소 시 수량·점유가 유지된다.
+- 준비 예외는 원본을 유지하고 콜백 예외는 후속 알림과 성공 결과를 유지한다. 확정/알림 중 재진입은 거절한다.
+- 초기화는 같은 세션과 구독을 유지한 채 트리를 한 번 교체하며, 반복 초기화·씬 종료 시 리스너 중복과 파괴된 뷰 참조가 발생하지 않는다.
+- SO와 배열을 변경해도 실행 세션의 정의는 불변이다. Presentation은 가변 모델 API와 Runtime을 참조하지 않는다.
+
+## 산출물
+
+- 실행 파일: `Build/TacticalInventory.exe`.
+- 배포 묶음: `Builds/TacticalInventory-Windows.zip`, 40,623,359 bytes.
+- ZIP SHA-256: `24d80ede48ebdb429348dc6b148bda35fb65dfb4892e465dd15835b9a8d5867f`.
+- [72초 영상](inventory-walkthrough.mp4) · [중첩 화면](inventory.png) · [분할 리그](inventory-rig.png) · [수량 입력](inventory-split.png).
+- [생성 아이콘 프롬프트와 경로](item-icons.md) · [실행·SO 편집 안내](../README.md).
+
+빌드·테스트 원시 결과·캡처 프레임은 Git에서 제외된 `Build/`, `Builds/`, `TestResults/`, `Captures/`, `Recordings/frames/`에 있다. 공유하는 README·PNG·MP4·계획·검증 문서는 저장소에 포함한다.
