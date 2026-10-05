@@ -7,6 +7,11 @@ namespace InventorySystem.Editor
     {
         [MenuItem("Inventory/Set Capture Resolution 1280x720")]
         public static void SetCaptureResolution() => Set(1280, 720);
+        [MenuItem("Inventory/Set Review Resolution 1920x1080")]
+        public static void SetReviewResolution() => Set(1920, 1080);
+        [MenuItem("Inventory/Restore Standard Play Mode")]
+        public static void RestorePlayMode()
+        { EditorSettings.enterPlayModeOptionsEnabled = false; EditorSettings.enterPlayModeOptions = EnterPlayModeOptions.None; }
         public static void Set(int width, int height)
         {
             var assembly = typeof(UnityEditor.Editor).Assembly;
