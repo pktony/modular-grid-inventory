@@ -9,7 +9,11 @@ namespace InventorySystem.Editor
     public static class ExpandedCatalogBuilder
     {
         private const string Folder = "Assets/Items/Expansion";
-        [MenuItem("Inventory/Build Expanded Catalog")]
+        [MenuItem("Inventory/Samples/Restore Catalog Defaults...")]
+        private static void RestoreDefaults()
+        {
+            if (EditorUtility.DisplayDialog("Restore sample catalog", "Replace item, container and layout edits with the sample defaults?", "Restore", "Cancel")) Build();
+        }
         public static void Build()
         {
             Directory.CreateDirectory(Folder); AssetDatabase.Refresh();

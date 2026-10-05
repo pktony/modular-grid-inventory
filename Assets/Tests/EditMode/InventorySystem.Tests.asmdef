@@ -1,1 +1,1 @@
-{"name": "InventorySystem.Tests", "references": ["InventorySystem.Runtime", "InventorySystem.Catalog", "InventorySystem.Domain", "InventorySystem.Presentation"], "includePlatforms": ["Editor"], "optionalUnityReferences": ["TestAssemblies"]}
+{"name": "InventorySystem.Tests", "references": ["InventorySystem.Runtime", "InventorySystem.Catalog", "InventorySystem.Domain", "InventorySystem.Presentation", "InventorySystem.Editor"], "includePlatforms": ["Editor"], "optionalUnityReferences": ["TestAssemblies"]}
