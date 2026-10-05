@@ -17,11 +17,16 @@
 | Velocity Systems MPPV | 4×3 | 24 | 14 | `rig-mppv` |
 | Poyas-A + Poyas-B | 4×4 | 25 | 19 | `rig-belt` |
 
-## 편집과 재생성
+## Inspector 편집
 
-- Play 데이터는 `Assets/Items/Expansion/item-*.asset`, `container-*.asset`, `layout-*.asset`의 ScriptableObject다. 기존 Catalog Table / Inspector에서 수정하고 다음 Play에 반영한다.
-- 초기 프리셋은 [RigPresets.json](../Assets/Items/Expansion/RigPresets.json). `width/height`는 외부 점유, `pockets[].width/height`는 내부 구획, `column/row`는 화면상 위치다. 구획마다 실제 점유 격자가 독립적이다.
-- JSON 수정 후 `Inventory > Build Expanded Catalog`를 실행한다. 이 메뉴는 프리셋 크기·이름·아이콘·표시 좌표를 SO에 다시 쓰므로 해당 SO의 직접 편집값을 덮어쓴다. JSON은 실행 중에 읽지 않는다.
+![실제 Unity 커스텀 Inspector](rig-inspector.png)
+
+- Play를 종료하고 Project의 `Assets/Items/Expansion/item-rig-*.asset` 또는 BlackRock의 `item-rig.asset`을 선택한다. Catalog Table의 `Inspect`도 같은 편집기를 사용한다.
+- 아이템 Inspector에서 외부 크기·이름·아이콘·스택을, 아래 Container pockets에서 내부 구획·배치·공통/포켓 정책을 편집한다. 미리보기에서 포켓을 클릭하거나 Selected pocket으로 선택하고 Width/Height/X/Y를 수정한다. Enter 또는 포커스 이동 시 값이 적용되고 미리보기와 총 칸 수가 갱신된다.
+- Add pocket / Remove selected는 구획과 레이아웃을 함께 변경한다. 포켓 이름 변경도 연결된 레이아웃 ID와 함께 반영한다. Ctrl+Z / Ctrl+Y는 두 SO를 함께 되돌린다. X/Y는 표시 셀 단위이며 왼쪽 위가 `(0, 0)`이다. 음수·중복 ID·잘못된 크기는 거절하고 표시 겹침은 오류로 보여준다.
+- 변경은 `item-*.asset`, `container-*.asset`, `layout-*.asset`에 직접 반영된다. Ctrl+S로 일반 에셋 저장하고 다시 Play하면 적용된다. JSON 수정·카탈로그 생성·플레이어 빌드는 필요하지 않다. 실행 중인 불변 세션은 기존 정의를 유지하므로 Play 중 편집은 비활성화한다.
+- 레이아웃 에셋이 없는 새 컨테이너는 첫 포켓 편집 시 자체 레이아웃을 만든다. 여러 컨테이너가 같은 레이아웃을 참조하면 표시 위치 변경을 공유한다.
+- [RigPresets.json](../Assets/Items/Expansion/RigPresets.json)은 원본 조사와 샘플 복원용 초기값이다. `Inventory > Samples > Restore Catalog Defaults...`는 확인 후 전체 샘플 SO의 직접 편집값을 초기값으로 덮어쓴다. JSON은 실행 중에 읽지 않는다.
 - 기존 BlackRock의 `rig`, `tall-a`, `small-a` ID와 에셋 GUID는 유지했다. 2×2는 하나이며 아래 오른쪽은 서로 독립적인 1×2 두 포켓이다.
 - 데모 시작 보관함에 BlackRock이 있고 아래쪽 20행부터 나머지 9종이 있다. 더블클릭하면 실제 드래그 가능한 컨테이너 창을 연다. 각 인스턴스는 독립 ContainerId를 갖는다.
 - Play에서 `Inventory > Show All Rig Windows (Play Mode)`를 실행하면 10종의 실제 컨테이너 창을 두 줄로 배치해 비교할 수 있다. 기존 창 배치만 바꾸며 내용물을 변경하지 않는다.
