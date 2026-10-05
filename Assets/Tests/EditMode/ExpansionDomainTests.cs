@@ -214,5 +214,57 @@ namespace InventorySystem.Tests
             Assert.Throws<NotSupportedException>(() => ((IDictionary<ItemInstanceId, ItemInstance>)State.Items).Clear());
             Assert.Throws<NotSupportedException>(() => ((IDictionary<ItemInstanceId, Entry>)State.Containers[root].Entries).Clear());
         }
+        [Test] public void ContainerStorePreviewIsImmutableAndChoosesFirstFreeCell()
+        {
+            var bag = Add("bag", 0, 0); var child = State.Items[bag].ChildContainerId;
+            Add("ammo", 0, 0, container: child); var ammo = Add("ammo", 3, 0, 20); var before = State;
+            var request = new ContainerStoreRequest(ammo, child);
+            Assert.That(runtime.Storage.Preview(request, out var target).Success, Is.True);
+            Assert.That(State, Is.SameAs(before)); Assert.That(target.X, Is.EqualTo(1)); Assert.That(target.Y, Is.Zero);
+            Assert.That(runtime.Storage.Store(request).Success, Is.True);
+            Assert.That(State.Registry.TryGetOwner(ammo, out var owner), Is.True); Assert.That(owner, Is.EqualTo(child));
+        }
+        [Test] public void ContainerStoreRejectsSelfAncestorAndWrongTypeWithoutMutation()
+        {
+            var bag = Add("bag", 0, 0); var child = State.Items[bag].ChildContainerId;
+            var nested = Add("bag", 0, 0, container: child); var ammoCase = Add("case", 3, 0); var weapon = Add("weapon", 6, 0);
+            var before = State;
+            Assert.That(runtime.Storage.Store(new ContainerStoreRequest(bag, child)).Success, Is.False);
+            Assert.That(runtime.Storage.Store(new ContainerStoreRequest(bag, State.Items[nested].ChildContainerId)).Success, Is.False);
+            Assert.That(runtime.Storage.Store(new ContainerStoreRequest(weapon, State.Items[ammoCase].ChildContainerId)).Success, Is.False);
+            Assert.That(State, Is.SameAs(before));
+        }
+        [Test] public void ContainerStoreRevalidatesCapacityAfterPreview()
+        {
+            var box = Add("case", 0, 0); var child = State.Items[box].ChildContainerId; var ammo = Add("ammo", 3, 0, 20);
+            var request = new ContainerStoreRequest(ammo, child);
+            Assert.That(runtime.Storage.Preview(request, out _).Success, Is.True);
+            for (int y = 0; y < 4; y++) for (int x = 0; x < 4; x++) Add("ammo", x, y, container: child);
+            var before = State; Assert.That(runtime.Storage.Store(request).Success, Is.False); Assert.That(State, Is.SameAs(before));
+        }
+        [Test] public void ContainerStoreSplitRegistersOnlyAtCommitAndConservesQuantity()
+        {
+            var box = Add("case", 0, 0); var child = State.Items[box].ChildContainerId; var ammo = Add("ammo", 3, 0, 20);
+            var request = new ContainerStoreRequest(ammo, child, splitQuantity: 5); var before = State;
+            Assert.That(runtime.Storage.Preview(request, out _).Success, Is.True); Assert.That(State, Is.SameAs(before));
+            var result = runtime.Storage.Store(request); Assert.That(result.Success, Is.True);
+            Assert.That(State.Items[ammo].Quantity, Is.EqualTo(15)); Assert.That(State.Items[result.CreatedItemId].Quantity, Is.EqualTo(5));
+            Assert.That(State.Registry.TryGetOwner(result.CreatedItemId, out var owner), Is.True); Assert.That(owner, Is.EqualTo(child));
+        }
+        [Test] public void ContainerStoreUsesRotationWhenOnlyRotatedFootprintFits()
+        {
+            runtime.Dispose(); runtime = new InventoryRuntime(catalog, new ContainerDefinitionView("narrow", new[] { new GridSectionDefinitionView("main", 2, 5) })); root = State.RootContainerId;
+            var bag = Add("bag", 0, 0); var child = State.Items[bag].ChildContainerId; var weapon = Add("weapon", 0, 0, container: child);
+            Assert.That(runtime.Storage.Store(new ContainerStoreRequest(weapon, root)).Success, Is.True);
+            Assert.That(State.Containers[root].Entries[weapon].Rotated, Is.True);
+        }
+        [Test] public void MovingNestedBagThroughContainerStoreKeepsContentsAndIds()
+        {
+            var a = Add("bag", 0, 0); var b = Add("bag", 3, 0);
+            var nested = Add("bag", 0, 0, container: State.Items[a].ChildContainerId); var child = State.Items[nested].ChildContainerId;
+            var ammo = Add("ammo", 0, 0, 10, child);
+            Assert.That(runtime.Storage.Store(new ContainerStoreRequest(nested, State.Items[b].ChildContainerId)).Success, Is.True);
+            Assert.That(State.Items[nested].ChildContainerId, Is.EqualTo(child)); Assert.That(State.Containers[child].Entries.ContainsKey(ammo), Is.True);
+        }
     }
 }
