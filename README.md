@@ -12,7 +12,7 @@ Escape from Tarkov에서 영감을 받은 Unity 인벤토리 포트폴리오입�
 - 생성 메뉴: `Inventory > Build Windows Demo`.
 - [13.5초 실제 Game View 영상](docs/inventory-walkthrough.mp4) · [검증 결과](docs/validation.md) · [계획](PLAN.md) · [전체 흐름](docs/inventory-flow.html).
 - [29.8초 Inspector 편집 → Play → 수납 시연](docs/inventory-inspector-walkthrough.mp4): 실제 Unity Inspector 입력·즉시 미리보기·포켓 추가/Undo와 현재 프로젝트의 빠른 Game View 시연을 연결했습니다.
-- [30.8초 다양한 수납·거절 시연](docs/inventory-container-showcase.mp4): 원래 동작 속도를 유지하며 대기를 줄이고, 8개 기능별 제목과 수납 성공·거절 결과를 표시합니다. 리그 수납, 내용물이 든 리그의 이동, 가방 → 가방 → 리그 중첩과 크기·공간·유형·순환 중첩 거절을 보여줍니다.
+- [30.8초 다양한 수납·거절 시연](docs/inventory-container-showcase.mp4): 실제 Unity 효과음과 함께 원래 동작 속도를 유지하며 대기를 줄이고, 8개 기능별 제목과 수납 성공·거절 결과를 표시합니다. 리그 수납, 내용물이 든 리그의 이동, 가방 → 가방 → 리그 중첩과 크기·공간·유형·순환 중첩 거절을 보여줍니다.
 
 ## 조작
 
@@ -96,9 +96,9 @@ Unity Test Runner의 `InventorySystem.Tests`와 `InventorySystem.PlayModeTests`�
 1. Play에서 `Inventory > Set Capture Resolution 1280x720`을 선택합니다.
 2. `Inventory > Record Walkthrough (Play Mode)`를 실행합니다.
 3. `TestResults/recording.txt`가 `1215 frames / 30 fps / 40.5 seconds`로 갱신되면 캡처가 완료됩니다.
-4. 프로젝트 루트에서 `uv run --with imageio-ffmpeg python scripts/encode_walkthrough.py`를 실행합니다. 기본 3배 재생으로 405프레임·13.5초를 생성합니다. `--speed 1`은 원래 속도입니다.
+4. 프로젝트 루트에서 `uv run --with imageio-ffmpeg python scripts/encode_walkthrough.py`를 실행합니다. 기본은 효과음을 포함한 1배속·40.5초입니다. `--speed 3`은 기존 13.5초 편집이며 음높이는 유지합니다. 오디오가 없는 과거 캡처는 `--silent`를 명시해야 합니다.
 
-영상은 실행 중인 Game View 캡처입니다. 이동은 실제 Unity 포인터 핸들러를, 회전·취소는 키보드 입력과 공유하는 명령을 사용합니다. 물리 마우스·키보드 수동 시연은 아닙니다. 클릭 위치 원은 누르는 동안만 표시되며 캡처 단계는 1.5초, 이동은 0.48초 감속 이징이며 완성 영상은 3배 재생으로 단계 0.5초·이동 0.16초입니다. 사용자 드래그는 포인터를 즉시 따라갑니다. 녹화는 PC 성능에 따라 40.5초보다 오래 걸릴 수 있습니다.
+영상은 실행 중인 Game View 캡처입니다. 이동은 실제 Unity 포인터 핸들러를, 회전·취소는 키보드 입력과 공유하는 명령을 사용합니다. 물리 마우스·키보드 수동 시연은 아닙니다. 클릭 위치 원은 누르는 동안만 표시되며 기본 시연의 캡처 단계는 1.5초, 이동은 0.48초 감속 이징입니다. 기존 13.5초 영상은 사운드 추가 전의 3배속 기록입니다. 사용자 드래그는 포인터를 즉시 따라갑니다. 녹화는 PC 성능에 따라 영상 길이보다 오래 걸릴 수 있습니다.
 
 다양한 수납 시연은 Play에서 `Inventory > Record Container Showcase (Play Mode)`를 실행합니다. `TestResults/container-showcase.txt`에 `1764 frames`와 `49 verified stages`가 기록되면 완료입니다. 다음 명령은 동작 사이의 대기만 잘라내고 기능별 제목과 동작·결과 설명을 추가합니다. 제목은 여러 동작 동안 유지되며 별도 상단 영역에 배치해 실제 UI와 아래쪽 거절 사유를 가리지 않습니다.
 
@@ -106,7 +106,9 @@ Unity Test Runner의 `InventorySystem.Tests`와 `InventorySystem.PlayModeTests`�
 uv run --with imageio-ffmpeg python scripts/edit_container_showcase.py
 ```
 
-원본은 단계 1.2초·드래그 0.42초 감속 이징입니다. 편집본은 1배속과 드래그 프레임을 유지하면서 대기 28초만 제거해 924프레임·30fps·30.8초입니다. 실제 1280×720 Game View를 제목 영역과 함께 1920×1080 영상으로 구성합니다. 편집에 사용한 원본 프레임 번호와 자막 구간은 `Recordings/container-showcase-edit/<실행 ID>/edit.json`에 남습니다. 녹화 입력, 시연 순서, 상태 검증, 프레임 저장은 각각 `ShowcasePointerDriver`, `ContainerShowcaseScenario`, `ContainerShowcaseVerifier`, `InventoryFrameRecorder`가 담당합니다.
+원본은 단계 1.2초·드래그 0.42초 감속 이징입니다. 편집본은 1배속과 드래그 프레임을 유지하면서 대기 28초만 제거해 924프레임·30fps·30.8초입니다. 실제 1280×720 Game View를 제목 영역과 함께 1920×1080 영상으로 구성합니다. 편집에 사용한 원본 프레임 번호·자막·오디오 구간은 `Recordings/container-showcase-edit/<실행 ID>/edit.json`에 남습니다. 녹화 입력, 시연 순서, 상태 검증, 프레임 저장은 각각 `ShowcasePointerDriver`, `ContainerShowcaseScenario`, `ContainerShowcaseVerifier`, `InventoryFrameRecorder`가 담당합니다.
+
+녹화는 Game View를 선택한 상태에서 진행합니다. `Time.captureFramerate=30`으로 화면과 오디오의 시간 기준을 맞추고 `InventoryAudioCapture`가 실제 Unity 메인 믹스를 `audio.wav`로 저장합니다. 물리 출력 장치가 없어도 캡처하며 음소거·무음·과도한 동기 오차는 완료 검증에서 거절합니다. `audio.json`에 샘플 수·최대 오차·피크를 기록하고 종료 시 캡처 상태를 복원합니다. `InventoryWavWriter`는 PCM 파일 저장만 담당합니다. 편집기는 영상과 같은 구간의 오디오를 복사한 뒤 AAC로 합칩니다. 별도 효과음을 영상에 덧붙이지 않습니다.
 
 ## 에셋과 범위
 

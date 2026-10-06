@@ -31,3 +31,5 @@ Project에서 `Assets/Resources/InventoryAudioSettings.asset`을 선택한다. `
 입력 컨트롤러와 창 관리자는 동작 이벤트만 발행한다. `InventorySoundPresenter`는 이벤트 구독과 연결, `InventorySoundResolver`는 분류·클립 선택, `InventoryAudioOutput`은 2D 재생과 음량을 담당한다. 출력은 6개 AudioSource를 재사용하며 장면 종료 시 구독과 출력을 해제한다. Domain과 아이템 정의에는 오디오 의존성을 추가하지 않는다.
 
 음원은 Kenney의 [Impact Sounds](https://kenney.nl/assets/impact-sounds)와 [Interface Sounds](https://kenney.nl/assets/interface-sounds), CC0다. 원본 OGG 21개, 총 162,259 bytes를 `Assets/Audio/Inventory/`에 포함했다. 각 폴더에 원본 `License.txt`를 보관한다. 타르코프 원본 음원은 사용하지 않는다. Unity에서는 짧은 UI 효과음을 Mono·PCM·Decompress On Load·Preload로 가져온다.
+
+녹화 메뉴는 Unity `AudioRenderer`의 메인 믹스를 화면과 함께 캡처한다. Game View를 선택하고 Play에서 수납 시연을 녹화하면 `Recordings/container-showcase/audio.wav`와 `audio.json`을 생성한다. 출력 장치가 없어도 캡처 가능하며 전체 음소거 또는 무음 결과는 완료 검증에서 실패한다. `scripts/edit_container_showcase.py`는 영상과 같은 구간으로 WAV를 잘라 AAC 트랙으로 합친다. 실제 재생된 선택·잡기·수납·거절·창 열기 소리를 사용하고 별도 더빙은 하지 않는다. [재생성 절차](../README.md#검증과-시연-재생성).
