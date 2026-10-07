@@ -1,6 +1,14 @@
-# Tactical Inventory
+# Modular Grid Inventory
 
-Escape from Tarkov의 격자형 인벤토리에서 영감을 받은 Unity 포트폴리오 프로젝트입니다. 크기가 다른 아이템을 배치하고 이동·회전하는 단일 기능에 집중했습니다.
+Unity용 격자형 인벤토리 프로젝트입니다. 크기가 다른 아이템을 배치하고 이동·회전하는 기능에 집중했으며, 다른 Unity 프로젝트에 설치할 수 있는 패키지로 확장하고 있습니다.
+
+저장소: [pktony/modular-grid-inventory](https://github.com/pktony/modular-grid-inventory)
+
+```bash
+git clone https://github.com/pktony/modular-grid-inventory.git
+```
+
+기본 브랜치는 초기 데모입니다. 중첩 컨테이너·스택·편집 도구·중립 리소스를 포함한 최신 패키지 구성은 [패키지 작업 브랜치](https://github.com/pktony/modular-grid-inventory/tree/feature/asset-store-package)에서 확인할 수 있습니다. 변경 사항은 [작업별 PR](https://github.com/pktony/modular-grid-inventory/pulls)로 나누어 관리합니다.
 
 ![인벤토리 화면](docs/inventory.png)
 
