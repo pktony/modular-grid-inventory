@@ -6,6 +6,14 @@ Shader "Modular Grid Inventory/UI SDF"
         _FaceColor ("Face Color", Color) = (1,1,1,1)
         _FaceDilate ("Face Dilate", Range(-1,1)) = 0
         _GradientScale ("Gradient Scale", Float) = 5
+        [HideInInspector] _WeightNormal ("Normal Weight", Float) = 0
+        [HideInInspector] _WeightBold ("Bold Weight", Float) = 0.75
+        [HideInInspector] _OutlineWidth ("Outline Width", Float) = 0
+        [HideInInspector] _OutlineSoftness ("Outline Softness", Float) = 0
+        [HideInInspector] _ScaleRatioA ("Padding Ratio", Float) = 1
+        [HideInInspector] _MaskSoftnessX ("Mask Softness X", Float) = 0
+        [HideInInspector] _MaskSoftnessY ("Mask Softness Y", Float) = 0
+        [HideInInspector] _ClipRect ("Clip Rectangle", Vector) = (-32767,-32767,32767,32767)
         _TextureWidth ("Texture Width", Float) = 512
         _TextureHeight ("Texture Height", Float) = 512
         _StencilComp ("Stencil Comparison", Float) = 8
