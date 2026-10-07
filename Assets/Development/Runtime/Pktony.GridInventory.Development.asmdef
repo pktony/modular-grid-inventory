@@ -1,0 +1,11 @@
+{
+  "name": "Pktony.GridInventory.Development",
+  "references": [
+    "Pktony.GridInventory.Runtime",
+    "Pktony.GridInventory.Catalog",
+    "Pktony.GridInventory.Domain",
+    "Pktony.GridInventory.Presentation",
+    "Unity.ugui",
+    "Unity.TextMeshPro"
+  ]
+}

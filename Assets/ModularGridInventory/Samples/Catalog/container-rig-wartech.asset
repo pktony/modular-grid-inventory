@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2df7403579c34af4392a888400a263c0, type: 3}
+  m_Name: container-rig-wartech
+  m_EditorClassIdentifier: Pktony.GridInventory.Catalog::Pktony.GridInventory.ContainerDefinition
+  identifier: rig-wartech
+  sections:
+  - identifier: large-a
+    width: 2
+    height: 2
+    policy:
+      mode: 0
+      allowedCategories: []
+      deniedCategories: []
+      allowedItemIds: []
+      deniedItemIds: []
+  - identifier: tall-a
+    width: 1
+    height: 2
+    policy:
+      mode: 0
+      allowedCategories: []
+      deniedCategories: []
+      allowedItemIds: []
+      deniedItemIds: []
+  - identifier: tall-b
+    width: 1
+    height: 2
+    policy:
+      mode: 0
+      allowedCategories: []
+      deniedCategories: []
+      allowedItemIds: []
+      deniedItemIds: []
+  - identifier: small-a
+    width: 1
+    height: 1
+    policy:
+      mode: 0
+      allowedCategories: []
+      deniedCategories: []
+      allowedItemIds: []
+      deniedItemIds: []
+  - identifier: small-b
+    width: 1
+    height: 1
+    policy:
+      mode: 0
+      allowedCategories: []
+      deniedCategories: []
+      allowedItemIds: []
+      deniedItemIds: []
+  policy:
+    mode: 0
+    allowedCategories: []
+    deniedCategories: []
+    allowedItemIds: []
+    deniedItemIds: []
+  layout: {fileID: 11400000, guid: 8fe63c9d241121b43bb3b1b22923eabd, type: 2}

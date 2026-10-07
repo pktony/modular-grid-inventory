@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
-namespace InventorySystem.Tests
+namespace Pktony.GridInventory.Tests
 {
     public sealed class ItemCatalogTests
     {

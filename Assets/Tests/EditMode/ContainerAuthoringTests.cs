@@ -1,10 +1,10 @@
 using System;
-using InventorySystem.Editor;
+using Pktony.GridInventory.Editor;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 
-namespace InventorySystem.Tests
+namespace Pktony.GridInventory.Tests
 {
     public sealed class ContainerAuthoringTests
     {
@@ -93,9 +93,9 @@ namespace InventorySystem.Tests
 
         [Test] public void NextCatalogSnapshotReadsDirectAssetEditsWithoutGenerator()
         {
-            var source = AssetDatabase.LoadAssetAtPath<InventoryCatalogAsset>("Assets/Items/Expansion/Catalog.asset");
+            var source = AssetDatabase.LoadAssetAtPath<InventoryCatalogAsset>("Assets/ModularGridInventory/Samples/Catalog/Catalog.asset");
             var catalog = UnityEngine.Object.Instantiate(source);
-            var rig = UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<ItemDefinition>("Assets/Items/Expansion/item-rig.asset"));
+            var rig = UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<ItemDefinition>("Assets/ModularGridInventory/Samples/Catalog/item-rig.asset"));
             try
             {
                 using (var data = new SerializedObject(rig)) { data.FindProperty("container").objectReferenceValue = container; data.ApplyModifiedPropertiesWithoutUndo(); }

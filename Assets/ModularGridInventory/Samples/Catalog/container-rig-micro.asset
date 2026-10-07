@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2df7403579c34af4392a888400a263c0, type: 3}
+  m_Name: container-rig-micro
+  m_EditorClassIdentifier: Pktony.GridInventory.Catalog::Pktony.GridInventory.ContainerDefinition
+  identifier: rig-micro
+  sections:
+  - identifier: large-a
+    width: 2
+    height: 2
+    policy:
+      mode: 0
+      allowedCategories: []
+      deniedCategories: []
+      allowedItemIds: []
+      deniedItemIds: []
+  - identifier: tall-a
+    width: 1
+    height: 2
+    policy:
+      mode: 0
+      allowedCategories: []
+      deniedCategories: []
+      allowedItemIds: []
+      deniedItemIds: []
+  - identifier: tall-b
+    width: 1
+    height: 2
+    policy:
+      mode: 0
+      allowedCategories: []
+      deniedCategories: []
+      allowedItemIds: []
+      deniedItemIds: []
+  policy:
+    mode: 0
+    allowedCategories: []
+    deniedCategories: []
+    allowedItemIds: []
+    deniedItemIds: []
+  layout: {fileID: 11400000, guid: 36c54f5770d1729468f116b253ba1ae3, type: 2}

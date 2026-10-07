@@ -1,10 +1,10 @@
 using System;
 using System.Linq;
-using InventorySystem.Presentation;
+using Pktony.GridInventory.Presentation;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
-namespace InventorySystem.Tests
+namespace Pktony.GridInventory.Tests
 {
     public sealed class InventoryAudioSettingsTests
     {
@@ -16,7 +16,7 @@ namespace InventorySystem.Tests
         {
             settings = ScriptableObject.CreateInstance<InventoryAudioSettings>();
             first = AudioClip.Create("First", 100, 1, 44100, false); second = AudioClip.Create("Second", 100, 1, 44100, false);
-            var icon = new InventoryCatalogSnapshotFactory().Create(AssetDatabase.LoadAssetAtPath<InventoryCatalogAsset>("Assets/Items/Expansion/Catalog.asset")).Definitions.First().Icon;
+            var icon = new InventoryCatalogSnapshotFactory().Create(AssetDatabase.LoadAssetAtPath<InventoryCatalogAsset>("Assets/ModularGridInventory/Samples/Catalog/Catalog.asset")).Definitions.First().Icon;
             item = new ItemDefinitionView(new DefinitionId("test"), "Test", 1, 1, 1, icon, "leaf", null);
             catalog = new InventoryCatalog(new[] { new CategoryDefinitionView("root", "Root"),
                 new CategoryDefinitionView("middle", "Middle", "root"), new CategoryDefinitionView("leaf", "Leaf", "middle") }, new[] { item });
@@ -50,7 +50,7 @@ namespace InventorySystem.Tests
             var asset = Resources.Load<InventoryAudioSettings>("InventoryAudioSettings"); Assert.That(asset, Is.Not.Null);
             foreach (InventoryFeedbackAction action in Enum.GetValues(typeof(InventoryFeedbackAction)))
                 Assert.That(asset.defaults.Any(b => b.action == action && b.clips.Any(c => c != null)), Is.True, action.ToString());
-            var actualCatalog = new InventoryCatalogSnapshotFactory().Create(AssetDatabase.LoadAssetAtPath<InventoryCatalogAsset>("Assets/Items/Expansion/Catalog.asset"));
+            var actualCatalog = new InventoryCatalogSnapshotFactory().Create(AssetDatabase.LoadAssetAtPath<InventoryCatalogAsset>("Assets/ModularGridInventory/Samples/Catalog/Catalog.asset"));
             foreach (var profile in asset.itemProfiles) Assert.That(actualCatalog.Categories.Any(c => c.Id == profile.categoryId), Is.True, profile.categoryId);
             foreach (var clip in asset.defaults.Concat(asset.itemProfiles.SelectMany(p => p.sounds)).SelectMany(b => b.clips).Distinct())
             {

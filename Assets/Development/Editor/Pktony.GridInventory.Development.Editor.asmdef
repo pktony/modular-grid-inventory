@@ -1,0 +1,16 @@
+{
+  "name": "Pktony.GridInventory.Development.Editor",
+  "references": [
+    "Pktony.GridInventory.Runtime",
+    "Pktony.GridInventory.Catalog",
+    "Pktony.GridInventory.Domain",
+    "Pktony.GridInventory.Presentation",
+    "Unity.ugui",
+    "Unity.TextMeshPro",
+    "Pktony.GridInventory.Development",
+    "Pktony.GridInventory.Editor"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ]
+}

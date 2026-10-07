@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Linq;
-using InventorySystem.Domain;
-using InventorySystem.Presentation;
+using Pktony.GridInventory.Domain;
+using Pktony.GridInventory.Presentation;
 using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
-namespace InventorySystem.Tests
+namespace Pktony.GridInventory.Tests
 {
     public sealed class InventoryAudioSceneTests
     {
-        private ExpandedInventory inventory;
+        private InventoryBootstrapper inventory;
         private InventoryAudioSettings settings;
         private InventorySoundPresenter observer;
         private InventoryAudioProbe probe;
@@ -21,9 +21,9 @@ namespace InventorySystem.Tests
         [UnitySetUp] public IEnumerator LoadScene()
         {
             yield return SceneManager.LoadSceneAsync("Inventory"); yield return null;
-            inventory = Object.FindAnyObjectByType<ExpandedInventory>(); inventory.enabled = false;
+            inventory = Object.FindAnyObjectByType<InventoryBootstrapper>(); inventory.enabled = false;
             settings = Resources.Load<InventoryAudioSettings>("InventoryAudioSettings"); probe = new InventoryAudioProbe();
-            var catalog = (InventoryCatalog)typeof(ExpandedInventory).GetField("definitions",
+            var catalog = (InventoryCatalog)typeof(InventoryBootstrapper).GetField("definitions",
                 System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).GetValue(inventory);
             observer = new InventorySoundPresenter(inventory.ReadModel, inventory.Interaction, inventory.Windows, inventory.Screen,
                 new InventorySoundResolver(settings, catalog), probe);

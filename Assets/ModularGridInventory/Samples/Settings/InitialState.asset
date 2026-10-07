@@ -1,0 +1,191 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e4f97185651462db2167b2110105e20, type: 3}
+  m_Name: InitialState
+  m_EditorClassIdentifier: Pktony.GridInventory.Runtime::Pktony.GridInventory.InventoryInitialState
+  entries:
+  - key: pack-outer
+    item: {fileID: 11400000, guid: a12637b6c27c8644d8e6ba3084cfbf72, type: 2}
+    quantity: 1
+    parentKey: 
+    section: main
+    x: 0
+    y: 0
+    rotated: 0
+  - key: pack-second
+    item: {fileID: 11400000, guid: a12637b6c27c8644d8e6ba3084cfbf72, type: 2}
+    quantity: 1
+    parentKey: 
+    section: main
+    x: 5
+    y: 0
+    rotated: 0
+  - key: pack-inner
+    item: {fileID: 11400000, guid: 63b9cccb9ecdc7947a5c117f053d3988, type: 2}
+    quantity: 1
+    parentKey: pack-outer
+    section: main
+    x: 0
+    y: 0
+    rotated: 0
+  - key: med-nested
+    item: {fileID: 11400000, guid: 65db4108e3d0f1e49b2fd3778b345f10, type: 2}
+    quantity: 1
+    parentKey: pack-inner
+    section: main
+    x: 0
+    y: 0
+    rotated: 0
+  - key: ammo-box
+    item: {fileID: 11400000, guid: f0663721be9ec3545919eae7792b7587, type: 2}
+    quantity: 1
+    parentKey: 
+    section: main
+    x: 0
+    y: 6
+    rotated: 0
+  - key: medical-box
+    item: {fileID: 11400000, guid: 96499db11e41d1b4492b9dc05c02d8e3, type: 2}
+    quantity: 1
+    parentKey: 
+    section: main
+    x: 3
+    y: 6
+    rotated: 0
+  - key: carrier-main
+    item: {fileID: 11400000, guid: b9a6cbd8fa887264194f42eb9befd8ed, type: 2}
+    quantity: 1
+    parentKey: 
+    section: main
+    x: 6
+    y: 6
+    rotated: 0
+  - key: carbine
+    item: {fileID: 11400000, guid: 6b26ba54a3d64e744a9f366fe046a30d, type: 2}
+    quantity: 1
+    parentKey: 
+    section: main
+    x: 0
+    y: 11
+    rotated: 0
+  - key: ammo-a
+    item: {fileID: 11400000, guid: d82f75efb988b1e48a188881342d980f, type: 2}
+    quantity: 40
+    parentKey: 
+    section: main
+    x: 5
+    y: 11
+    rotated: 0
+  - key: ammo-b
+    item: {fileID: 11400000, guid: d82f75efb988b1e48a188881342d980f, type: 2}
+    quantity: 20
+    parentKey: 
+    section: main
+    x: 6
+    y: 11
+    rotated: 0
+  - key: ammo-heavy
+    item: {fileID: 11400000, guid: 0c106e99fda059a44a8ef609981505f9, type: 2}
+    quantity: 30
+    parentKey: 
+    section: main
+    x: 7
+    y: 11
+    rotated: 0
+  - key: medical
+    item: {fileID: 11400000, guid: 65db4108e3d0f1e49b2fd3778b345f10, type: 2}
+    quantity: 1
+    parentKey: 
+    section: main
+    x: 5
+    y: 12
+    rotated: 0
+  - key: grip
+    item: {fileID: 11400000, guid: 3f66e69165e452846b485819a11df0c2, type: 2}
+    quantity: 1
+    parentKey: 
+    section: main
+    x: 6
+    y: 12
+    rotated: 0
+  - key: rig-scav
+    item: {fileID: 11400000, guid: 60d2c31cf750b50449c41f61cd9b1647, type: 2}
+    quantity: 1
+    parentKey: 
+    section: main
+    x: 0
+    y: 20
+    rotated: 0
+  - key: rig-micro
+    item: {fileID: 11400000, guid: 592ae2e69723f0646b948c2676611214, type: 2}
+    quantity: 1
+    parentKey: 
+    section: main
+    x: 5
+    y: 20
+    rotated: 0
+  - key: rig-wartech
+    item: {fileID: 11400000, guid: 1d348bfc1b4dd1c40acfe37e3076d73c, type: 2}
+    quantity: 1
+    parentKey: 
+    section: main
+    x: 0
+    y: 25
+    rotated: 0
+  - key: rig-scout
+    item: {fileID: 11400000, guid: 666db57d1da9ffe4e99be1b88f002413, type: 2}
+    quantity: 1
+    parentKey: 
+    section: main
+    x: 5
+    y: 25
+    rotated: 0
+  - key: rig-d3crx
+    item: {fileID: 11400000, guid: e7ec57caff046444897f527c3c38ee49, type: 2}
+    quantity: 1
+    parentKey: 
+    section: main
+    x: 0
+    y: 30
+    rotated: 0
+  - key: rig-mk3
+    item: {fileID: 11400000, guid: f51e9812081d3d441b7c3d016136f3c1, type: 2}
+    quantity: 1
+    parentKey: 
+    section: main
+    x: 5
+    y: 30
+    rotated: 0
+  - key: rig-alpha
+    item: {fileID: 11400000, guid: 6043e26c5b67dd24dafa4c5394fe4bd3, type: 2}
+    quantity: 1
+    parentKey: 
+    section: main
+    x: 0
+    y: 35
+    rotated: 0
+  - key: rig-mppv
+    item: {fileID: 11400000, guid: d9bb557e072ef214a83b340b44330b35, type: 2}
+    quantity: 1
+    parentKey: 
+    section: main
+    x: 5
+    y: 35
+    rotated: 0
+  - key: rig-belt
+    item: {fileID: 11400000, guid: 71183d6c45a57c94ab8b6664008e0916, type: 2}
+    quantity: 1
+    parentKey: 
+    section: main
+    x: 0
+    y: 40
+    rotated: 0
