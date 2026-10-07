@@ -8,7 +8,7 @@ namespace Pktony.GridInventory.Editor
     {
         public static RigPresetTable Load()
         {
-            const string path = "Assets/ModularGridInventory/Samples/Catalog/RigPresets.json";
+            const string path = "Assets/Development/Data/RigPresets.json";
             var text = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
             if (text == null) throw new InvalidOperationException($"Missing rig table: {path}");
             var table = JsonUtility.FromJson<RigPresetTable>(text.text);

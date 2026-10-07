@@ -19,9 +19,9 @@ namespace Pktony.GridInventory.Editor
             switch (stage)
             {
                 case 0: Require(state.Items.Count == 22 && inventory.Windows.Windows.Count == 1, "Initial rig window"); break;
-                case 3: Require(Owner(state, Find(state, "pst", 40).Id) == rig.ChildContainerId, "Ammo inside rig"); break;
+                case 3: Require(Owner(state, Find(state, "ammo-light", 40).Id) == rig.ChildContainerId, "Ammo inside rig"); break;
                 case 5: Require(state.Containers[rig.ChildContainerId].Entries.Count == 2, "Medical item inside rig"); break;
-                case 7: Require(Owner(state, Find(state, "rk0").Id) == rig.ChildContainerId, "Weapon part inside rig"); break;
+                case 7: Require(Owner(state, Find(state, "grip").Id) == rig.ChildContainerId, "Weapon part inside rig"); break;
                 case 8: case 10: case 12: case 22: case 30: case 36: case 42: case 45:
                     Require(inventory.Interaction.Drag != null, "Rejection starts with a real drag"); beforeRejection = state; break;
                 case 9: case 11: case 13: case 23: case 31: case 37: case 43: case 46:
@@ -31,7 +31,7 @@ namespace Pktony.GridInventory.Editor
                     var rigOwner = Owner(state, rig.Id);
                     Require(rigOwner != state.RootContainerId && state.Containers[rig.ChildContainerId].Entries.Count == 3, "Filled rig stored in bag");
                     Require(inventory.Windows.Windows.ContainsKey(rig.ChildContainerId), "Rig window survives storage"); break;
-                case 25: Require(Owner(state, Find(state, "mbss").Id) == state.RootContainerId, "Filled MBSS extracted"); break;
+                case 25: Require(Owner(state, Find(state, "pack-small").Id) == state.RootContainerId, "Filled 소형 가방 extracted"); break;
                 case 27: case 29:
                     rigOwner = Owner(state, rig.Id);
                     Require(state.Registry.TryGetBag(rigOwner, out var bagId), "Rig owner is a bag");
@@ -39,8 +39,8 @@ namespace Pktony.GridInventory.Editor
                     var outerOwner = Owner(state, bag.Id);
                     Require(outerOwner != state.RootContainerId, "Bag inside another bag");
                     Require(state.Containers[rig.ChildContainerId].Entries.Count == 3, "Nested rig contents preserved"); break;
-                case 35: Require(state.Containers[Find(state, "medicine-case").ChildContainerId].Entries.Count == 1, "Medical case receives AI-2"); break;
-                case 41: Require(Owner(state, Find(state, "pst", 20).Id) == Find(state, "ammo-case").ChildContainerId, "Ammo case receives ammo"); break;
+                case 35: Require(state.Containers[Find(state, "case-medical").ChildContainerId].Entries.Count == 1, "Medical case receives 응급 키트"); break;
+                case 41: Require(Owner(state, Find(state, "ammo-light", 20).Id) == Find(state, "case-ammo").ChildContainerId, "Ammo case receives ammo"); break;
                 case 48: Require(state.Items.Count == 22 && inventory.Windows.Windows.Count == 0, "Reset after showcase"); break;
             }
             foreach (var item in state.Items.Values)

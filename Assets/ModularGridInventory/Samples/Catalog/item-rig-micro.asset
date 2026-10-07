@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: item-rig-micro
   m_EditorClassIdentifier: Pktony.GridInventory.Catalog::Pktony.GridInventory.ItemDefinition
   identifier: rig-micro
-  title: SOE Micro Rig
+  title: Micro Carrier
   category: {fileID: 11400000, guid: 48698c53ad2a77742bb8c49569dbf996, type: 2}
   width: 2
   height: 3

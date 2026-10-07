@@ -58,26 +58,26 @@ namespace Pktony.GridInventory.Tests
         }
         [UnityTest] public IEnumerator DoubleClickOpensIndependentNestedWindowsAndCloseRevealsParent()
         {
-            var berkut = Find("berkut", Root); Open(berkut);
+            var berkut = Find("pack-large", Root); Open(berkut);
             Assert.That(inventory.Windows.Frontmost.Panel.Container, Is.EqualTo(State.Items[berkut].ChildContainerId));
-            var mbss = Find("mbss"); Open(mbss);
+            var mbss = Find("pack-small"); Open(mbss);
             Assert.That(inventory.Windows.Frontmost.Panel.Container, Is.EqualTo(State.Items[mbss].ChildContainerId));
-            Assert.That(GameObject.Find("Item-" + Find("ai2", State.Items[mbss].ChildContainerId)), Is.Not.Null);
+            Assert.That(GameObject.Find("Item-" + Find("medical-kit", State.Items[mbss].ChildContainerId)), Is.Not.Null);
             inventory.Windows.Frontmost.Close.onClick.Invoke(); yield return null;
             Assert.That(inventory.Windows.Frontmost.Panel.Container, Is.EqualTo(State.Items[berkut].ChildContainerId)); LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator PointerDragCrossesPanelsAndRejectsWrongCaseType()
         {
-            var ammoCase = Find("ammo-case", Root); Open(ammoCase); RevealLower();
-            var ammo = Find("pst", Root, 20); var child = State.Items[ammoCase].ChildContainerId;
+            var ammoCase = Find("case-ammo", Root); Open(ammoCase); RevealLower();
+            var ammo = Find("ammo-light", Root, 20); var child = State.Items[ammoCase].ChildContainerId;
             var data = Begin(ammo); Drop(ammo, data, Point(child, main, 0, 0)); yield return null;
             Assert.That(State.Registry.TryGetOwner(ammo, out var owner), Is.True); Assert.That(owner, Is.EqualTo(child));
-            var rifle = Find("aks74u", Root); var before = State; data = Begin(rifle); Drop(rifle, data, Point(child, main, 2, 1));
+            var rifle = Find("carbine", Root); var before = State; data = Begin(rifle); Drop(rifle, data, Point(child, main, 2, 1));
             Assert.That(State, Is.SameAs(before)); Assert.That(inventory.Screen.Status.text, Does.Contain("type")); LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator RotateThenCancelDoesNotMutateAndValidDropUpdatesFootprint()
         {
-            RevealLower(); var rifle = Find("aks74u", Root); var before = State; var data = Begin(rifle);
+            RevealLower(); var rifle = Find("carbine", Root); var before = State; var data = Begin(rifle);
             inventory.Interaction.Rotate(); inventory.Interaction.Cancel(); Assert.That(State, Is.SameAs(before));
             data = Begin(rifle); inventory.Interaction.Rotate(); Drop(rifle, data, Point(Root, main, 1, 14)); yield return null;
             var entry = State.Containers[Root].Entries[rifle]; Assert.That(entry.Rotated, Is.True);
@@ -85,26 +85,26 @@ namespace Pktony.GridInventory.Tests
         }
         [UnityTest] public IEnumerator PartialMergeThroughPointerEventsKeepsRemainder()
         {
-            RevealLower(); var source = Find("pst", Root, 20); var destination = Find("pst", Root, 40);
+            RevealLower(); var source = Find("ammo-light", Root, 20); var destination = Find("ammo-light", Root, 40);
             var data = Begin(source); Drop(source, data, Point(Root, main, 5, 11)); yield return null;
             Assert.That(State.Items[destination].Quantity, Is.EqualTo(50)); Assert.That(State.Items[source].Quantity, Is.EqualTo(10));
             Assert.That(View(destination).GetComponentsInChildren<TextMeshProUGUI>().Any(t => t.text == "50"), Is.True); LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator QuantityDialogSplitCreatesInstanceOnGridClickAndEscapeCancels()
         {
-            RevealLower(); var source = Find("pst", Root, 40); var before = State;
+            RevealLower(); var source = Find("ammo-light", Root, 40); var before = State;
             inventory.Interaction.Split(source); Assert.That(inventory.Screen.Quantity.IsOpen, Is.True);
             GameObject.Find("Input").GetComponent<TMP_InputField>().text = "5";
             inventory.Screen.Quantity.Confirm(); Assert.That(State, Is.SameAs(before)); Assert.That(inventory.Interaction.Drag.SplitQuantity, Is.EqualTo(5));
             var point = Point(Root, main, 8, 13); var data = Data(point);
             ExecuteEvents.Execute(inventory.Screen.Stash.Viewport.gameObject, data, ExecuteEvents.pointerClickHandler); yield return null;
-            Assert.That(State.Items[source].Quantity, Is.EqualTo(35)); Assert.That(State.Items.Values.Count(i => i.Definition.Identifier == "pst"), Is.EqualTo(3));
+            Assert.That(State.Items[source].Quantity, Is.EqualTo(35)); Assert.That(State.Items.Values.Count(i => i.Definition.Identifier == "ammo-light"), Is.EqualTo(3));
             before = State; inventory.Interaction.Split(source); inventory.Screen.Quantity.Confirm(); inventory.Interaction.Cancel();
             Assert.That(State, Is.SameAs(before)); LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator InvalidQuantityLeavesDialogOpenAndStateUnchanged()
         {
-            var source = Find("pst", Root, 40); var before = State; inventory.Interaction.Split(source);
+            var source = Find("ammo-light", Root, 40); var before = State; inventory.Interaction.Split(source);
             GameObject.Find("Input").GetComponent<TMP_InputField>().text = "40"; inventory.Screen.Quantity.Confirm();
             Assert.That(inventory.Screen.Quantity.IsOpen, Is.True); Assert.That(State, Is.SameAs(before));
             inventory.Interaction.Cancel(); yield return null; LogAssert.NoUnexpectedReceived();
@@ -112,7 +112,7 @@ namespace Pktony.GridInventory.Tests
         [UnityTest] public IEnumerator BlackRockHasElevenSectionsAndGapIsNotDropTarget()
         {
             Open(Find("rig", Root)); RevealLower(); Assert.That(inventory.Windows.Frontmost.Panel.Sections.Count, Is.EqualTo(11));
-            var ammo = Find("pst", Root, 20); var before = State; var data = Begin(ammo);
+            var ammo = Find("ammo-light", Root, 20); var before = State; var data = Begin(ammo);
             var tall = inventory.Windows.Frontmost.Panel.Sections[new GridSectionId("tall-a")];
             var gap = tall.Geometry.ScreenPoint(1, 0, new Vector2(1.5f, 25)); Drop(ammo, data, gap);
             Assert.That(State, Is.SameAs(before));
@@ -121,7 +121,7 @@ namespace Pktony.GridInventory.Tests
         }
         [UnityTest] public IEnumerator NavigationCancelsDragAndResetDoesNotDuplicateViews()
         {
-            var berkut = Find("berkut", Root); Open(berkut); Begin(Find("mbss"));
+            var berkut = Find("pack-large", Root); Open(berkut); Begin(Find("pack-small"));
             inventory.Windows.Frontmost.Close.onClick.Invoke(); Assert.That(inventory.Interaction.Drag, Is.Null);
             inventory.Screen.Reset.onClick.Invoke(); inventory.Screen.Reset.onClick.Invoke(); yield return null;
             Assert.That(State.Items.Count, Is.EqualTo(22)); Assert.That(Object.FindObjectsByType<InventoryPointerHandler>().Length, Is.EqualTo(20));
@@ -153,7 +153,7 @@ namespace Pktony.GridInventory.Tests
         }
         [UnityTest] public IEnumerator ReopeningSameBagPreservesWindowAndRaisesIt()
         {
-            var bags = State.Items.Values.Where(i => i.Definition.Identifier == "berkut").ToArray(); Open(bags[0].Id);
+            var bags = State.Items.Values.Where(i => i.Definition.Identifier == "pack-large").ToArray(); Open(bags[0].Id);
             var original = inventory.Windows.Find(bags[0].ChildContainerId); original.Panel.Root.anchoredPosition = new Vector2(40, -120);
             Open(bags[1].Id); Assert.That(inventory.Windows.Windows.Count, Is.EqualTo(2));
             Open(bags[0].Id); Assert.That(inventory.Windows.Windows.Count, Is.EqualTo(2));
@@ -162,7 +162,7 @@ namespace Pktony.GridInventory.Tests
         }
         [UnityTest] public IEnumerator HeaderDragRaisesWindowWithoutChangingInventory()
         {
-            var bags = State.Items.Values.Where(i => i.Definition.Identifier == "berkut").ToArray(); Open(bags[0].Id); Open(bags[1].Id);
+            var bags = State.Items.Values.Where(i => i.Definition.Identifier == "pack-large").ToArray(); Open(bags[0].Id); Open(bags[1].Id);
             var window = inventory.Windows.Find(bags[0].ChildContainerId); var before = State; var previous = window.Panel.Root.anchoredPosition;
             var data = Data(RectTransformUtility.WorldToScreenPoint(null, window.Header.TransformPoint(new Vector3(30, -10))));
             ExecuteEvents.Execute(window.Header.gameObject, data, ExecuteEvents.beginDragHandler); data.position += new Vector2(100, -50);
@@ -173,7 +173,7 @@ namespace Pktony.GridInventory.Tests
         }
         [UnityTest] public IEnumerator FrontWindowHeaderAndEmptySpaceBlockGridBehindIt()
         {
-            var bags = State.Items.Values.Where(i => i.Definition.Identifier == "berkut").ToArray(); Open(bags[0].Id); Open(bags[1].Id);
+            var bags = State.Items.Values.Where(i => i.Definition.Identifier == "pack-large").ToArray(); Open(bags[0].Id); Open(bags[1].Id);
             var back = inventory.Windows.Find(bags[0].ChildContainerId); var front = inventory.Windows.Find(bags[1].ChildContainerId);
             back.Panel.Root.anchoredPosition = front.Panel.Root.anchoredPosition = new Vector2(24, -110); Canvas.ForceUpdateCanvases();
             var hit = new InventoryGridHitTester(inventory.Windows);
@@ -185,14 +185,14 @@ namespace Pktony.GridInventory.Tests
         [UnityTest] public IEnumerator DropOnClosedBagItemStoresInsideIt()
         {
             inventory.Screen.Stash.Scroll.verticalNormalizedPosition = 0.86f; Canvas.ForceUpdateCanvases();
-            var ammo = Find("pst", Root, 20); var box = Find("ammo-case", Root);
+            var ammo = Find("ammo-light", Root, 20); var box = Find("case-ammo", Root);
             var data = Begin(ammo); Drop(ammo, data, Point(Root, main, 0, 6)); yield return null;
             Assert.That(State.Registry.TryGetOwner(ammo, out var owner), Is.True); Assert.That(owner, Is.EqualTo(State.Items[box].ChildContainerId));
             Assert.That(inventory.Windows.Windows.Count, Is.Zero); LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator NestedBagMovementKeepsItsExistingWindow()
         {
-            var bags = State.Items.Values.Where(i => i.Definition.Identifier == "berkut").ToArray(); Open(bags[0].Id); var nested = Find("mbss"); Open(nested);
+            var bags = State.Items.Values.Where(i => i.Definition.Identifier == "pack-large").ToArray(); Open(bags[0].Id); var nested = Find("pack-small"); Open(nested);
             var existing = inventory.Windows.Find(State.Items[nested].ChildContainerId); var container = existing.Id;
             Assert.That(inventory.Storage.Store(new ContainerStoreRequest(nested, bags[1].ChildContainerId)).Success, Is.True);
             Assert.That(inventory.Windows.Find(container), Is.SameAs(existing)); Assert.That(existing.Panel.Root.gameObject.activeSelf, Is.True);

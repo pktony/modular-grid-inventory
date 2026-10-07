@@ -6,11 +6,8 @@ namespace Pktony.GridInventory.Editor
     {
         public string id;
         public string title;
-        public string gameId;
         public int width;
         public int height;
-        public string layoutReference;
-        public string iconSource;
         public RigPocketPreset[] pockets;
     }
 }

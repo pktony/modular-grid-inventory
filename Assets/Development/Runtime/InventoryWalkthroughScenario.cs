@@ -98,31 +98,31 @@ namespace Pktony.GridInventory
             {
                 case 0:
                     inventory.ResetDemo();
-                    var bags = State.Items.Values.Where(i => i.Definition.Identifier == "berkut").ToArray();
+                    var bags = State.Items.Values.Where(i => i.Definition.Identifier == "pack-large").ToArray();
                     firstBag = bags[0].Id; secondBag = bags[1].Id; break;
                 case 1: ClickItem(firstBag, time, 2); Canvas.ForceUpdateCanvases(); break;
                 case 2: ClickItem(secondBag, time, 2); Canvas.ForceUpdateCanvases(); break;
                 case 3: MoveWindow(secondBag, new Vector2(274, -110), time); break;
-                case 4: End(); nested = Find("mbss"); ClickItem(nested, time, 2); Canvas.ForceUpdateCanvases(); break;
+                case 4: End(); nested = Find("pack-small"); ClickItem(nested, time, 2); Canvas.ForceUpdateCanvases(); break;
                 case 5: MoveWindow(nested, new Vector2(520, -110), time); break;
                 case 6: End(); ClickItem(firstBag, time, 2); break;
                 case 7: MoveWindow(firstBag, new Vector2(48, -230), time); break;
                 case 8: End(); Begin(nested, Point(State.Items[secondBag].ChildContainerId, main, 0, 0), time); break;
                 case 9: End(); break;
-                case 10: Begin(Find("ai2", State.Items[nested].ChildContainerId), ItemPoint(firstBag), time); break;
+                case 10: Begin(Find("medical-kit", State.Items[nested].ChildContainerId), ItemPoint(firstBag), time); break;
                 case 11: End(); break;
                 case 12:
                     foreach (var window in inventory.Windows.Windows.Values.ToArray()) Click(window.Close, time);
-                    Scroll(); ClickItem(Find("ammo-case", Root), time, 2); Canvas.ForceUpdateCanvases(); break;
-                case 13: Begin(Find("pst", Root, 20), Point(Window(Find("ammo-case", Root)).Id, main, 0, 0), time); break;
-                case 14: End(); rifle = Find("aks74u", Root); Begin(rifle, ItemPoint(Find("ammo-case", Root)), time); break;
+                    Scroll(); ClickItem(Find("case-ammo", Root), time, 2); Canvas.ForceUpdateCanvases(); break;
+                case 13: Begin(Find("ammo-light", Root, 20), Point(Window(Find("case-ammo", Root)).Id, main, 0, 0), time); break;
+                case 14: End(); rifle = Find("carbine", Root); Begin(rifle, ItemPoint(Find("case-ammo", Root)), time); break;
                 case 15: End(); ClickItem(Find("rig", Root), time, 2); Canvas.ForceUpdateCanvases(); break;
                 case 16: MoveWindow(Find("rig", Root), new Vector2(398, -110), time); break;
-                case 17: End(); Begin(Find("pst", Root, 40), Point(Window(Find("rig", Root)).Id, new GridSectionId("small-a"), 0, 0), time); break;
+                case 17: End(); Begin(Find("ammo-light", Root, 40), Point(Window(Find("rig", Root)).Id, new GridSectionId("small-a"), 0, 0), time); break;
                 case 18: End(); break;
                 case 19:
-                    Click(inventory.Screen.Reset, time); Scroll(); mergeTarget = Find("pst", Root, 40);
-                    Begin(Find("pst", Root, 20), ItemPoint(mergeTarget), time); break;
+                    Click(inventory.Screen.Reset, time); Scroll(); mergeTarget = Find("ammo-light", Root, 40);
+                    Begin(Find("ammo-light", Root, 20), ItemPoint(mergeTarget), time); break;
                 case 20:
                     End(); ClickItem(mergeTarget, time, 1, true); Click(GameObject.Find("SplitStack").GetComponent<Button>(), time);
                     GameObject.Find("Input").GetComponent<TMPro.TMP_InputField>().text = "5"; break;
@@ -131,14 +131,14 @@ namespace Pktony.GridInventory
                     holding = true; start = pointer; destination = Point(Root, main, 8, 11); data = Event(pointer); dragStarted = time; break;
                 case 22:
                     pointer = destination; holding = false; ExecuteEvents.Execute(inventory.Screen.Stash.Viewport.gameObject, Event(pointer), ExecuteEvents.pointerClickHandler);
-                    Scroll(0.78f); rifle = Find("aks74u", Root); Begin(rifle, Point(Root, main, 1, 14), time); inventory.Interaction.Rotate(); break;
+                    Scroll(0.78f); rifle = Find("carbine", Root); Begin(rifle, Point(Root, main, 1, 14), time); inventory.Interaction.Rotate(); break;
                 case 23: End(); Scroll(0.7f); break;
                 case 24:
                     inventory.Interaction.Cancel(); holding = false;
-                    ClickItem(Find("rk0", Root), time); Click(inventory.Screen.Delete, time); break;
+                    ClickItem(Find("grip", Root), time); Click(inventory.Screen.Delete, time); break;
                 case 25:
                     Click(inventory.Screen.Reset, time);
-                    bags = State.Items.Values.Where(i => i.Definition.Identifier == "berkut").ToArray(); firstBag = bags[0].Id; secondBag = bags[1].Id;
+                    bags = State.Items.Values.Where(i => i.Definition.Identifier == "pack-large").ToArray(); firstBag = bags[0].Id; secondBag = bags[1].Id;
                     ClickItem(firstBag, time, 2); ClickItem(secondBag, time, 2); Canvas.ForceUpdateCanvases(); break;
                 case 26: MoveWindow(secondBag, new Vector2(274, -110), time); break;
             }
