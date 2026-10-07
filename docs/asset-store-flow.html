@@ -13,15 +13,15 @@
 </head>
 <body><main class="page">
 <header><div class="eyebrow">IMPLEMENTATION PLAN / 2026-10-07</div><h1>Modular Grid Inventory<br>데모에서 배포 가능한 패키지로</h1>
-<div class="status">계획 완료 · 구현 대기</div>
+<div class="status">후보 구현 반영 · Unity 실행 검증 대기</div>
 <div class="prompt-box">다른 Unity 프로젝트에 설치하고 확장할 수 있는 인벤토리 제품을 만든다. 중첩 가방·독립 포켓·스택·Inspector를 Asset Store 배포용으로 정리한다.</div>
 <p>본문: <a href="../PLAN.md">PLAN.md</a> · 작업: <code>feature/asset-store-package</code> · 기준: <code>4e08a36</code></p></header>
-<div class="summary"><div class="card"><div class="k">FORMAT</div><div class="v accent">.unitypackage</div></div><div class="card"><div class="k">SURFACE</div><div class="v">본체 · 편집기 · 샘플</div></div><div class="card"><div class="k">REVIEW</div><div class="v">6단계 / 책임별 PR</div></div><div class="card"><div class="k">GATE</div><div class="v">깨끗한 프로젝트 검증</div></div></div>
+<div class="summary"><div class="card"><div class="k">FORMAT</div><div class="v accent">.unitypackage</div></div><div class="card"><div class="k">SURFACE</div><div class="v">본체 · 편집기 · 샘플</div></div><div class="card"><div class="k">REVIEW</div><div class="v">6단계 / 책임별 PR</div></div><div class="card"><div class="k">GATE</div><div class="v">Unity 실행 검증 대기</div></div></div>
 
 <section><div class="sec-head"><span class="num">01</span><h2>제품 경계</h2></div>
-<div class="two"><div class="card"><h3>고객에게 제공</h3><ul class="list"><li>격자 이동·회전, 독립 포켓, 유형별 수납 정책.</li><li>가방 중첩, 창 이동·재사용·전면 순서, 스택 합치기·분할.</li><li>SO 편집·즉시 미리보기·Undo/Redo, 효과음 설정.</li><li>교체 가능한 UI·입력·초기 상태, 공개 API·영문 안내.</li></ul></div>
+<div class="two"><div class="card"><h3>고객에게 제공</h3><ul class="list"><li>격자 이동·회전, 독립 포켓, 유형별 수납 정책.</li><li>가방 중첩, 창 이동·재사용·전면 순서, 스택 합치기·분할.</li><li>SO 편집·즉시 미리보기·Undo/Redo, 효과음 설정.</li><li>테마 설정·입력·초기 상태 주입, 공개 API·영문 안내.</li></ul></div>
 <div class="card"><h3>개발 환경이 소유</h3><ul class="list"><li>Unity MCP, 빌드·녹화·FFmpeg·자동 시연 도구.</li><li>게임 원본 리그 이미지·이름·원본 URL 기록.</li><li>테스트 실행 도구와 원시 결과.</li><li>저장·전투·UI Toolkit·모바일·콘솔 확장은 이번 범위 밖.</li></ul></div></div>
-<p class="note">현재 연결 지점: <code>ExpandedInventory</code>의 데모 초기화, <code>InventoryElementFactory</code>의 고정 폰트, <code>InventoryInteractionInput</code>의 Legacy 입력, 에디터의 고정 저장 경로.</p></section>
+<p class="note">현재 구현: <code>InventoryBootstrapper</code>·초기 상태 빌더·입력 어댑터·불변 테마·프리팹·범용 편집기. 중립 아이콘 19종과 후보 아카이브 준비. <a href="package-validation.md">컴파일·정적 검사 통과 / Unity 실행 검증 대기</a>.</p></section>
 
 <section><div class="sec-head"><span class="num">02</span><h2>소유권과 데이터 흐름</h2></div>
 <div class="two"><div class="card"><h3>단일 배포 루트</h3><code>Assets/ModularGridInventory/</code>
