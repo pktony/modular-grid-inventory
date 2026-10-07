@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Linq;
-using InventorySystem.Domain;
-using InventorySystem.Presentation;
+using Pktony.GridInventory.Domain;
+using Pktony.GridInventory.Presentation;
 using NUnit.Framework;
 using TMPro;
 using UnityEngine;
@@ -9,18 +9,18 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
-namespace InventorySystem.Tests
+namespace Pktony.GridInventory.Tests
 {
     public sealed class InventorySceneTests
     {
-        private ExpandedInventory inventory;
+        private InventoryBootstrapper inventory;
         private InventorySnapshot State => inventory.ReadModel.Snapshot;
         private ContainerId Root => State.RootContainerId;
         private readonly GridSectionId main = new("main");
         [UnitySetUp] public IEnumerator LoadScene()
         {
             yield return SceneManager.LoadSceneAsync("Inventory"); yield return null;
-            inventory = Object.FindAnyObjectByType<ExpandedInventory>(); inventory.enabled = false;
+            inventory = Object.FindAnyObjectByType<InventoryBootstrapper>(); inventory.enabled = false;
             Canvas.ForceUpdateCanvases();
         }
         private ItemInstanceId Find(string definition, ContainerId owner = default, int quantity = 0)
@@ -49,7 +49,7 @@ namespace InventorySystem.Tests
         [UnityTest] public IEnumerator SceneHasFrozenDefinitionsAndOneScreen()
         {
             Assert.That(State.Items.Count, Is.EqualTo(22)); Assert.That(State.Containers[Root].Entries.Count, Is.EqualTo(20));
-            Assert.That(Object.FindObjectsByType<ExpandedInventory>().Length, Is.EqualTo(1));
+            Assert.That(Object.FindObjectsByType<InventoryBootstrapper>().Length, Is.EqualTo(1));
             Assert.That(GameObject.Find("InventoryScreen"), Is.Not.Null);
             Assert.That(inventory.Screen.Stash.Policy.text, Does.Contain("9 x 48"));
             Assert.That(Object.FindObjectsByType<InventoryPointerHandler>().Length, Is.EqualTo(20));

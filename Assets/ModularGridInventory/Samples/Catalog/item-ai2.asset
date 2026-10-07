@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ae0e816fb804946a5aabec93e6753a, type: 3}
+  m_Name: item-ai2
+  m_EditorClassIdentifier: Pktony.GridInventory.Catalog::Pktony.GridInventory.ItemDefinition
+  identifier: ai2
+  title: AI-2 medkit
+  category: {fileID: 11400000, guid: 0a1764af01fe43745af2d1a35c9da50c, type: 2}
+  width: 1
+  height: 1
+  maxStack: 1
+  icon: {fileID: 21300000, guid: 9f1202dbe9455a1439ba68a45d1f4d20, type: 3}
+  container: {fileID: 0}

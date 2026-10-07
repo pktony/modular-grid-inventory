@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using InventorySystem.Presentation;
+using Pktony.GridInventory.Presentation;
 using UnityEngine;
-namespace InventorySystem.Tests
+namespace Pktony.GridInventory.Tests
 {
     public sealed class InventoryAudioProbe : IInventoryAudioOutput
     {

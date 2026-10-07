@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using InventorySystem.Domain;
+using Pktony.GridInventory.Domain;
 using NUnit.Framework;
 using UnityEngine;
-using Entry = InventorySystem.Domain.InventoryEntry;
-namespace InventorySystem.Tests
+using Entry = Pktony.GridInventory.Domain.InventoryEntry;
+namespace Pktony.GridInventory.Tests
 {
     public sealed class ExpansionDomainTests
     {
