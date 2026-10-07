@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: item-rig
   m_EditorClassIdentifier: Pktony.GridInventory.Catalog::Pktony.GridInventory.ItemDefinition
   identifier: rig
-  title: BlackRock
+  title: Modular Carrier
   category: {fileID: 11400000, guid: 48698c53ad2a77742bb8c49569dbf996, type: 2}
   width: 3
   height: 4

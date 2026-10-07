@@ -96,9 +96,9 @@ namespace Pktony.GridInventory.Tests
         {
             var asset = AssetDatabase.LoadAssetAtPath<InventoryCatalogAsset>("Assets/ModularGridInventory/Samples/Catalog/Catalog.asset");
             var clone = UnityEngine.Object.Instantiate(asset);
-            var original = AssetDatabase.LoadAssetAtPath<ItemDefinition>("Assets/ModularGridInventory/Samples/Catalog/item-mbss.asset");
+            var original = AssetDatabase.LoadAssetAtPath<ItemDefinition>("Assets/ModularGridInventory/Samples/Catalog/item-pack-small.asset");
             var item = UnityEngine.Object.Instantiate(original);
-            var container = UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<ContainerDefinition>("Assets/ModularGridInventory/Samples/Catalog/container-mbss.asset"));
+            var container = UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<ContainerDefinition>("Assets/ModularGridInventory/Samples/Catalog/container-pack-small.asset"));
             try
             {
                 var source = new SerializedObject(clone); source.FindProperty("items").GetArrayElementAtIndex(0).objectReferenceValue = item; source.ApplyModifiedPropertiesWithoutUndo();
