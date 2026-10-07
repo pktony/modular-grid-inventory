@@ -29,7 +29,7 @@ git clone https://github.com/pktony/modular-grid-inventory.git
 - [영문 설치 안내](Assets/ModularGridInventory/Documentation/QuickStart.md)
 - [공개 API·소유권·확장](Assets/ModularGridInventory/Documentation/API.md)
 - [새 아이콘 미리보기](Assets/ModularGridInventory/Documentation/Icons.html)
-- [리소스 출처와 라이선스](Assets/ModularGridInventory/Documentation/ThirdPartyNotices.md)
+- [리소스 출처와 라이선스](Assets/ModularGridInventory/Documentation/Third-Party_Notices.txt)
 - [현재 검증 결과](docs/package-validation.md)
 - [계획](PLAN.md) · [전체 흐름](docs/asset-store-flow.html)
 

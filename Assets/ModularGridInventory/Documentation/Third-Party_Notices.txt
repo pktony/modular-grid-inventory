@@ -20,4 +20,4 @@ Codex assisted with source code, package organization, documentation and test au
 
 Unity engine modules and uGUI/TextMeshPro are supplied by the host Unity project under Unity's licenses. The optional Input System add-on requires the host's Unity Input System package. These packages are not redistributed or installed automatically by this asset.
 
-The publisher must finalize its source distribution policy and Asset Store listing before publication. This notice records third-party resource provenance; it does not choose a new license for the project's original source.
+Asset Store distribution uses the standard Asset Store EULA for original content. The third-party resources retain their listed licenses.
