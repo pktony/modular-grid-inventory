@@ -7,12 +7,12 @@ namespace Pktony.GridInventory.Presentation
     public sealed class InventoryDragPresenter
     {
         private readonly RectTransform overlay, root;
-        private readonly InventoryUiTheme theme;
+        private readonly InventoryUiSettings theme;
         private readonly Image background, icon, containerHighlight;
         private readonly TextMeshProUGUI count;
         private InventorySectionView highlighted;
         private string highlightKey;
-        public InventoryDragPresenter(RectTransform overlay, RectTransform root, Image background, Image icon, TextMeshProUGUI count, Image containerHighlight, InventoryUiTheme theme)
+        public InventoryDragPresenter(RectTransform overlay, RectTransform root, Image background, Image icon, TextMeshProUGUI count, Image containerHighlight, InventoryUiSettings theme)
         { this.theme = theme; this.overlay = overlay; this.root = root; this.background = background; this.icon = icon; this.count = count; this.containerHighlight = containerHighlight; root.gameObject.SetActive(false); containerHighlight.gameObject.SetActive(false); }
         public void Show(ItemInstance item, InventoryDragState drag, Vector2 point, bool valid)
         {

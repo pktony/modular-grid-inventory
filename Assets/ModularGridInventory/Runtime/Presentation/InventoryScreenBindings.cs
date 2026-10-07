@@ -5,7 +5,7 @@ namespace Pktony.GridInventory.Presentation
 {
     public sealed class InventoryScreenBindings
     {
-        public InventoryUiTheme Theme;
+        public InventoryUiSettings Theme;
         public RectTransform Root;
         public InventoryInputEvents Events;
         public InventoryPanelBindings Stash;

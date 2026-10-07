@@ -5,8 +5,8 @@ namespace Pktony.GridInventory.Presentation
 {
     public sealed class InventoryElementFactory
     {
-        public InventoryUiTheme Theme { get; }
-        public InventoryElementFactory(InventoryUiTheme theme) { Theme = theme; }
+        public InventoryUiSettings Theme { get; }
+        public InventoryElementFactory(InventoryUiSettings theme) { Theme = theme; }
         public RectTransform Rect(string name, Transform parent, Vector2 position, Vector2 size)
         {
             var rect = new GameObject(name, typeof(RectTransform)).GetComponent<RectTransform>();

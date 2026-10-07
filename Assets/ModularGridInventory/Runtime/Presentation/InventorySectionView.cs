@@ -5,10 +5,10 @@ namespace Pktony.GridInventory.Presentation
     public sealed class InventorySectionView
     {
         private readonly Image[] cells;
-        private readonly InventoryPalette palette;
+        private readonly InventoryPaletteView palette;
         public InventorySectionGeometry Geometry { get; }
         public RectTransform ItemLayer { get; }
-        public InventorySectionView(InventorySectionGeometry geometry, Image[] cells, RectTransform itemLayer, InventoryPalette palette)
+        public InventorySectionView(InventorySectionGeometry geometry, Image[] cells, RectTransform itemLayer, InventoryPaletteView palette)
         { this.palette = palette; Geometry = geometry; this.cells = cells; ItemLayer = itemLayer; }
         public void Highlight(int x, int y, int width, int height, bool valid)
         {

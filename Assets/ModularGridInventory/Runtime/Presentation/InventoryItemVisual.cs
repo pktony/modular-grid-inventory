@@ -8,12 +8,12 @@ namespace Pktony.GridInventory.Presentation
     {
         public RectTransform Rect { get; }
         private readonly Image background, icon;
-        private readonly InventoryUiTheme theme;
+        private readonly InventoryUiSettings theme;
         private readonly Outline outline;
         private readonly TextMeshProUGUI quantity, title;
         private readonly CanvasGroup group;
         public InventoryItemVisual(RectTransform rect, Image background, Image icon, TextMeshProUGUI quantity,
-            TextMeshProUGUI title, CanvasGroup group, Outline outline, InventoryUiTheme theme)
+            TextMeshProUGUI title, CanvasGroup group, Outline outline, InventoryUiSettings theme)
         { this.theme = theme; Rect = rect; this.background = background; this.icon = icon; this.quantity = quantity; this.title = title; this.group = group; this.outline = outline; }
         public void Present(ItemInstance item, Domain.InventoryEntry entry, bool selected, bool dragging)
         {

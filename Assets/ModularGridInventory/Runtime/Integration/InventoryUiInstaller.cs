@@ -12,7 +12,7 @@ namespace Pktony.GridInventory
         public ContainerWindowManager Windows { get; }
         public InventoryInteractionController Interaction { get; }
         public ClickIndicator Indicator { get; }
-        public InventoryUiInstaller(InventoryRuntime runtime, Canvas canvas, InventoryUiTheme theme, IInventoryInputSource source)
+        public InventoryUiInstaller(InventoryRuntime runtime, Canvas canvas, InventoryUiSettings theme, IInventoryInputSource source)
         {
             var elements = new InventoryElementFactory(theme);
             var panels = new InventoryPanelFactory(elements); var items = new InventoryItemVisualFactory(elements);
