@@ -1,6 +1,20 @@
 # 패키지 후보 검증 기록
 
-2026-10-07 · `0.1.0-candidate` · 개발 프로젝트 실행·회귀 통과, 소비자 환경 검증 대기.
+2026-10-07 · `0.1.0` · 아래 후보 단계 기록 이후 실제 제출 번들의 새 URP 임포트와 검증 완료.
+
+## 제출 번들 검증
+
+Unity 6000.6.4f1의 공식 내보내기 API로 293개 에셋을 묶었다. 새 `ModularGridInventory-Submission-URP` 프로젝트에서 임포트 성공, Play Mode 24/24와 Input System 전용 모드 24/24가 통과했다. URP 17.6.0, uGUI 2.6.0, Input System 1.19.0을 사용했다. Domain Reload를 끄고 열 번 진입·종료했을 때 bootstrap 1개, 인스턴스 22개, 오디오 voice 6개가 유지됐다.
+
+공식 Asset Store Tools 12.0.0의 검사 34개가 경고·실패 없이 통과했다. Unity 6.6에서 제거된 API 세 종류만 공개 API로 바꿨으며 검사 규칙·임계값은 그대로다. 로컬 패치는 `Captures/assetstore-tools-unity66-compat.patch`에 기록했고 배포에 포함하지 않았다. 실제 스토어 심사 결과와 구분한다.
+
+기본 URP 씬과 충돌한 샘플 씬 GUID를 교체했다. Kenney CC0 효과음 21개는 16-bit PCM WAV로 변환하고 -1 dBFS 피크 제한 및 importer normalize 비활성화를 적용했다. 손실 압축 원본을 WAV로 바꾸는 것은 손실된 정보를 복원하지 않는다. 고지 파일을 `Third-Party_Notices.txt`로 변경했다.
+
+초기 소비자 임포트 전후의 호스트 ProjectSettings·manifest·렌더 파이프라인 해시가 동일했다. 이전 후보 OGG를 WAV로 변경한 업그레이드 시도는 Unity가 별도 GUID를 부여해 검증 성공으로 취급하지 않았다. 최종 결과는 기존 후보가 없는 새 프로젝트에서 확인했다.
+
+배치 실행에는 Unity Search 시작 시 예외와 네이티브 JobTempAlloc 종료 진단이 있었다. 모든 테스트는 통과했지만 후자의 발생 원인은 패키지 컴포넌트까지 추적하지 못했다. 다른 Unity 버전, HDRP, 폴더 이동, 사용자 데이터 보존 업그레이드, 모바일·게임패드는 미검증이다.
+
+로컬 증거: `Captures/assetstore-validator.json`, `assetstore-fresh-play.xml`, `assetstore-input-only-play.xml`, `assetstore-domain-reload-off.json`, `assetstore-host-settings-before.json`, `assetstore-host-settings-after.json`. 캡처·배포 파일은 Git과 고객 패키지에 포함하지 않는다.
 
 ## 확인한 결과
 
