@@ -16,6 +16,7 @@ namespace Pktony.GridInventory.Editor
         private void OnGUI()
         {
             catalog = (InventoryCatalogAsset)EditorGUILayout.ObjectField("Catalog", catalog, typeof(InventoryCatalogAsset), false);
+            if (GUILayout.Button("Create catalog...")) CreateCatalog();
             EditorGUILayout.HelpBox("Edits apply to the next session. Container policy and section layout are editable below. Select any catalog asset in your project.", MessageType.Info);
             if (!string.IsNullOrEmpty(validationError)) EditorGUILayout.HelpBox(validationError, MessageType.Error);
             if (catalog == null) return;
@@ -56,5 +57,12 @@ namespace Pktony.GridInventory.Editor
         }
         private void SetDetail(Object value)
         { detail = value; if (detailEditor != null) DestroyImmediate(detailEditor); detailEditor = value == null ? null : UnityEditor.Editor.CreateEditor(value); }
+        private void CreateCatalog()
+        {
+            var path = EditorUtility.SaveFilePanelInProject("Create inventory catalog", "InventoryCatalog", "asset", "Choose a location for your catalog.");
+            if (string.IsNullOrEmpty(path)) return;
+            catalog = CreateInstance<InventoryCatalogAsset>(); AssetDatabase.CreateAsset(catalog, path);
+            Selection.activeObject = catalog; validationError = null;
+        }
     }
 }
