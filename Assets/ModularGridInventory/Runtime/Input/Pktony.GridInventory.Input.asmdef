@@ -1,0 +1,6 @@
+{
+  "name": "Pktony.GridInventory.Input",
+  "references": [
+    "Pktony.GridInventory.Presentation"
+  ]
+}

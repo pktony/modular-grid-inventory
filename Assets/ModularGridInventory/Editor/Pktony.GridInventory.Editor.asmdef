@@ -1,1 +1,15 @@
-{"name": "Pktony.GridInventory.Editor", "references": ["Pktony.GridInventory.Runtime", "Pktony.GridInventory.Catalog", "Unity.ugui", "Unity.TextMeshPro", "Pktony.GridInventory.Domain", "Pktony.GridInventory.Presentation"], "includePlatforms": ["Editor"]}
+{
+  "name": "Pktony.GridInventory.Editor",
+  "references": [
+    "Pktony.GridInventory.Runtime",
+    "Pktony.GridInventory.Catalog",
+    "Unity.ugui",
+    "Unity.TextMeshPro",
+    "Pktony.GridInventory.Domain",
+    "Pktony.GridInventory.Presentation",
+    "Pktony.GridInventory.Input"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ]
+}

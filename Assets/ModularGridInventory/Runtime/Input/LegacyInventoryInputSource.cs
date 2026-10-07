@@ -1,5 +1,6 @@
 using UnityEngine;
-namespace Pktony.GridInventory.Presentation
+using Pktony.GridInventory.Presentation;
+namespace Pktony.GridInventory.InputAdapters
 {
     public sealed class LegacyInventoryInputSource : IInventoryInputSource
     {
