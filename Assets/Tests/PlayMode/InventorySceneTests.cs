@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
+using UnityEngine.TestTools.Utils;
 using UnityEngine.UI;
 namespace Pktony.GridInventory.Tests
 {
@@ -168,7 +169,7 @@ namespace Pktony.GridInventory.Tests
             ExecuteEvents.Execute(window.Header.gameObject, data, ExecuteEvents.beginDragHandler); data.position += new Vector2(100, -50);
             ExecuteEvents.Execute(window.Header.gameObject, data, ExecuteEvents.dragHandler); ExecuteEvents.Execute(window.Header.gameObject, data, ExecuteEvents.endDragHandler);
             var scale = window.Panel.Root.GetComponentInParent<Canvas>().scaleFactor;
-            Assert.That(window.Panel.Root.anchoredPosition, Is.EqualTo(previous + new Vector2(100, -50) / scale)); Assert.That(inventory.Windows.Frontmost, Is.SameAs(window));
+            Assert.That(window.Panel.Root.anchoredPosition, Is.EqualTo(previous + new Vector2(100, -50) / scale).Using(Vector2EqualityComparer.Instance)); Assert.That(inventory.Windows.Frontmost, Is.SameAs(window));
             Assert.That(State, Is.SameAs(before)); yield return null; LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator FrontWindowHeaderAndEmptySpaceBlockGridBehindIt()

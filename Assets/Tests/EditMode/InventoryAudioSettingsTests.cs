@@ -47,7 +47,7 @@ namespace Pktony.GridInventory.Tests
         }
         [Test] public void DefaultAssetCoversEveryActionAndItsClipsContainSamples()
         {
-            var asset = Resources.Load<InventoryAudioSettings>("InventoryAudioSettings"); Assert.That(asset, Is.Not.Null);
+            var asset = AssetDatabase.LoadAssetAtPath<InventoryAudioSettings>("Assets/ModularGridInventory/Samples/Settings/InventoryAudioSettings.asset"); Assert.That(asset, Is.Not.Null);
             foreach (InventoryFeedbackAction action in Enum.GetValues(typeof(InventoryFeedbackAction)))
                 Assert.That(asset.defaults.Any(b => b.action == action && b.clips.Any(c => c != null)), Is.True, action.ToString());
             var actualCatalog = new InventoryCatalogSnapshotFactory().Create(AssetDatabase.LoadAssetAtPath<InventoryCatalogAsset>("Assets/ModularGridInventory/Samples/Catalog/Catalog.asset"));
