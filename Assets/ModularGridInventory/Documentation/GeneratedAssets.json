@@ -4,13 +4,15 @@
     {
       "file": "Samples/Icons/Items/pack-small.png",
       "tool": "OpenAI imagegen (built-in)",
-      "prompt": "",
+      "prompt": null,
       "edit": "",
       "dimensions": [
         1292,
         1217
       ],
-      "sha256": "bf7891c75090b0bceb3fd09f45aef2dab53b01e67b0463ea42c7e92db5eb5958"
+      "sha256": "bf7891c75090b0bceb3fd09f45aef2dab53b01e67b0463ea42c7e92db5eb5958",
+      "creationBrief": "Fictional compact deep-blue expedition roll-top pack, charcoal straps, orange loop, original transparent inventory icon.",
+      "exactPromptRecorded": false
     },
     {
       "file": "Samples/Icons/Items/pack-large.png",
