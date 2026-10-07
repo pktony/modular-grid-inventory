@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 390a1071f193a6941ba2ca2d4fb66683, type: 3}
+  m_Name: Assault rifle 1
+  m_EditorClassIdentifier: InventorySystem.Runtime::InventorySystem.ItemDefinition
+  identifier: Assault rifle 1
+  displayName: Assault rifle 1
+  width: 4
+  height: 2
+  icon: {fileID: 21300000, guid: 969996df8cefb492db14e2a3e5670bf5, type: 3}
