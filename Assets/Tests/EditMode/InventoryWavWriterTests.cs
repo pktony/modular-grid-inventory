@@ -1,9 +1,9 @@
 using System;
 using System.IO;
 using System.Text;
-using InventorySystem.Editor;
+using Pktony.GridInventory.Editor;
 using NUnit.Framework;
-namespace InventorySystem.Tests
+namespace Pktony.GridInventory.Tests
 {
     public sealed class InventoryWavWriterTests
     {

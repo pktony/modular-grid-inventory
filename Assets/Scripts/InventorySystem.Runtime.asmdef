@@ -1,1 +1,0 @@
-{"name": "InventorySystem.Runtime", "references": ["InventorySystem.Catalog", "Unity.ugui", "Unity.TextMeshPro", "InventorySystem.Domain", "InventorySystem.Presentation"]}

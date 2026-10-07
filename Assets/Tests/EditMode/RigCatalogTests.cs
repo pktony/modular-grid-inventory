@@ -1,13 +1,13 @@
 using System.Linq;
-using InventorySystem.Domain;
+using Pktony.GridInventory.Domain;
 using NUnit.Framework;
 using UnityEditor;
-namespace InventorySystem.Tests
+namespace Pktony.GridInventory.Tests
 {
     public sealed class RigCatalogTests
     {
         private InventoryCatalog Catalog() => new InventoryCatalogSnapshotFactory().Create(
-            AssetDatabase.LoadAssetAtPath<InventoryCatalogAsset>("Assets/Items/Expansion/Catalog.asset"));
+            AssetDatabase.LoadAssetAtPath<InventoryCatalogAsset>("Assets/ModularGridInventory/Samples/Catalog/Catalog.asset"));
 
         [TestCase("rig-scav", 2, 3, 6, "0,0:1x1;1,0:1x2;2,0:1x2;3,0:1x1")]
         [TestCase("rig-micro", 2, 3, 8, "0,0:2x2;2,0:1x2;3,0:1x2")]

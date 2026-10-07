@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using InventorySystem.Domain;
-using InventorySystem.Presentation;
+using Pktony.GridInventory.Domain;
+using Pktony.GridInventory.Presentation;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
-namespace InventorySystem.Tests
+namespace Pktony.GridInventory.Tests
 {
     public sealed class ExpandedCatalogTests
     {
@@ -86,7 +86,7 @@ namespace InventorySystem.Tests
         }
         [Test] public void PresetCatalogHasNineteenDefinitionsAndTwentyBlackRockCells()
         {
-            var asset = AssetDatabase.LoadAssetAtPath<InventoryCatalogAsset>("Assets/Items/Expansion/Catalog.asset");
+            var asset = AssetDatabase.LoadAssetAtPath<InventoryCatalogAsset>("Assets/ModularGridInventory/Samples/Catalog/Catalog.asset");
             var catalog = new InventoryCatalogSnapshotFactory().Create(asset);
             Assert.That(catalog.Definitions.Count, Is.EqualTo(19));
             catalog.TryGet(new DefinitionId("rig"), out var rig); Assert.That(rig.Container.Sections.Sum(s => s.Width * s.Height), Is.EqualTo(20));
@@ -94,11 +94,11 @@ namespace InventorySystem.Tests
         }
         [Test] public void SourceContainerEditsDoNotChangeLiveSession()
         {
-            var asset = AssetDatabase.LoadAssetAtPath<InventoryCatalogAsset>("Assets/Items/Expansion/Catalog.asset");
+            var asset = AssetDatabase.LoadAssetAtPath<InventoryCatalogAsset>("Assets/ModularGridInventory/Samples/Catalog/Catalog.asset");
             var clone = UnityEngine.Object.Instantiate(asset);
-            var original = AssetDatabase.LoadAssetAtPath<ItemDefinition>("Assets/Items/Expansion/item-mbss.asset");
+            var original = AssetDatabase.LoadAssetAtPath<ItemDefinition>("Assets/ModularGridInventory/Samples/Catalog/item-mbss.asset");
             var item = UnityEngine.Object.Instantiate(original);
-            var container = UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<ContainerDefinition>("Assets/Items/Expansion/container-mbss.asset"));
+            var container = UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<ContainerDefinition>("Assets/ModularGridInventory/Samples/Catalog/container-mbss.asset"));
             try
             {
                 var source = new SerializedObject(clone); source.FindProperty("items").GetArrayElementAtIndex(0).objectReferenceValue = item; source.ApplyModifiedPropertiesWithoutUndo();
@@ -115,9 +115,9 @@ namespace InventorySystem.Tests
         [Test] public void PresentationCannotReferenceMutableRuntimeImplementation()
         {
             var names = typeof(InventoryInteractionController).Assembly.GetReferencedAssemblies().Select(a => a.Name).ToArray();
-            Assert.That(names, Does.Not.Contain("InventorySystem.Runtime"));
-            Assert.That(typeof(InventorySnapshot).Assembly.GetType("InventorySystem.Domain.InventorySession").IsNotPublic, Is.True);
-            Assert.That(typeof(InventorySnapshot).Assembly.GetReferencedAssemblies().Select(a => a.Name), Does.Not.Contain("InventorySystem.Presentation"));
+            Assert.That(names, Does.Not.Contain("Pktony.GridInventory.Runtime"));
+            Assert.That(typeof(InventorySnapshot).Assembly.GetType("Pktony.GridInventory.Domain.InventorySession").IsNotPublic, Is.True);
+            Assert.That(typeof(InventorySnapshot).Assembly.GetReferencedAssemblies().Select(a => a.Name), Does.Not.Contain("Pktony.GridInventory.Presentation"));
         }
     }
 }

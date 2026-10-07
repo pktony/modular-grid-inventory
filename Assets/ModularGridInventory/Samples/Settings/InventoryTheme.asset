@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98097a5b3bb74c1b8dd0328422f81440, type: 3}
+  m_Name: InventoryTheme
+  m_EditorClassIdentifier: Pktony.GridInventory.Presentation::Pktony.GridInventory.Presentation.InventoryUiTheme
+  font: {fileID: 11400000, guid: 3b235cebacccc3c42ab407b58d2f129a, type: 2}
+  palette:
+    Background: {r: 0.025, g: 0.027, b: 0.031, a: 1}
+    Panel: {r: 0.045, g: 0.049, b: 0.055, a: 1}
+    Cell: {r: 0.105, g: 0.114, b: 0.12, a: 1}
+    Item: {r: 0.15, g: 0.17, b: 0.17, a: 1}
+    Text: {r: 0.91, g: 0.94, b: 0.96, a: 1}
+    Muted: {r: 0.68, g: 0.72, b: 0.67, a: 1}
+    Accent: {r: 0.37, g: 0.86, b: 0.82, a: 1}
+    Border: {r: 0.3, g: 0.32, b: 0.33, a: 1}
+    Title: {r: 0.075, g: 0.079, b: 0.085, a: 1}
+    ActiveTitle: {r: 0.08, g: 0.2, b: 0.21, a: 1}
+    Close: {r: 0.3, g: 0.065, b: 0.05, a: 1}
+    ErrorText: {r: 1, g: 0.62, b: 0.52, a: 1}
+    Valid: {r: 0.18, g: 0.43, b: 0.25, a: 0.9}
+    Invalid: {r: 0.68, g: 0.23, b: 0.19, a: 0.9}
+  cellPitch: 50
+  cellGap: 2
+  heading: MODULAR / INVENTORY
+  rootTitle: STORAGE
+  showClickIndicator: 1
