@@ -38,7 +38,7 @@ namespace Pktony.GridInventory
             rootDefinition = new ContainerDefinitionSnapshotFactory().Create(rootContainer);
             runtime = new InventoryRuntime(definitions, rootDefinition, Debug.LogException);
             ResetState();
-            ui = new InventoryUiInstaller(runtime, canvas, theme, source);
+            ui = new InventoryUiInstaller(runtime, canvas, new InventoryUiSettings(theme), source);
             Screen.Reset.onClick.AddListener(ResetState);
             if (audioSettings == null) return;
             var audio = new GameObject("InventoryAudio"); audio.transform.SetParent(transform, false);
