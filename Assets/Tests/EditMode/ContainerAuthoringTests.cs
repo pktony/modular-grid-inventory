@@ -52,7 +52,7 @@ namespace Pktony.GridInventory.Tests
             {
                 var rules = data.FindProperty("sections").GetArrayElementAtIndex(1).FindPropertyRelative("policy");
                 rules.FindPropertyRelative("mode").enumValueIndex = 1;
-                var denied = rules.FindPropertyRelative("deniedItemIds"); denied.arraySize = 1; denied.GetArrayElementAtIndex(0).stringValue = "pst";
+                var denied = rules.FindPropertyRelative("deniedItemIds"); denied.arraySize = 1; denied.GetArrayElementAtIndex(0).stringValue = "ammo-light";
                 data.ApplyModifiedPropertiesWithoutUndo();
             }
             int index = session.Add(); var added = session.Read()[index]; Assert.That(added.Id, Is.EqualTo("pocket-2"));
