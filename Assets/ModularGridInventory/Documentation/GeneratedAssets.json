@@ -1,0 +1,214 @@
+{
+  "generationDate": "2026-10-07",
+  "assets": [
+    {
+      "file": "Samples/Icons/Items/pack-small.png",
+      "tool": "OpenAI imagegen (built-in)",
+      "prompt": "",
+      "edit": "",
+      "dimensions": [
+        1292,
+        1217
+      ],
+      "sha256": "bf7891c75090b0bceb3fd09f45aef2dab53b01e67b0463ea42c7e92db5eb5958"
+    },
+    {
+      "file": "Samples/Icons/Items/pack-large.png",
+      "tool": "OpenAI imagegen (built-in)",
+      "prompt": "Use case: product-mockup. Asset type: single standalone original Unity inventory item sprite. Subject: a large fictional hiking equipment backpack, warm ochre canvas body, charcoal reinforced base, straight rectangular silhouette, folded top flap and two broad front pockets, dark buckles, one teal fabric loop, full front three-quarter view; visually distinct from compact roll-top pack. High quality stylized 3D game render, crisp silhouette readable at 64 pixels, clean restrained materials with realistic fabric/plastic texture and soft studio light, same coherent modern expedition toolkit art style. Full object centered with transparent padding. No known game or branded product likeness, no person, no labels, letters, logo, watermark, scene, ground or shadow outside the object. Truly transparent PNG background; only one object.",
+      "edit": "",
+      "dimensions": [
+        1229,
+        1280
+      ],
+      "sha256": "7ee76dfeb848b668d0cc55c713e76cd81f9cfa0e0ce7137768b6d5d15dbfa7d7"
+    },
+    {
+      "file": "Samples/Icons/Items/case-ammo.png",
+      "tool": "OpenAI imagegen (built-in)",
+      "prompt": "Use case: product-mockup. Asset type: single standalone original Unity inventory item sprite. Subject: one compact closed fictional ammunition storage case, charcoal polymer shell with faceted beveled corners, short teal latches and orange carry handle, no writing, full object three-quarter view. High quality stylized 3D game render, crisp silhouette readable at 64 pixels, clean restrained materials with realistic fabric/plastic texture and soft studio light, same coherent modern expedition toolkit art style. Full object centered with transparent padding. No known game or branded product likeness, no person, no labels, letters, logo, watermark, scene, ground or shadow outside the object. Truly transparent PNG background; only one object.",
+      "edit": "",
+      "dimensions": [
+        1402,
+        1122
+      ],
+      "sha256": "4b15d0b462eddf0091113bf7324b8fe6701f06586e73595f62dcfabddc8ac3b2"
+    },
+    {
+      "file": "Samples/Icons/Items/case-medical.png",
+      "tool": "OpenAI imagegen (built-in)",
+      "prompt": "Use case: product-mockup. Asset type: single standalone original Unity inventory item sprite. Subject: one medium closed fictional field medical supply case, off-white polymer clamshell, teal band, orange latch, subtle simple unbranded orange square marking, no cross, no writing, full object three-quarter view. High quality stylized 3D game render, crisp silhouette readable at 64 pixels, clean restrained materials with realistic fabric/plastic texture and soft studio light, same coherent modern expedition toolkit art style. Full object centered with transparent padding. No known game or branded product likeness, no person, no labels, letters, logo, watermark, scene, ground or shadow outside the object. Truly transparent PNG background; only one object.",
+      "edit": "Remove background glow/shadow; preserve original object, transparent alpha outside.",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "sha256": "e5ca0c7819818643ae5da7cb25aa98e6de3d2e64ee14d8f5c0437ff86c9d288d"
+    },
+    {
+      "file": "Samples/Icons/Items/ammo-light.png",
+      "tool": "OpenAI imagegen (built-in)",
+      "prompt": "Original game inventory icon asset, single centered object: Two short fictional brass training cartridges with teal polymer tips, upright parallel, no real caliber marks. Cohesive clean stylized 3D expedition equipment, simplified readable silhouette at 64 pixels, soft upper-left studio lighting, sharp object contours, full object with padding. Truly transparent alpha background, no backdrop, no floor, no cast shadow outside object, no text, logo, watermark, brand, or game reference. Do not copy any existing game artwork.",
+      "edit": "",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "4630348f9f27ade1aa96aac284092faa481f593b53ac03d315ee6014278bce8f"
+    },
+    {
+      "file": "Samples/Icons/Items/ammo-heavy.png",
+      "tool": "OpenAI imagegen (built-in)",
+      "prompt": "Original game inventory icon asset, single centered object: Three fictional long graphite training cartridges with amber tips, staggered upright, no real caliber marks. Cohesive clean stylized 3D expedition equipment, simplified readable silhouette at 64 pixels, soft upper-left studio lighting, sharp object contours, full object with padding. Truly transparent alpha background, no backdrop, no floor, no cast shadow outside object, no text, logo, watermark, brand, or game reference. Do not copy any existing game artwork.",
+      "edit": "",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "28ff3467b61026a50d56fc055c6e00e5de97b715dc058607c7f78afb77bbc406"
+    },
+    {
+      "file": "Samples/Icons/Items/medical-kit.png",
+      "tool": "OpenAI imagegen (built-in)",
+      "prompt": "Original game inventory icon asset, single centered object: A soft rounded teal first aid pouch with an orange zipper and cream front inset, without symbols. Cohesive clean stylized 3D expedition equipment, simplified readable silhouette at 64 pixels, soft upper-left studio lighting, sharp object contours, full object with padding. Truly transparent alpha background, no backdrop, no floor, no cast shadow outside object, no text, logo, watermark, brand, or game reference. Do not copy any existing game artwork.",
+      "edit": "",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "bfe7f5d5a59d5a0f980546d802ea2e088856fc0342bcf836048e044ad2a9e89e"
+    },
+    {
+      "file": "Samples/Icons/Items/carbine.png",
+      "tool": "OpenAI imagegen (built-in)",
+      "prompt": "Original game inventory icon asset, single centered object: A wholly fictional compact modular sci-fi carbine in graphite and teal, short squared barrel, smooth geometric receiver, amber small safety inset, side profile pointing left, no real firearm replica. Cohesive clean stylized 3D expedition equipment, simplified readable silhouette at 64 pixels, soft upper-left studio lighting, sharp object contours, full object with padding. Truly transparent alpha background, no backdrop, no floor, no cast shadow outside object, no text, logo, watermark, brand, or game reference. Do not copy any existing game artwork.",
+      "edit": "Remove background glow/shadow; preserve original object, transparent alpha outside.",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "sha256": "8613e0f4d456a1450e781603eeec13308ec1faee868bd273f20e307a66c75fa8"
+    },
+    {
+      "file": "Samples/Icons/Items/grip.png",
+      "tool": "OpenAI imagegen (built-in)",
+      "prompt": "Original game inventory icon asset, single centered object: A short rail-mounted charcoal angled grip with a teal inset, abstract ergonomic triangular profile, side profile. Cohesive clean stylized 3D expedition equipment, simplified readable silhouette at 64 pixels, soft upper-left studio lighting, sharp object contours, full object with padding. Truly transparent alpha background, no backdrop, no floor, no cast shadow outside object, no text, logo, watermark, brand, or game reference. Do not copy any existing game artwork.",
+      "edit": "",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "8be19c03a651b0b81f8ada0fea1cc656b8d61f0a3e77af1a70645ca305702825"
+    },
+    {
+      "file": "Samples/Icons/Carriers/rig-compact.png",
+      "tool": "OpenAI imagegen (built-in)",
+      "prompt": "Original Unity game inventory icon: compact teal utility chest apron with three small vertical front pockets. Fictional non-military expedition utility equipment, no person, front three-quarter view, single full centered object, generous transparent margin. Cohesive clean stylized 3D graphite/teal/amber palette, soft studio lighting, simple readable silhouette at 64px. Truly transparent alpha background, no floor or background glow, no shadow outside the object, no text, logos, brands, real model references, or copied existing game artwork.",
+      "edit": "",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "409a549b74b393ba05f5ee8c264ccedb9c59f08b3f0292a0925176af76c0bc7f"
+    },
+    {
+      "file": "Samples/Icons/Carriers/rig-micro.png",
+      "tool": "OpenAI imagegen (built-in)",
+      "prompt": "Original Unity game inventory icon: small amber canvas tool harness with four square pockets. Fictional non-military expedition utility equipment, no person, front three-quarter view, single full centered object, generous transparent margin. Cohesive clean stylized 3D graphite/teal/amber palette, soft studio lighting, simple readable silhouette at 64px. Truly transparent alpha background, no floor or background glow, no shadow outside the object, no text, logos, brands, real model references, or copied existing game artwork.",
+      "edit": "",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "6ef7c759c4e63edb64da45ec4eff9f492ad3dbb5b30e5455e5b825b31e13d48c"
+    },
+    {
+      "file": "Samples/Icons/Carriers/rig-field.png",
+      "tool": "OpenAI imagegen (built-in)",
+      "prompt": "Original Unity game inventory icon: graphite field organizer harness with two tall central pouches and two short side pockets. Fictional non-military expedition utility equipment, no person, front three-quarter view, single full centered object, generous transparent margin. Cohesive clean stylized 3D graphite/teal/amber palette, soft studio lighting, simple readable silhouette at 64px. Truly transparent alpha background, no floor or background glow, no shadow outside the object, no text, logos, brands, real model references, or copied existing game artwork.",
+      "edit": "",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "6a2c12ed9a0806c8969632043d320024823ccd0f156035dae660be93a69ef0b1"
+    },
+    {
+      "file": "Samples/Icons/Carriers/rig-scout.png",
+      "tool": "OpenAI imagegen (built-in)",
+      "prompt": "Original Unity game inventory icon: deep blue lightweight expedition harness with six slim pockets and orange pull loops. Fictional non-military expedition utility equipment, no person, front three-quarter view, single full centered object, generous transparent margin. Cohesive clean stylized 3D graphite/teal/amber palette, soft studio lighting, simple readable silhouette at 64px. Truly transparent alpha background, no floor or background glow, no shadow outside the object, no text, logos, brands, real model references, or copied existing game artwork.",
+      "edit": "",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "a627f0afd5d686dee904ae39c7a8393c323456b5543590a65063b25bc13aae93"
+    },
+    {
+      "file": "Samples/Icons/Carriers/rig-explorer.png",
+      "tool": "OpenAI imagegen (built-in)",
+      "prompt": "Original Unity game inventory icon: cream expedition vest with two long side pockets and four teal front pockets. Fictional non-military expedition utility equipment, no person, front three-quarter view, single full centered object, generous transparent margin. Cohesive clean stylized 3D graphite/teal/amber palette, soft studio lighting, simple readable silhouette at 64px. Truly transparent alpha background, no floor or background glow, no shadow outside the object, no text, logos, brands, real model references, or copied existing game artwork.",
+      "edit": "",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "7f944ba753152614db8087353ba27f1afe9a2da3b217f88184327c375b565e0b"
+    },
+    {
+      "file": "Samples/Icons/Carriers/rig.png",
+      "tool": "OpenAI imagegen (built-in)",
+      "prompt": "Original Unity game inventory icon: teal modular utility carrier with four tall front pouches and two small upper pockets. Fictional non-military expedition utility equipment, no person, front three-quarter view, single full centered object, generous transparent margin. Cohesive clean stylized 3D graphite/teal/amber palette, soft studio lighting, simple readable silhouette at 64px. Truly transparent alpha background, no floor or background glow, no shadow outside the object, no text, logos, brands, real model references, or copied existing game artwork.",
+      "edit": "",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "a198434603b67f2ee854a49cfd0be8641f564efbdfa4c037dbdb354c30e39754"
+    },
+    {
+      "file": "Samples/Icons/Carriers/rig-utility.png",
+      "tool": "OpenAI imagegen (built-in)",
+      "prompt": "Original Unity game inventory icon: ochre tool carrier vest with three wide double-height pouches. Fictional non-military expedition utility equipment, no person, front three-quarter view, single full centered object, generous transparent margin. Cohesive clean stylized 3D graphite/teal/amber palette, soft studio lighting, simple readable silhouette at 64px. Truly transparent alpha background, no floor or background glow, no shadow outside the object, no text, logos, brands, real model references, or copied existing game artwork.",
+      "edit": "",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "7936c391ccf0cb12581110fb44b73881fd9faab824d77d9b6e79062c885df335"
+    },
+    {
+      "file": "Samples/Icons/Carriers/rig-extended.png",
+      "tool": "OpenAI imagegen (built-in)",
+      "prompt": "Original Unity game inventory icon: graphite full-width equipment vest with asymmetrical teal large pockets. Fictional non-military expedition utility equipment, no person, front three-quarter view, single full centered object, generous transparent margin. Cohesive clean stylized 3D graphite/teal/amber palette, soft studio lighting, simple readable silhouette at 64px. Truly transparent alpha background, no floor or background glow, no shadow outside the object, no text, logos, brands, real model references, or copied existing game artwork.",
+      "edit": "",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "0ee2960818fa2a8126cd98cf9fe9a36ecbd5862fe6fb249f457ad2d5e0db4157"
+    },
+    {
+      "file": "Samples/Icons/Carriers/rig-patrol.png",
+      "tool": "OpenAI imagegen (built-in)",
+      "prompt": "Original Unity game inventory icon: blue-grey patrol utility harness with eight varied pockets and orange zipper details. Fictional non-military expedition utility equipment, no person, front three-quarter view, single full centered object, generous transparent margin. Cohesive clean stylized 3D graphite/teal/amber palette, soft studio lighting, simple readable silhouette at 64px. Truly transparent alpha background, no floor or background glow, no shadow outside the object, no text, logos, brands, real model references, or copied existing game artwork.",
+      "edit": "",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "sha256": "da3bb5c4d48447ac8d0ac25bca2c754b4cac7437dffc7b548def77b13c696012"
+    },
+    {
+      "file": "Samples/Icons/Carriers/rig-belt.png",
+      "tool": "OpenAI imagegen (built-in)",
+      "prompt": "Original Unity game inventory icon: teal wraparound waist tool belt with four large curved pouches and amber small pockets. Fictional non-military expedition utility equipment, no person, front three-quarter view, single full centered object, generous transparent margin. Cohesive clean stylized 3D graphite/teal/amber palette, soft studio lighting, simple readable silhouette at 64px. Truly transparent alpha background, no floor or background glow, no shadow outside the object, no text, logos, brands, real model references, or copied existing game artwork.",
+      "edit": "Remove background glow/shadow; preserve original object, transparent alpha outside.",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "sha256": "6a7109a3fa60e5aa3fbfab0f3f1dbd8cc9da939a7a17410d055da8993283feac"
+    }
+  ]
+}

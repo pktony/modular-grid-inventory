@@ -117,7 +117,7 @@ MonoBehaviour:
     x: 6
     y: 12
     rotated: 0
-  - key: rig-scav
+  - key: rig-compact
     item: {fileID: 11400000, guid: 60d2c31cf750b50449c41f61cd9b1647, type: 2}
     quantity: 1
     parentKey: 
@@ -133,7 +133,7 @@ MonoBehaviour:
     x: 5
     y: 20
     rotated: 0
-  - key: rig-wartech
+  - key: rig-field
     item: {fileID: 11400000, guid: 1d348bfc1b4dd1c40acfe37e3076d73c, type: 2}
     quantity: 1
     parentKey: 
@@ -149,7 +149,7 @@ MonoBehaviour:
     x: 5
     y: 25
     rotated: 0
-  - key: rig-d3crx
+  - key: rig-explorer
     item: {fileID: 11400000, guid: e7ec57caff046444897f527c3c38ee49, type: 2}
     quantity: 1
     parentKey: 
@@ -157,7 +157,7 @@ MonoBehaviour:
     x: 0
     y: 30
     rotated: 0
-  - key: rig-mk3
+  - key: rig-utility
     item: {fileID: 11400000, guid: f51e9812081d3d441b7c3d016136f3c1, type: 2}
     quantity: 1
     parentKey: 
@@ -165,7 +165,7 @@ MonoBehaviour:
     x: 5
     y: 30
     rotated: 0
-  - key: rig-alpha
+  - key: rig-extended
     item: {fileID: 11400000, guid: 6043e26c5b67dd24dafa4c5394fe4bd3, type: 2}
     quantity: 1
     parentKey: 
@@ -173,7 +173,7 @@ MonoBehaviour:
     x: 0
     y: 35
     rotated: 0
-  - key: rig-mppv
+  - key: rig-patrol
     item: {fileID: 11400000, guid: d9bb557e072ef214a83b340b44330b35, type: 2}
     quantity: 1
     parentKey: 

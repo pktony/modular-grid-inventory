@@ -9,13 +9,13 @@ namespace Pktony.GridInventory
         {
             using var runtime = new InventoryRuntime(catalog, StashDefinition());
             var root = runtime.ReadModel.Snapshot.RootContainerId;
-            var berkut = Add(runtime, "berkut", root, 0, 0);
-            Add(runtime, "berkut", root, 5, 0);
-            var mbss = Add(runtime, "mbss", runtime.ReadModel.Snapshot.Items[berkut].ChildContainerId, 0, 0);
-            Add(runtime, "ai2", runtime.ReadModel.Snapshot.Items[mbss].ChildContainerId, 0, 0);
-            Add(runtime, "ammo-case", root, 0, 6); Add(runtime, "medicine-case", root, 3, 6); Add(runtime, "rig", root, 6, 6);
-            Add(runtime, "aks74u", root, 0, 11); Add(runtime, "pst", root, 5, 11, 40); Add(runtime, "pst", root, 6, 11, 20);
-            Add(runtime, "ps", root, 7, 11, 30); Add(runtime, "ai2", root, 5, 12); Add(runtime, "rk0", root, 6, 12);
+            var berkut = Add(runtime, "pack-large", root, 0, 0);
+            Add(runtime, "pack-large", root, 5, 0);
+            var mbss = Add(runtime, "pack-small", runtime.ReadModel.Snapshot.Items[berkut].ChildContainerId, 0, 0);
+            Add(runtime, "medical-kit", runtime.ReadModel.Snapshot.Items[mbss].ChildContainerId, 0, 0);
+            Add(runtime, "case-ammo", root, 0, 6); Add(runtime, "case-medical", root, 3, 6); Add(runtime, "rig", root, 6, 6);
+            Add(runtime, "carbine", root, 0, 11); Add(runtime, "ammo-light", root, 5, 11, 40); Add(runtime, "ammo-light", root, 6, 11, 20);
+            Add(runtime, "ammo-heavy", root, 7, 11, 30); Add(runtime, "medical-kit", root, 5, 12); Add(runtime, "grip", root, 6, 12);
             new RigDemoSeed().Add(runtime, catalog);
             return runtime.ReadModel.Snapshot;
         }

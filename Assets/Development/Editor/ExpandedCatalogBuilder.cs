@@ -18,8 +18,8 @@ namespace Pktony.GridInventory.Editor
         {
             Directory.CreateDirectory(Folder); AssetDatabase.Refresh();
             var categories = new Dictionary<string, ItemCategoryDefinition>();
-            foreach (var id in new[] { "Weapon", "Weapon/AssaultRifle", "Consumable", "Consumable/Medical", "Consumable/Medical/Medkit",
-                "Consumable/Food", "Consumable/Drink", "Ammo", "Ammo/9x19", "Ammo/5.45x39", "WeaponPart", "WeaponPart/Foregrip",
+            foreach (var id in new[] { "Weapon", "Weapon/Carbine", "Consumable", "Consumable/Medical", "Consumable/Medical/Medkit",
+                "Consumable/Food", "Consumable/Drink", "Ammo", "Ammo/Light", "Ammo/Heavy", "WeaponPart", "WeaponPart/Foregrip",
                 "Container", "Container/Backpack", "Container/Case", "Container/Rig" })
             {
                 var asset = InventoryAssetStore.GetOrCreate<ItemCategoryDefinition>("category-" + id.Replace('/', '-').Replace('.', '-'));
@@ -27,20 +27,20 @@ namespace Pktony.GridInventory.Editor
                 CategoryAssetWriter.Write(asset, id, id.Split('/').Last(), slash < 0 ? null : categories[id.Substring(0, slash)]);
                 categories.Add(id, asset);
             }
-            var mbss = Container("mbss", new[] { ("main", 4, 4, 0f, 0f) });
-            var berkut = Container("berkut", new[] { ("main", 4, 5, 0f, 0f) });
-            var ammo = Container("ammo-case", new[] { ("main", 7, 7, 0f, 0f) }, categories["Ammo"]);
-            var medical = Container("medicine-case", new[] { ("main", 7, 7, 0f, 0f) }, categories["Consumable/Medical"]);
+            var mbss = Container("pack-small", new[] { ("main", 4, 4, 0f, 0f) });
+            var berkut = Container("pack-large", new[] { ("main", 4, 5, 0f, 0f) });
+            var ammo = Container("case-ammo", new[] { ("main", 7, 7, 0f, 0f) }, categories["Ammo"]);
+            var medical = Container("case-medical", new[] { ("main", 7, 7, 0f, 0f) }, categories["Consumable/Medical"]);
             var items = new[] {
-                Item("mbss", "Flyye MBSS", categories["Container/Backpack"], 4, 4, 1, mbss),
-                Item("berkut", "WARTECH Berkut", categories["Container/Backpack"], 4, 5, 1, berkut),
-                Item("ammo-case", "Ammunition case", categories["Container/Case"], 2, 2, 1, ammo),
-                Item("medicine-case", "Medicine case", categories["Container/Case"], 3, 3, 1, medical),
-                Item("pst", "9x19 Pst gzh", categories["Ammo/9x19"], 1, 1, 50),
-                Item("ps", "5.45x39 PS gs", categories["Ammo/5.45x39"], 1, 1, 60),
-                Item("ai2", "AI-2 medkit", categories["Consumable/Medical/Medkit"], 1, 1, 1),
-                Item("aks74u", "AKS-74U", categories["Weapon/AssaultRifle"], 4, 2, 1),
-                Item("rk0", "Zenit RK-0", categories["WeaponPart/Foregrip"], 1, 1, 1) }
+                Item("pack-small", "Compact Expedition Pack", categories["Container/Backpack"], 4, 4, 1, mbss),
+                Item("pack-large", "Large Expedition Pack", categories["Container/Backpack"], 4, 5, 1, berkut),
+                Item("case-ammo", "Ammunition Case", categories["Container/Case"], 2, 2, 1, ammo),
+                Item("case-medical", "Medical Case", categories["Container/Case"], 3, 3, 1, medical),
+                Item("ammo-light", "Light Ammunition", categories["Ammo/Light"], 1, 1, 50),
+                Item("ammo-heavy", "Heavy Ammunition", categories["Ammo/Heavy"], 1, 1, 60),
+                Item("medical-kit", "Field Medical Kit", categories["Consumable/Medical/Medkit"], 1, 1, 1),
+                Item("carbine", "Modular Carbine", categories["Weapon/Carbine"], 4, 2, 1),
+                Item("grip", "Rail Grip", categories["WeaponPart/Foregrip"], 1, 1, 1) }
                 .Concat(RigCatalogBuilder.Build(categories["Container/Rig"])).ToArray();
             var catalog = InventoryAssetStore.GetOrCreate<InventoryCatalogAsset>("Catalog"); var source = new SerializedObject(catalog);
             InventorySerializedFields.References(source.FindProperty("categories"), categories.Values.Cast<UnityEngine.Object>().ToArray());
