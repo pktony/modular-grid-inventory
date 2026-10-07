@@ -6,10 +6,10 @@ The source package is under development. Compilation is not equivalent to a succ
 |---|---|
 | Package/development separation | Explicit asset root; capture/build tools outside it |
 | C# compilation | Offline compiler against installed Unity 6000.6.4f1 and cached uGUI assemblies |
-| Existing tests | Source compilation checked; post-migration execution pending |
-| New integration tests | Seed ordering, missing parents, cycles, noncontainer parents, atomic failure, independent IDs and frozen themes; execution pending |
+| Existing tests | Unity 6000.6.4f1: Edit Mode 101/101, Play Mode 24/24 passed |
+| New integration tests | All 10 passed within the Edit Mode suite; seed ordering, missing parents, cycles, noncontainer parents, atomic failure, independent IDs and frozen themes |
 | Icons | 19 generated RGBA PNGs, preserved asset GUIDs, recorded hashes |
-| Unity asset import / shader render | Pending |
+| Unity asset import / shader render | Development project imported; sample icons, text and bag window rendered in Play Mode; clean consumer import pending |
 | New consumer project / settings preservation | Pending |
 | Optional Input System assembly with package installed | Pending |
 | Unity 6000.0, URP/HDRP, Domain Reload off | Pending |

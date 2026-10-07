@@ -22,7 +22,9 @@ namespace Pktony.GridInventory.Tests
         {
             yield return SceneManager.LoadSceneAsync("Inventory"); yield return null;
             inventory = Object.FindAnyObjectByType<InventoryBootstrapper>(); inventory.enabled = false;
-            settings = Resources.Load<InventoryAudioSettings>("InventoryAudioSettings"); probe = new InventoryAudioProbe();
+            settings = (InventoryAudioSettings)typeof(InventoryBootstrapper).GetField("audioSettings",
+                System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).GetValue(inventory);
+            Assert.That(settings, Is.Not.Null); probe = new InventoryAudioProbe();
             var catalog = (InventoryCatalog)typeof(InventoryBootstrapper).GetField("definitions",
                 System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).GetValue(inventory);
             observer = new InventorySoundPresenter(inventory.ReadModel, inventory.Interaction, inventory.Windows, inventory.Screen,

@@ -51,4 +51,4 @@ Keep user-created data in your own folder so updating the supplied samples canno
 - Text is missing: assign the Theme font and verify uGUI/TMP installation. The sample font uses its bundled UI SDF shader.
 - No sound: assign Audio Settings, check mute/volume and use one enabled AudioListener.
 - Drop rejected: read the status message; pocket bounds, occupancy, stack limits, category rules and container ancestry are enforced.
-- Asset Store readiness: this candidate still requires Unity execution, clean import and Publisher validator checks. See `ReleaseChecklist.md`.
+- Asset Store readiness: the development sample and regression suites passed in Unity 6000.6.4f1; clean consumer import, compatibility matrix and Publisher validator checks remain. See `ReleaseChecklist.md`.

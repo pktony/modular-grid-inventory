@@ -1,0 +1,30 @@
+{
+  "unityVersion": "6000.6.4f1",
+  "scope": "existing development project",
+  "tests": [
+    {
+      "jobId": "62d582d0dec144edac43b1e77c65b1bc",
+      "finishedUnixMs": 1791361177930,
+      "total": 101,
+      "passed": 101,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 0.4326594,
+      "resultState": "Passed",
+      "mode": "EditMode"
+    },
+    {
+      "jobId": "3204a50715b44dceb589f200320f6023",
+      "finishedUnixMs": 1791361199395,
+      "total": 24,
+      "passed": 24,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 4.3279578,
+      "resultState": "Passed",
+      "mode": "PlayMode"
+    }
+  ],
+  "cleanConsumerImportVerified": false,
+  "publisherValidatorExecuted": false
+}
