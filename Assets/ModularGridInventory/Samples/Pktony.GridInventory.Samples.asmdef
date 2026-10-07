@@ -1,0 +1,5 @@
+{
+  "name": "Pktony.GridInventory.Samples",
+  "rootNamespace": "Pktony.GridInventory.Samples",
+  "references": ["Pktony.GridInventory.Runtime", "Pktony.GridInventory.Catalog", "Pktony.GridInventory.Domain"]
+}
