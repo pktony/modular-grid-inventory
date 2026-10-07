@@ -1,3 +1,4 @@
+using Pktony.GridInventory.InputAdapters;
 using System;
 using Pktony.GridInventory.Domain;
 using Pktony.GridInventory.Presentation;
