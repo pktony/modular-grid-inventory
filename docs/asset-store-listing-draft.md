@@ -1,6 +1,6 @@
 # Modular Grid Inventory — 제출 문구 초안
 
-상태: 0.1.0 후보. 설치·실행·렌더링·Publisher Validator 검증 전까지 게시하지 않는다.
+상태: 0.1.0 후보. 개발 프로젝트 실행·회귀는 통과했으며 깨끗한 소비자 설치·호환성 행렬·Publisher Validator 검증 전까지 게시하지 않는다.
 
 ## Description
 
