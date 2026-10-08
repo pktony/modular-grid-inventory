@@ -22,7 +22,7 @@ Unity MCP, rounded-corner plugins and recording tools are not dependencies. Impo
 
 The sample has 19 definitions, 22 instances and 10 distinct carrier layouts. Packs accept nested containers; cases demonstrate category restrictions. Reset replaces all sample instances and closes their windows.
 
-For Input System only projects, import the separate Input System add-on after installing your project's compatible `com.unity.inputsystem` version. Add `InputSystemInventoryInputSource` to the bootstrap object and assign it to Input Source. Use `InputSystemUIInputModule` instead of `StandaloneInputModule` on the EventSystem. The package never changes Active Input Handling automatically.
+The Asset Store bundle includes an optional Input System adapter under `Integrations/InputSystem`, which compiles only when the host has Input System installed and enabled. The repository export window also offers it as a separate add-on. For Input System only projects, install your project's compatible `com.unity.inputsystem` version, add `InputSystemInventoryInputSource` to the bootstrap object and assign it to Input Source. Use `InputSystemUIInputModule` instead of `StandaloneInputModule` on the EventSystem. The package never changes Active Input Handling automatically.
 
 ## Integrate into your scene
 
@@ -51,4 +51,4 @@ Keep user-created data in your own folder so updating the supplied samples canno
 - Text is missing: assign the Theme font and verify uGUI/TMP installation. The sample font uses its bundled UI SDF shader.
 - No sound: assign Audio Settings, check mute/volume and use one enabled AudioListener.
 - Drop rejected: read the status message; pocket bounds, occupancy, stack limits, category rules and container ancestry are enforced.
-- Asset Store readiness: the development sample and regression suites passed in Unity 6000.6.4f1; clean consumer import, compatibility matrix and Publisher validator checks remain. See `ReleaseChecklist.md`.
+- Validation: fresh URP import, Play Mode suites, Input System only, ten Domain Reload disabled cycles and 34 publishing validator rules passed in Unity 6000.6.4f1. See `ReleaseChecklist.md` for scope and remaining limitations.

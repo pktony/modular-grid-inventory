@@ -1,6 +1,6 @@
 # 0.1.0 Candidate Validation
 
-The source package is under development. Compilation is not equivalent to a successful Unity import, Play Mode test or Asset Store validator pass.
+Validated on Windows with Unity 6000.6.4f1. Local testing and Asset Store review are separate processes.
 
 | Check | Current evidence |
 |---|---|
@@ -9,23 +9,22 @@ The source package is under development. Compilation is not equivalent to a succ
 | Existing tests | Unity 6000.6.4f1: Edit Mode 101/101, Play Mode 24/24 passed |
 | New integration tests | All 10 passed within the Edit Mode suite; seed ordering, missing parents, cycles, noncontainer parents, atomic failure, independent IDs and frozen themes |
 | Icons | 19 generated RGBA PNGs, preserved asset GUIDs, recorded hashes |
-| Unity asset import / shader render | Development project imported; sample icons, text and bag window rendered in Play Mode; clean consumer import pending |
-| New consumer project / settings preservation | Pending |
-| Optional Input System assembly with package installed | Pending |
-| Unity 6000.0, URP/HDRP, Domain Reload off | Pending |
-| Asset Store Publishing Tools validator | Pending |
+| Unity asset import / shader render | Native export of 293 assets imported into a fresh URP consumer; Built-in development sample rendered with icons, text and windows |
+| New consumer project / settings preservation | Fresh URP Play Mode 24/24 passed; initial consumer import preserved host settings, manifest and render-pipeline hashes |
+| Optional Input System assembly with package installed | Input System 1.19.0 only, adapter and UI module configured; Play Mode 24/24 passed |
+| URP and Domain Reload off | URP 17.6.0 passed; ten enter/exit cycles retained one bootstrap, 22 instances and six audio voices without accumulation |
+| Asset Store Publishing Tools validator | 34/34 rules passed with zero validator warnings/failures; Tools 12.0.0 with public-API compatibility changes for Unity 6.6 |
+| Unity 6000.0, HDRP, relocation and upgrades | Unverified; no compatibility claim |
 
-## Required execution before submission
+## Validation scope and limitations
 
-1. Run Edit and Play Mode suites after import. Check the Console for package errors/warnings and the supplied font shader for rendering/clipping errors.
-2. Import the core package into a new Unity 6000.6.4f1 URP project with uGUI, then repeat in HDRP. Confirm icons, fonts, audio, container windows and rejection reasons.
-3. Test Legacy, Both and Input System only with the separate adapter. Confirm the core compiles without the optional package.
-4. Repeat Play ten times with Domain Reload enabled and disabled; inspect subscriptions, windows and AudioSources for accumulation.
-5. Test two independent inventories, scene changes and component destruction. Compare host ProjectSettings, build settings, scenes and package manifest before/after import.
-6. Move the package folder, reimport, then test an upgrade without replacing user-created data.
-7. Run Unity Asset Store Publishing Tools validation. Resolve findings, re-export through the package export window and repeat the same clean-consumer checks.
+Asset Store Tools 12.0.0 required three public-API compatibility changes: GUID generation, asset lookup and preview-loading identifiers. Validation rules and thresholds were unchanged. This is not certification by Unity.
 
-Use **Tools → Modular Grid Inventory → Export Package** for explicit Unity export. Core and Input System add-on are separate packages. Repository-side candidate archives are preliminary and must be import-tested before release.
+Batch runs also emitted Unity Search startup and native JobTempAlloc shutdown diagnostics. Assertions passed; the native diagnostic has not been traced to a package component. Other Unity versions, HDRP, custom pipelines, mobile and gamepad remain unverified. Folder relocation and upgrades preserving custom data are also unverified; keep user assets outside the supplied samples.
+
+The sample scene GUID was replaced after detecting a collision with the official URP template. The 21 CC0 sounds use 16-bit PCM WAV with -1 dBFS peak limiting and importer normalization disabled.
+
+The Asset Store bundle includes the optional Input System adapter. Repository exports offer separate core and add-on packages through **Tools → Modular Grid Inventory → Export Package**. TMP Essential Resources, EventSystem and its input module belong to the host project.
 
 Submission requirements: https://assetstore.unity.com/publishing/submission-guidelines
 
