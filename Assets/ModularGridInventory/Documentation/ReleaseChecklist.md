@@ -22,7 +22,7 @@ Asset Store Tools 12.0.0 required three public-API compatibility changes: GUID g
 
 Batch runs also emitted Unity Search startup and native JobTempAlloc shutdown diagnostics. Assertions passed; the native diagnostic has not been traced to a package component. Other Unity versions, HDRP, custom pipelines, mobile and gamepad remain unverified. Folder relocation and upgrades preserving custom data are also unverified; keep user assets outside the supplied samples.
 
-The sample scene GUID was replaced after detecting a collision with the official URP template. The 21 CC0 sounds use 16-bit PCM WAV with -1 dBFS peak limiting and importer normalization disabled.
+The sample scene GUID was replaced after detecting a collision with the official URP template. As of 2026-10-08, sample scene and prefab audio settings are unassigned; sound clips and audio configuration are outside the package in test fixtures. The optional audio API remains available for host-supplied clips. Edit Mode 101/101 and Play Mode 24/24 passed after this change, including silent sample assertions and explicitly configured audio fixture tests.
 
 The Asset Store bundle includes the optional Input System adapter. Repository exports offer separate core and add-on packages through **Tools → Modular Grid Inventory → Export Package**. TMP Essential Resources, EventSystem and its input module belong to the host project.
 

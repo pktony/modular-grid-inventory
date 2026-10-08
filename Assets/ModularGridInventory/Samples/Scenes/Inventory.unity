@@ -324,7 +324,7 @@ MonoBehaviour:
   inputSource: {fileID: 0}
   catalog: {fileID: 11400000, guid: 4bc46703956a2e442b2185eb0e6a6a9d, type: 2}
   canvas: {fileID: 306808016}
-  audioSettings: {fileID: 11400000, guid: fa0a12f3c79949c41b1577dc54dc7ab8, type: 2}
+  audioSettings: {fileID: 0}
 --- !u!4 &1203431920
 Transform:
   m_ObjectHideFlags: 0

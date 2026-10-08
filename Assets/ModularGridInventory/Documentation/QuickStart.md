@@ -22,6 +22,8 @@ Unity MCP, rounded-corner plugins and recording tools are not dependencies. Impo
 
 The sample has 19 definitions, 22 instances and 10 distinct carrier layouts. Packs accept nested containers; cases demonstrate category restrictions. Reset replaces all sample instances and closes their windows.
 
+The sample scene and prefab are silent. No sound clips or preconfigured Audio Settings are included. To add your own sounds, create an Audio Settings asset and assign it to the bootstrapper.
+
 The Asset Store bundle includes an optional Input System adapter under `Integrations/InputSystem`, which compiles only when the host has Input System installed and enabled. The repository export window also offers it as a separate add-on. For Input System only projects, install your project's compatible `com.unity.inputsystem` version, add `InputSystemInventoryInputSource` to the bootstrap object and assign it to Input Source. Use `InputSystemUIInputModule` instead of `StandaloneInputModule` on the EventSystem. The package never changes Active Input Handling automatically.
 
 ## Integrate into your scene

@@ -45,9 +45,9 @@ namespace Pktony.GridInventory.Tests
             Assert.That(resolver.Resolve(InventoryFeedbackAction.Reject, item, out _), Is.Null);
             Assert.That(new InventorySoundResolver(null, catalog).Resolve(InventoryFeedbackAction.Place, item, out _), Is.Null);
         }
-        [Test] public void DefaultAssetCoversEveryActionAndItsClipsContainSamples()
+        [Test] public void TestFixtureCoversEveryActionAndItsClipsContainSamples()
         {
-            var asset = AssetDatabase.LoadAssetAtPath<InventoryAudioSettings>("Assets/ModularGridInventory/Samples/Settings/InventoryAudioSettings.asset"); Assert.That(asset, Is.Not.Null);
+            var asset = AssetDatabase.LoadAssetAtPath<InventoryAudioSettings>("Assets/Tests/Fixtures/Resources/InventoryAudioSettings.asset"); Assert.That(asset, Is.Not.Null);
             foreach (InventoryFeedbackAction action in Enum.GetValues(typeof(InventoryFeedbackAction)))
                 Assert.That(asset.defaults.Any(b => b.action == action && b.clips.Any(c => c != null)), Is.True, action.ToString());
             var actualCatalog = new InventoryCatalogSnapshotFactory().Create(AssetDatabase.LoadAssetAtPath<InventoryCatalogAsset>("Assets/ModularGridInventory/Samples/Catalog/Catalog.asset"));
