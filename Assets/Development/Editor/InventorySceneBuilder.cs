@@ -24,7 +24,6 @@ namespace Pktony.GridInventory.Editor
             so.FindProperty("rootContainer").objectReferenceValue = AssetDatabase.LoadAssetAtPath<ContainerDefinition>("Assets/ModularGridInventory/Samples/Settings/RootContainer.asset");
             so.FindProperty("initialState").objectReferenceValue = AssetDatabase.LoadAssetAtPath<InventoryInitialState>("Assets/ModularGridInventory/Samples/Settings/InitialState.asset");
             so.FindProperty("theme").objectReferenceValue = AssetDatabase.LoadAssetAtPath<Presentation.InventoryUiTheme>("Assets/ModularGridInventory/Samples/Settings/InventoryTheme.asset");
-            so.FindProperty("audioSettings").objectReferenceValue = AssetDatabase.LoadAssetAtPath<Presentation.InventoryAudioSettings>("Assets/ModularGridInventory/Samples/Settings/InventoryAudioSettings.asset");
             so.FindProperty("canvas").objectReferenceValue = canvas.GetComponent<Canvas>(); so.ApplyModifiedPropertiesWithoutUndo();
             new GameObject("EventSystem", typeof(EventSystem), typeof(StandaloneInputModule));
             var camera = new GameObject("Main Camera", typeof(Camera), typeof(AudioListener)); camera.tag = "MainCamera";

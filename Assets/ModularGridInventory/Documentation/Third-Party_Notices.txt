@@ -4,11 +4,9 @@
 
 | Files | Source | License |
 |---|---|---|
-| `Samples/Audio/Interface/*.wav` | Kenney, Interface Sounds 1.0, https://kenney.nl/assets/interface-sounds | CC0; included `License.txt` |
-| `Samples/Audio/Impact/*.wav` | Kenney, Impact Sounds 1.0, https://kenney.nl/assets/impact-sounds | CC0; included `License.txt` |
 | `Samples/Fonts/LiberationSans.ttf` and generated `InventoryFont.asset` | Liberation Sans distributed with Unity TMP resources | SIL Open Font License 1.1; included `LiberationSans - OFL.txt` |
 
-The demonstration sounds were decoded from the original OGG files into 16-bit PCM WAV, with gain reduced only when needed to keep peak levels below -1 dBFS. This conversion does not restore information lost in the source encoding. The original font binary is unchanged. Its generated dynamic SDF asset uses the included original UI SDF shader. Preserve the font and audio license files when redistributing those resources.
+The original font binary is unchanged. Its generated dynamic SDF asset uses the included original UI SDF shader. Preserve the font license file when redistributing this resource. No sound clips are included in the package.
 
 ## Generated project resources
 

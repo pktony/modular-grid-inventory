@@ -20,7 +20,10 @@ namespace Pktony.GridInventory.Tests
         private ContainerId Root => State.RootContainerId;
         [UnitySetUp] public IEnumerator LoadScene()
         {
-            yield return SceneManager.LoadSceneAsync("Inventory"); yield return null;
+            SceneManager.sceneLoaded += ConfigureAudioFixture;
+            try { yield return SceneManager.LoadSceneAsync("Inventory"); }
+            finally { SceneManager.sceneLoaded -= ConfigureAudioFixture; }
+            yield return null;
             inventory = Object.FindAnyObjectByType<InventoryBootstrapper>(); inventory.enabled = false;
             settings = (InventoryAudioSettings)typeof(InventoryBootstrapper).GetField("audioSettings",
                 System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).GetValue(inventory);
@@ -30,6 +33,13 @@ namespace Pktony.GridInventory.Tests
             observer = new InventorySoundPresenter(inventory.ReadModel, inventory.Interaction, inventory.Windows, inventory.Screen,
                 new InventorySoundResolver(settings, catalog), probe);
             inventory.Screen.Stash.Scroll.verticalNormalizedPosition = 0.78f; Canvas.ForceUpdateCanvases();
+        }
+        private static void ConfigureAudioFixture(Scene scene, LoadSceneMode mode)
+        {
+            var bootstrap = Object.FindAnyObjectByType<InventoryBootstrapper>();
+            typeof(InventoryBootstrapper).GetField("audioSettings",
+                System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)
+                .SetValue(bootstrap, Resources.Load<InventoryAudioSettings>("InventoryAudioSettings"));
         }
         [UnityTearDown] public IEnumerator CleanUp() { observer?.Dispose(); yield return null; }
         private ItemInstanceId Find(string definition, int quantity = 0) => State.Items.Values.First(i => i.Definition.Identifier == definition

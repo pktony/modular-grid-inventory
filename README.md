@@ -19,7 +19,7 @@ git clone https://github.com/pktony/modular-grid-inventory.git
 - 가방·리그 포켓과 수납 정책: `Samples/Catalog/container-*.asset`; Inspector에서 편집·미리보기·Undo.
 - 초기 배치·중첩 부모: `Samples/Settings/InitialState.asset`.
 - 폰트·색·칸 크기·클릭 표시: `Samples/Settings/InventoryTheme.asset`.
-- 소리: `Samples/Settings/InventoryAudioSettings.asset`.
+- 예제는 무음이며 효과음 파일을 포함하지 않습니다. 소리를 추가하려면 Audio Settings를 생성해 자신의 클립을 연결합니다.
 - 메뉴: `Tools → Modular Grid Inventory → Catalog Table / Export Package`.
 
 아이템 정의 19종, 초기 인스턴스 22개, 리그 포켓 10종을 제공합니다. 아이콘 19종은 새 중립 디자인으로 생성했습니다.

@@ -52,6 +52,8 @@ namespace Pktony.GridInventory.Tests
             Assert.That(State.Items.Count, Is.EqualTo(22)); Assert.That(State.Containers[Root].Entries.Count, Is.EqualTo(20));
             Assert.That(Object.FindObjectsByType<InventoryBootstrapper>().Length, Is.EqualTo(1));
             Assert.That(GameObject.Find("InventoryScreen"), Is.Not.Null);
+            Assert.That(Object.FindAnyObjectByType<InventoryAudioOutput>(), Is.Null);
+            Assert.That(Object.FindObjectsByType<AudioSource>(FindObjectsSortMode.None), Is.Empty);
             Assert.That(inventory.Screen.Stash.Policy.text, Does.Contain("9 x 48"));
             Assert.That(Object.FindObjectsByType<InventoryPointerHandler>().Length, Is.EqualTo(20));
             foreach (var item in State.Items.Values) Assert.That(item.Definition.Icon, Is.Not.Null);
