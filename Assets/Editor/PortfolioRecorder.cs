@@ -6,17 +6,18 @@ namespace InventorySystem.Editor
 {
     public static class PortfolioRecorder
     {
-        private static Inventory inventory;
+        private static ExpandedInventory inventory;
         private static InventoryWalkthroughScenario scenario;
         private static string output;
         private static int frame;
+        private static InventoryScenarioVerifier verifier;
         private static double nextCapture;
         [MenuItem("Inventory/Record Walkthrough (Play Mode)")]
         public static void Begin()
         {
             if (!Application.isPlaying) throw new System.InvalidOperationException("Enter Play mode first.");
-            Stop(); inventory = Object.FindAnyObjectByType<Inventory>(); inventory.enabled = false;
-            scenario = new InventoryWalkthroughScenario(inventory);
+            Stop(); inventory = Object.FindAnyObjectByType<ExpandedInventory>(); inventory.enabled = false;
+            scenario = new InventoryWalkthroughScenario(inventory); verifier = new InventoryScenarioVerifier();
             output = Path.GetFullPath(Path.Combine(Application.dataPath, "../Recordings/frames")); Directory.CreateDirectory(output);
             frame = 0; nextCapture = EditorApplication.timeSinceStartup;
             EditorApplication.update += Capture;
@@ -25,14 +26,23 @@ namespace InventorySystem.Editor
         private static void Capture()
         {
             if (EditorApplication.timeSinceStartup < nextCapture) return;
-            if (frame >= 1800)
+            if (frame >= InventoryWalkthroughScenario.Duration * 30)
             {
-                if (!File.Exists(Path.Combine(output, "frame-1799.png"))) return;
+                if (!File.Exists(Path.Combine(output, $"frame-{InventoryWalkthroughScenario.Duration * 30 - 1:D4}.png"))) return;
                 string results = Path.GetFullPath(Path.Combine(Application.dataPath, "../TestResults"));
-                Directory.CreateDirectory(results); File.WriteAllText(Path.Combine(results,"recording.txt"), "1800 frames / 30 fps / 60 seconds / visualized pointer");
+                Directory.CreateDirectory(results); File.WriteAllText(Path.Combine(results,"recording.txt"), $"{InventoryWalkthroughScenario.Duration * 30} frames / 30 fps / {InventoryWalkthroughScenario.Duration} seconds / Unity pointer events / click indicator");
                 Stop(); return;
             }
-            scenario.Tick(frame / 30f);
+            try
+            {
+                scenario.Tick(frame / 30f);
+                if (frame % 120 == 0) verifier.Verify(inventory, frame / 120);
+            }
+            catch (System.Exception error)
+            {
+                Directory.CreateDirectory("TestResults"); File.WriteAllText("TestResults/recording.txt", "Failed: " + error);
+                Stop(); Debug.LogException(error); return;
+            }
             ScreenCapture.CaptureScreenshot(Path.Combine(output, $"frame-{frame:D4}.png"));
             frame++; nextCapture = EditorApplication.timeSinceStartup + 1.0 / 30;
         }

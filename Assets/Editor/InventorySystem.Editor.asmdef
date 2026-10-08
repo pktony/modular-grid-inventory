@@ -1,1 +1,1 @@
-{"name":"InventorySystem.Editor","references":["InventorySystem.Runtime","InventorySystem.Catalog","Unity.ugui","Unity.TextMeshPro"],"includePlatforms":["Editor"]}
+{"name": "InventorySystem.Editor", "references": ["InventorySystem.Runtime", "InventorySystem.Catalog", "Unity.ugui", "Unity.TextMeshPro", "InventorySystem.Domain", "InventorySystem.Presentation"], "includePlatforms": ["Editor"]}

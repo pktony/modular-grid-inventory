@@ -17,7 +17,11 @@ namespace InventorySystem.Domain
             var error = placement.Validate(draft, item, request.Target);
             if (error != null) return MutationResult.Fail(error);
             draft.Items.Add(item.Id, item);
-            if (!item.ChildContainerId.IsEmpty) draft.Containers.Add(item.ChildContainerId, new ContainerDraft(definition.Container));
+            if (!item.ChildContainerId.IsEmpty)
+            {
+                draft.Containers.Add(item.ChildContainerId, new ContainerDraft(definition.Container));
+                draft.AffectedContainers.Add(item.ChildContainerId);
+            }
             var t = request.Target;
             draft.Containers[t.Container].Entries.Add(item.Id, new InventoryEntry(item.Id, t.Section, t.X, t.Y, t.Rotated));
             draft.Touch(t.Container, item.Id);

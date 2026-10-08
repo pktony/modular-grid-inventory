@@ -6,8 +6,8 @@ namespace InventorySystem
     public sealed class InventoryCatalogAsset : ScriptableObject
     {
         [SerializeField] private ItemCategoryDefinition[] categories = Array.Empty<ItemCategoryDefinition>();
-        [SerializeField] private InventoryItemDefinition[] items = Array.Empty<InventoryItemDefinition>();
+        [SerializeField] private ItemDefinition[] items = Array.Empty<ItemDefinition>();
         internal ItemCategoryDefinition[] Categories => categories;
-        internal InventoryItemDefinition[] Items => items;
+        internal ItemDefinition[] Items => items;
     }
 }

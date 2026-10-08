@@ -1,1 +1,1 @@
-{"name":"InventorySystem.PlayModeTests","references":["InventorySystem.Runtime","InventorySystem.Catalog","Unity.ugui"],"optionalUnityReferences":["TestAssemblies"]}
+{"name": "InventorySystem.PlayModeTests", "references": ["InventorySystem.Runtime", "InventorySystem.Catalog", "Unity.ugui", "InventorySystem.Domain", "InventorySystem.Presentation", "Unity.TextMeshPro"], "optionalUnityReferences": ["TestAssemblies"]}

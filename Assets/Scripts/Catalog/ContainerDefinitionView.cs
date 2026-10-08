@@ -12,9 +12,9 @@ namespace InventorySystem
         public ContainerDefinitionView(string id, IEnumerable<GridSectionDefinitionView> sections,
             AcceptancePolicyView policy = null, ContainerLayoutView layout = null)
         {
-            Id = id; Sections = Array.AsReadOnly(sections.ToArray());
+            Id = id; Sections = Array.AsReadOnly((sections ?? System.Array.Empty<GridSectionDefinitionView>()).ToArray());
             Policy = policy ?? AcceptancePolicyView.All;
-            Layout = layout ?? new ContainerLayoutView(Sections.Select((s, i) => new SectionLayoutView(s.Id, i * 9, 0)));
+            Layout = layout ?? new ContainerLayoutFactory().CreateHorizontal(Sections);
         }
     }
 }

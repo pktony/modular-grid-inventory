@@ -1,7 +1,7 @@
 using System;
 namespace InventorySystem.Domain
 {
-    public sealed class InventoryChangePublisher
+    internal sealed class InventoryChangePublisher
     {
         private readonly Action<Exception> report;
         internal event Action<InventoryChangeBatch> Changed;

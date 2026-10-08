@@ -4,7 +4,8 @@ namespace InventorySystem.Domain
     internal sealed class InventoryInvariantValidator
     {
         private readonly InventoryPlacementRules placement;
-        internal InventoryInvariantValidator(InventoryPlacementRules placement) { this.placement = placement; }
+        private readonly IItemCatalog catalog;
+        internal InventoryInvariantValidator(InventoryPlacementRules placement, IItemCatalog catalog) { this.placement = placement; this.catalog = catalog; }
         internal string Validate(InventoryDraft draft)
         {
             if (!draft.Containers.ContainsKey(draft.Root)) return "Root container is missing.";
@@ -18,6 +19,7 @@ namespace InventorySystem.Domain
             if (owners.Count != draft.Items.Count) return "Unplaced item detected.";
             foreach (var item in draft.Items.Values)
             {
+                if (!catalog.TryGet(item.Definition.Id, out var definition) || !ReferenceEquals(definition, item.Definition)) return "Item definition belongs to another catalog session.";
                 if (item.Quantity < 1 || item.Quantity > item.Definition.MaxStack) return "Invalid quantity.";
                 if (item.Definition.Container == null)
                 { if (!item.ChildContainerId.IsEmpty) return "Unexpected child container."; }
