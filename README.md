@@ -8,7 +8,7 @@
 git clone https://github.com/pktony/modular-grid-inventory.git
 ```
 
-현재는 **0.1.0 후보**입니다. Unity 6000.6.4f1에서 샘플 실행과 Edit 101/101·Play 24/24를 확인했습니다. 깨끗한 소비자 프로젝트 임포트·호환성 행렬·Asset Store Validator 검증이 남아 있습니다.
+현재는 **0.1.0 제출 후보**입니다. Unity 6000.6.4f1에서 Edit 101/101·Play 24/24, 별도 URP 소비자 프로젝트의 Play 24/24와 Asset Store 검증 규칙 34/34를 통과했습니다. 지원 범위와 검증의 제한은 [현재 검증 결과](docs/package-validation.md)를 참고하세요.
 
 ## 실행과 설정
 
@@ -52,7 +52,7 @@ git clone https://github.com/pktony/modular-grid-inventory.git
 
 배포 루트는 `Assets/ModularGridInventory`입니다. Core와 선택 Input System 어댑터를 별도 `.unitypackage`로 내보냅니다. 호스트의 EventSystem·AudioListener를 사용하며 프로젝트 설정·패키지를 자동 변경하지 않습니다.
 
-`Assets/Development`, Unity MCP, 녹화·빌드·FFmpeg 도구, 기존 게임 참고 이미지·영상은 배포에서 제외됩니다. [영어 무음 데모 영상](docs/modular-grid-inventory-demo-en.mp4)은 현재의 새 리소스로 촬영한 36.5초 시연입니다. [영상 구성과 재촬영 방법](docs/silent-demo.md)을 참고하세요. 기존 시연 영상은 아이콘 교체 전 버전의 참고 자료입니다.
+`Assets/Development`, Unity MCP, 녹화·빌드·FFmpeg 도구, 기존 게임 참고 이미지·영상은 배포에서 제외됩니다. [YouTube 영어 무음 데모](https://youtu.be/cyUhx101tj8) · [영상 파일](docs/modular-grid-inventory-demo-en.mp4)은 현재의 새 리소스로 촬영한 36.5초 시연입니다. [영상 구성과 재촬영 방법](docs/silent-demo.md)을 참고하세요. 기존 시연 영상은 아이콘 교체 전 버전의 참고 자료입니다.
 
 개발용 정적 검사와 후보 아카이브 생성:
 
