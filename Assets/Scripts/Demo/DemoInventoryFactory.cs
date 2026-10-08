@@ -2,8 +2,8 @@ namespace InventorySystem
 {
     public sealed class DemoInventoryFactory
     {
-        private readonly ItemCatalog catalog;
-        public DemoInventoryFactory(ItemCatalog catalog) => this.catalog = catalog;
+        private readonly IItemCatalog catalog;
+        public DemoInventoryFactory(IItemCatalog catalog) => this.catalog = catalog;
         public InventoryCellData Create()
         {
             var model = new InventoryCellData(9, 20);

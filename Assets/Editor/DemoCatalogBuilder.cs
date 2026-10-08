@@ -18,12 +18,12 @@ namespace InventorySystem.Editor
                 if (definition == null) { definition = ScriptableObject.CreateInstance<ItemDefinition>(); AssetDatabase.CreateAsset(definition, path); }
                 string category = i == 4 ? "Bullets" : "Weapons";
                 var sprite = SpriteImportUtility.Load($"Assets/Resources/Sprites/{category}/{ids[i]}.png");
-                definition.Configure(ids[i], ids[i], widths[i], heights[i], sprite);
+                ItemDefinitionAssetWriter.Write(definition, ids[i], ids[i], widths[i], heights[i], sprite, i == 4 ? 50 : 1);
                 EditorUtility.SetDirty(definition); definitions[i] = definition;
             }
             var catalog = AssetDatabase.LoadAssetAtPath<ItemCatalog>("Assets/Items/DemoCatalog.asset");
             if (catalog == null) { catalog = ScriptableObject.CreateInstance<ItemCatalog>(); AssetDatabase.CreateAsset(catalog, "Assets/Items/DemoCatalog.asset"); }
-            catalog.Configure(definitions); EditorUtility.SetDirty(catalog); AssetDatabase.SaveAssets(); return catalog;
+            ItemCatalogAssetWriter.Write(catalog, definitions); EditorUtility.SetDirty(catalog); AssetDatabase.SaveAssets(); return catalog;
         }
     }
 }

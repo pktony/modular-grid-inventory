@@ -8,13 +8,13 @@ namespace InventorySystem
         [SerializeField] private string displayName;
         [SerializeField, Min(1)] private int width = 1;
         [SerializeField, Min(1)] private int height = 1;
+        [SerializeField, Min(1)] private int maxStack = 1;
         [SerializeField] private Sprite icon;
-        public string Identifier => identifier;
-        public string DisplayName => displayName;
-        public int Width => width;
-        public int Height => height;
-        public Sprite Icon => icon;
-        public void Configure(string id, string title, int w, int h, Sprite sprite)
-        { identifier = id; displayName = title; width = w; height = h; icon = sprite; }
+        internal string Identifier => identifier;
+        internal string DisplayName => displayName;
+        internal int Width => width;
+        internal int Height => height;
+        internal int MaxStack => maxStack;
+        internal Sprite Icon => icon;
     }
 }

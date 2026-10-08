@@ -4,11 +4,11 @@ namespace InventorySystem
     public sealed class DemoInventoryActions : IDisposable
     {
         private readonly IDemoInventoryModel model;
-        private readonly ItemCatalog catalog;
+        private readonly IItemCatalog catalog;
         private readonly IDemoInventoryView view;
         private readonly Action cancel;
         private int next;
-        public DemoInventoryActions(IDemoInventoryModel model, ItemCatalog catalog, IDemoInventoryView view, Action cancel)
+        public DemoInventoryActions(IDemoInventoryModel model, IItemCatalog catalog, IDemoInventoryView view, Action cancel)
         {
             this.model = model; this.catalog = catalog; this.view = view; this.cancel = cancel;
             view.AddRequested += Add; view.ResetRequested += Reset;
