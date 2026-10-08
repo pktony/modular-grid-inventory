@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74ae0e816fb804946a5aabec93e6753a, type: 3}
-  m_Name: item-rig
-  m_EditorClassIdentifier: InventorySystem.Catalog::InventorySystem.InventoryItemDefinition
-  identifier: rig
-  title: BlackRock
+  m_Name: item-rig-alpha
+  m_EditorClassIdentifier: InventorySystem.Catalog::InventorySystem.ItemDefinition
+  identifier: rig-alpha
+  title: ANA Tactical Alpha
   category: {fileID: 11400000, guid: 48698c53ad2a77742bb8c49569dbf996, type: 2}
-  width: 3
+  width: 4
   height: 4
   maxStack: 1
-  icon: {fileID: 21300000, guid: e76cebaeb2c9ef941950b0c2b2797953, type: 3}
-  container: {fileID: 11400000, guid: fb64943015dfcb1419346d1800f89fc4, type: 2}
+  icon: {fileID: 21300000, guid: e86e048d8dba3844aabfb412404e52df, type: 3}
+  container: {fileID: 11400000, guid: f320e3ca3c324344a91f9bf824c435f4, type: 2}

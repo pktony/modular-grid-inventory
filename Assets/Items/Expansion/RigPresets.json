@@ -1,0 +1,760 @@
+{
+  "source": "https://github.com/the-hideout/tarkov-dev/blob/ef62766bbd7ffb294c7184f9b8bfe8ed0f18320e/src/data/item-grids.json",
+  "displayStride": 1.06,
+  "rigs": [
+    {
+      "id": "rig-scav",
+      "title": "Scav Vest",
+      "gameId": "572b7adb24597762ae139821",
+      "width": 2,
+      "height": 3,
+      "layoutReference": "https://static.wikia.nocookie.net/escapefromtarkov_gamepedia/images/0/0a/Scav_Vest_Slots.png/revision/latest/scale-to-width-down/276?cb=20180326212857",
+      "iconSource": "https://assets.tarkov.dev/572b7adb24597762ae139821-base-image.webp",
+      "pockets": [
+        {
+          "id": "small-a",
+          "width": 1,
+          "height": 1,
+          "column": 0,
+          "row": 0
+        },
+        {
+          "id": "tall-a",
+          "width": 1,
+          "height": 2,
+          "column": 1,
+          "row": 0
+        },
+        {
+          "id": "tall-b",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 0
+        },
+        {
+          "id": "small-b",
+          "width": 1,
+          "height": 1,
+          "column": 3,
+          "row": 0
+        }
+      ]
+    },
+    {
+      "id": "rig-micro",
+      "title": "SOE Micro Rig",
+      "gameId": "5d5d8ca986f7742798716522",
+      "width": 2,
+      "height": 3,
+      "layoutReference": "https://static.wikia.nocookie.net/escapefromtarkov_gamepedia/images/8/86/SOE_micro_rig.png/revision/latest/scale-to-width-down/276?cb=20191028033229",
+      "iconSource": "https://assets.tarkov.dev/5d5d8ca986f7742798716522-base-image.webp",
+      "pockets": [
+        {
+          "id": "large-a",
+          "width": 2,
+          "height": 2,
+          "column": 0,
+          "row": 0
+        },
+        {
+          "id": "tall-a",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 0
+        },
+        {
+          "id": "tall-b",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 0
+        }
+      ]
+    },
+    {
+      "id": "rig-wartech",
+      "title": "WARTECH TV-109 + TV-106",
+      "gameId": "59e7643b86f7742cbf2c109a",
+      "width": 3,
+      "height": 3,
+      "layoutReference": "https://static.wikia.nocookie.net/escapefromtarkov_gamepedia/images/2/2f/Wartech_Slots.png/revision/latest/scale-to-width-down/250?cb=20180326212017",
+      "iconSource": "https://assets.tarkov.dev/59e7643b86f7742cbf2c109a-base-image.webp",
+      "pockets": [
+        {
+          "id": "large-a",
+          "width": 2,
+          "height": 2,
+          "column": 0,
+          "row": 0
+        },
+        {
+          "id": "tall-a",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 0
+        },
+        {
+          "id": "tall-b",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 0
+        },
+        {
+          "id": "small-a",
+          "width": 1,
+          "height": 1,
+          "column": 4,
+          "row": 0
+        },
+        {
+          "id": "small-b",
+          "width": 1,
+          "height": 1,
+          "column": 4,
+          "row": 1
+        }
+      ]
+    },
+    {
+      "id": "rig-scout",
+      "title": "UMTBS 6Sh112 Scout-Sniper",
+      "gameId": "5929a2a086f7744f4b234d43",
+      "width": 3,
+      "height": 4,
+      "layoutReference": "https://static.wikia.nocookie.net/escapefromtarkov_gamepedia/images/9/91/Scout_Sniper_rig_Slots.png/revision/latest/scale-to-width-down/276?cb=20180326212004",
+      "iconSource": "https://assets.tarkov.dev/5929a2a086f7744f4b234d43-base-image.webp",
+      "pockets": [
+        {
+          "id": "tall-a",
+          "width": 1,
+          "height": 2,
+          "column": 0,
+          "row": 0
+        },
+        {
+          "id": "tall-b",
+          "width": 1,
+          "height": 2,
+          "column": 1,
+          "row": 0
+        },
+        {
+          "id": "tall-c",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 0
+        },
+        {
+          "id": "tall-d",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 0
+        },
+        {
+          "id": "small-a",
+          "width": 1,
+          "height": 1,
+          "column": 0,
+          "row": 2
+        },
+        {
+          "id": "small-b",
+          "width": 1,
+          "height": 1,
+          "column": 1,
+          "row": 2
+        },
+        {
+          "id": "small-c",
+          "width": 1,
+          "height": 1,
+          "column": 2,
+          "row": 2
+        },
+        {
+          "id": "small-d",
+          "width": 1,
+          "height": 1,
+          "column": 3,
+          "row": 2
+        }
+      ]
+    },
+    {
+      "id": "rig-d3crx",
+      "title": "Haley Strategic D3CRX",
+      "gameId": "5d5d85c586f774279a21cbdb",
+      "width": 3,
+      "height": 3,
+      "layoutReference": "https://static.wikia.nocookie.net/escapefromtarkov_gamepedia/images/0/06/D3CRX_Slots.PNG/revision/latest/scale-to-width-down/276?cb=20191107155425",
+      "iconSource": "https://assets.tarkov.dev/5d5d85c586f774279a21cbdb-base-image.webp",
+      "pockets": [
+        {
+          "id": "tall-a",
+          "width": 1,
+          "height": 2,
+          "column": 0,
+          "row": 0
+        },
+        {
+          "id": "tall-b",
+          "width": 1,
+          "height": 2,
+          "column": 1,
+          "row": 0
+        },
+        {
+          "id": "tall-c",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 0
+        },
+        {
+          "id": "tall-d",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 0
+        },
+        {
+          "id": "tall-e",
+          "width": 1,
+          "height": 2,
+          "column": 0,
+          "row": 2
+        },
+        {
+          "id": "small-a",
+          "width": 1,
+          "height": 1,
+          "column": 1,
+          "row": 2
+        },
+        {
+          "id": "small-b",
+          "width": 1,
+          "height": 1,
+          "column": 1,
+          "row": 3
+        },
+        {
+          "id": "small-c",
+          "width": 1,
+          "height": 1,
+          "column": 2,
+          "row": 2
+        },
+        {
+          "id": "small-d",
+          "width": 1,
+          "height": 1,
+          "column": 2,
+          "row": 3
+        },
+        {
+          "id": "tall-f",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 2
+        }
+      ]
+    },
+    {
+      "id": "rig",
+      "title": "BlackRock",
+      "gameId": "5648a69d4bdc2ded0b8b457b",
+      "width": 3,
+      "height": 4,
+      "layoutReference": "https://static.wikia.nocookie.net/escapefromtarkov_gamepedia/images/3/3e/Blackrock_Slots.png/revision/latest/scale-to-width-down/278?cb=20191029141017",
+      "iconSource": "https://assets.tarkov.dev/5648a69d4bdc2ded0b8b457b-base-image.webp",
+      "pockets": [
+        {
+          "id": "tall-a",
+          "width": 1,
+          "height": 2,
+          "column": 0,
+          "row": 0
+        },
+        {
+          "id": "tall-b",
+          "width": 1,
+          "height": 2,
+          "column": 1,
+          "row": 0
+        },
+        {
+          "id": "tall-c",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 0
+        },
+        {
+          "id": "tall-d",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 0
+        },
+        {
+          "id": "small-a",
+          "width": 1,
+          "height": 1,
+          "column": 0,
+          "row": 2
+        },
+        {
+          "id": "small-b",
+          "width": 1,
+          "height": 1,
+          "column": 1,
+          "row": 2
+        },
+        {
+          "id": "small-c",
+          "width": 1,
+          "height": 1,
+          "column": 2,
+          "row": 2
+        },
+        {
+          "id": "small-d",
+          "width": 1,
+          "height": 1,
+          "column": 3,
+          "row": 2
+        },
+        {
+          "id": "large-a",
+          "width": 2,
+          "height": 2,
+          "column": 0,
+          "row": 3
+        },
+        {
+          "id": "tall-e",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 3
+        },
+        {
+          "id": "tall-f",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 3
+        }
+      ]
+    },
+    {
+      "id": "rig-mk3",
+      "title": "WARTECH MK3 TV-104",
+      "gameId": "5ab8dab586f77441cd04f2a2",
+      "width": 3,
+      "height": 4,
+      "layoutReference": "https://static.wikia.nocookie.net/escapefromtarkov_gamepedia/images/7/73/MK3InsideView.png/revision/latest/scale-to-width-down/250?cb=20180506175526",
+      "iconSource": "https://assets.tarkov.dev/5ab8dab586f77441cd04f2a2-base-image.webp",
+      "pockets": [
+        {
+          "id": "tall-a",
+          "width": 1,
+          "height": 2,
+          "column": 0,
+          "row": 0
+        },
+        {
+          "id": "tall-b",
+          "width": 1,
+          "height": 2,
+          "column": 1,
+          "row": 0
+        },
+        {
+          "id": "tall-c",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 0
+        },
+        {
+          "id": "tall-d",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 0
+        },
+        {
+          "id": "tall-e",
+          "width": 1,
+          "height": 2,
+          "column": 0,
+          "row": 2
+        },
+        {
+          "id": "tall-f",
+          "width": 1,
+          "height": 2,
+          "column": 1,
+          "row": 2
+        },
+        {
+          "id": "tall-g",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 2
+        },
+        {
+          "id": "tall-h",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 2
+        },
+        {
+          "id": "small-a",
+          "width": 1,
+          "height": 1,
+          "column": 0,
+          "row": 4
+        },
+        {
+          "id": "small-b",
+          "width": 1,
+          "height": 1,
+          "column": 1,
+          "row": 4
+        },
+        {
+          "id": "wide-a",
+          "width": 2,
+          "height": 1,
+          "column": 2,
+          "row": 4
+        }
+      ]
+    },
+    {
+      "id": "rig-alpha",
+      "title": "ANA Tactical Alpha",
+      "gameId": "592c2d1a86f7746dbe2af32a",
+      "width": 4,
+      "height": 4,
+      "layoutReference": "https://static.wikia.nocookie.net/escapefromtarkov_gamepedia/images/7/7d/Alpha_Rig_Slots.png/revision/latest/scale-to-width-down/276?cb=20180719175510",
+      "iconSource": "https://assets.tarkov.dev/592c2d1a86f7746dbe2af32a-base-image.webp",
+      "pockets": [
+        {
+          "id": "tall-a",
+          "width": 1,
+          "height": 3,
+          "column": 0,
+          "row": 0
+        },
+        {
+          "id": "tall-b",
+          "width": 1,
+          "height": 3,
+          "column": 1,
+          "row": 0
+        },
+        {
+          "id": "tall-c",
+          "width": 1,
+          "height": 3,
+          "column": 2,
+          "row": 0
+        },
+        {
+          "id": "tall-d",
+          "width": 1,
+          "height": 3,
+          "column": 3,
+          "row": 0
+        },
+        {
+          "id": "tall-e",
+          "width": 1,
+          "height": 2,
+          "column": 0,
+          "row": 3
+        },
+        {
+          "id": "large-a",
+          "width": 2,
+          "height": 2,
+          "column": 1,
+          "row": 3
+        },
+        {
+          "id": "tall-f",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 3
+        }
+      ]
+    },
+    {
+      "id": "rig-mppv",
+      "title": "Velocity Systems MPPV",
+      "gameId": "5df8a42886f77412640e2e75",
+      "width": 4,
+      "height": 3,
+      "layoutReference": "https://static.wikia.nocookie.net/escapefromtarkov_gamepedia/images/4/4d/MPPV_INTERNAL_VIEW.png/revision/latest/scale-to-width-down/276?cb=20191227220252",
+      "iconSource": "https://assets.tarkov.dev/5df8a42886f77412640e2e75-base-image.webp",
+      "pockets": [
+        {
+          "id": "tall-a",
+          "width": 1,
+          "height": 2,
+          "column": 0,
+          "row": 0
+        },
+        {
+          "id": "tall-b",
+          "width": 1,
+          "height": 2,
+          "column": 1,
+          "row": 0
+        },
+        {
+          "id": "tall-c",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 0
+        },
+        {
+          "id": "tall-d",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 0
+        },
+        {
+          "id": "tall-e",
+          "width": 1,
+          "height": 2,
+          "column": 0,
+          "row": 2
+        },
+        {
+          "id": "tall-f",
+          "width": 1,
+          "height": 2,
+          "column": 1,
+          "row": 2
+        },
+        {
+          "id": "tall-g",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 2
+        },
+        {
+          "id": "tall-h",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 2
+        },
+        {
+          "id": "tall-i",
+          "width": 1,
+          "height": 2,
+          "column": 0,
+          "row": 4
+        },
+        {
+          "id": "small-a",
+          "width": 1,
+          "height": 1,
+          "column": 1,
+          "row": 4
+        },
+        {
+          "id": "small-b",
+          "width": 1,
+          "height": 1,
+          "column": 2,
+          "row": 4
+        },
+        {
+          "id": "small-c",
+          "width": 1,
+          "height": 1,
+          "column": 1,
+          "row": 5
+        },
+        {
+          "id": "small-d",
+          "width": 1,
+          "height": 1,
+          "column": 2,
+          "row": 5
+        },
+        {
+          "id": "tall-j",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 4
+        }
+      ]
+    },
+    {
+      "id": "rig-belt",
+      "title": "Poyas-A + Poyas-B",
+      "gameId": "5c0e6a1586f77404597b4965",
+      "width": 4,
+      "height": 4,
+      "layoutReference": "https://static.wikia.nocookie.net/escapefromtarkov_gamepedia/images/9/96/Belt-A_Belt-B_gear_rig_inside_view.png/revision/latest/scale-to-width-down/346?cb=20181230201535",
+      "iconSource": "https://assets.tarkov.dev/5c0e6a1586f77404597b4965-base-image.webp",
+      "pockets": [
+        {
+          "id": "small-a",
+          "width": 1,
+          "height": 1,
+          "column": 0,
+          "row": 0
+        },
+        {
+          "id": "tall-a",
+          "width": 1,
+          "height": 2,
+          "column": 1,
+          "row": 0
+        },
+        {
+          "id": "tall-b",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 0
+        },
+        {
+          "id": "tall-c",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 0
+        },
+        {
+          "id": "small-b",
+          "width": 1,
+          "height": 1,
+          "column": 4,
+          "row": 0
+        },
+        {
+          "id": "small-c",
+          "width": 1,
+          "height": 1,
+          "column": 0,
+          "row": 1
+        },
+        {
+          "id": "small-d",
+          "width": 1,
+          "height": 1,
+          "column": 4,
+          "row": 1
+        },
+        {
+          "id": "small-e",
+          "width": 1,
+          "height": 1,
+          "column": 0,
+          "row": 2
+        },
+        {
+          "id": "tall-d",
+          "width": 1,
+          "height": 2,
+          "column": 1,
+          "row": 2
+        },
+        {
+          "id": "tall-e",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 2
+        },
+        {
+          "id": "tall-f",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 2
+        },
+        {
+          "id": "small-f",
+          "width": 1,
+          "height": 1,
+          "column": 4,
+          "row": 2
+        },
+        {
+          "id": "small-g",
+          "width": 1,
+          "height": 1,
+          "column": 0,
+          "row": 3
+        },
+        {
+          "id": "small-h",
+          "width": 1,
+          "height": 1,
+          "column": 4,
+          "row": 3
+        },
+        {
+          "id": "small-i",
+          "width": 1,
+          "height": 1,
+          "column": 0,
+          "row": 4
+        },
+        {
+          "id": "small-j",
+          "width": 1,
+          "height": 1,
+          "column": 1,
+          "row": 4
+        },
+        {
+          "id": "small-k",
+          "width": 1,
+          "height": 1,
+          "column": 2,
+          "row": 4
+        },
+        {
+          "id": "small-l",
+          "width": 1,
+          "height": 1,
+          "column": 3,
+          "row": 4
+        },
+        {
+          "id": "small-m",
+          "width": 1,
+          "height": 1,
+          "column": 4,
+          "row": 4
+        }
+      ]
+    }
+  ]
+}

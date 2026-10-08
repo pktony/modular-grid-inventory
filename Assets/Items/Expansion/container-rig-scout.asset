@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2df7403579c34af4392a888400a263c0, type: 3}
-  m_Name: container-rig
+  m_Name: container-rig-scout
   m_EditorClassIdentifier: InventorySystem.Catalog::InventorySystem.ContainerDefinition
-  identifier: rig
+  identifier: rig-scout
   sections:
   - identifier: tall-a
     width: 1
@@ -86,37 +86,10 @@ MonoBehaviour:
       deniedCategories: []
       allowedItemIds: []
       deniedItemIds: []
-  - identifier: large-a
-    width: 2
-    height: 2
-    policy:
-      mode: 0
-      allowedCategories: []
-      deniedCategories: []
-      allowedItemIds: []
-      deniedItemIds: []
-  - identifier: tall-e
-    width: 1
-    height: 2
-    policy:
-      mode: 0
-      allowedCategories: []
-      deniedCategories: []
-      allowedItemIds: []
-      deniedItemIds: []
-  - identifier: tall-f
-    width: 1
-    height: 2
-    policy:
-      mode: 0
-      allowedCategories: []
-      deniedCategories: []
-      allowedItemIds: []
-      deniedItemIds: []
   policy:
     mode: 0
     allowedCategories: []
     deniedCategories: []
     allowedItemIds: []
     deniedItemIds: []
-  layout: {fileID: 11400000, guid: 995285cd5e31db245acd040807307e64, type: 2}
+  layout: {fileID: 11400000, guid: d64c22a8c3de4794e94f1b46f99eff61, type: 2}

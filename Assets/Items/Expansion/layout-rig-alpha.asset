@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62bbf1723fb59ff4cb21a00586c70d52, type: 3}
-  m_Name: layout-rig
+  m_Name: layout-rig-alpha
   m_EditorClassIdentifier: InventorySystem.Catalog::InventorySystem.ContainerLayoutDefinition
   sections:
   - sectionId: tall-a
@@ -21,17 +21,9 @@ MonoBehaviour:
     position: {x: 2.12, y: 0}
   - sectionId: tall-d
     position: {x: 3.1799998, y: 0}
-  - sectionId: small-a
-    position: {x: 0, y: 2.12}
-  - sectionId: small-b
-    position: {x: 1.06, y: 2.12}
-  - sectionId: small-c
-    position: {x: 2.12, y: 2.12}
-  - sectionId: small-d
-    position: {x: 3.1799998, y: 2.12}
-  - sectionId: large-a
-    position: {x: 0, y: 3.1799998}
   - sectionId: tall-e
-    position: {x: 2.12, y: 3.1799998}
+    position: {x: 0, y: 3.1799998}
+  - sectionId: large-a
+    position: {x: 1.06, y: 3.1799998}
   - sectionId: tall-f
     position: {x: 3.1799998, y: 3.1799998}
