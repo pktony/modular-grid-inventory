@@ -52,7 +52,7 @@ git clone https://github.com/pktony/modular-grid-inventory.git
 
 배포 루트는 `Assets/ModularGridInventory`입니다. Core와 선택 Input System 어댑터를 별도 `.unitypackage`로 내보냅니다. 호스트의 EventSystem·AudioListener를 사용하며 프로젝트 설정·패키지를 자동 변경하지 않습니다.
 
-`Assets/Development`, Unity MCP, 녹화·빌드·FFmpeg 도구, 기존 게임 참고 이미지·영상은 배포에서 제외됩니다. 저장소의 기존 시연 영상은 아이콘 교체 전 버전의 참고 자료입니다.
+`Assets/Development`, Unity MCP, 녹화·빌드·FFmpeg 도구, 기존 게임 참고 이미지·영상은 배포에서 제외됩니다. [영어 무음 데모 영상](docs/modular-grid-inventory-demo-en.mp4)은 현재의 새 리소스로 촬영한 36.5초 시연입니다. [영상 구성과 재촬영 방법](docs/silent-demo.md)을 참고하세요. 기존 시연 영상은 아이콘 교체 전 버전의 참고 자료입니다.
 
 개발용 정적 검사와 후보 아카이브 생성:
 

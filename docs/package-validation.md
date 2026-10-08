@@ -1,6 +1,18 @@
 # 패키지 후보 검증 기록
 
-2026-10-07 · `0.1.0` · 아래 후보 단계 기록 이후 실제 제출 번들의 새 URP 임포트와 검증 완료.
+2026-10-08 · `0.1.0` · 최신 무음 예제 검증과 이전 제출 후보 기록.
+
+## 무음 예제 재패키징
+
+예제 씬과 프리팹의 Audio Settings를 해제했다. 효과음 21개와 설정을 GUID 그대로 테스트 픽스처로 옮겨 고객 패키지에서 제외했다. 자신의 클립을 연결하는 선택 오디오 API는 유지했다.
+
+Edit Mode 101/101, Play Mode 24/24가 통과했다. 새 URP 소비자 프로젝트에 복사한 제품 에셋을 Unity로 임포트한 뒤 Play Mode 24/24가 통과했고, Domain Reload 비활성화 10회 모두 bootstrap 1개·인스턴스 22개·AudioSource 0개였다. 오디오 테스트는 테스트 전용 설정을 명시적으로 주입하며 기본 예제의 무음 검증과 분리된다.
+
+Unity 공식 API로 내보낸 무음 아카이브는 266개 에셋을 포함한다. 경로와 씬·프리팹 참조를 검사해 효과음 파일·예제 오디오 설정·외부 개발 도구가 없음을 확인했다. 공식 Asset Store Tools 12.0.0 검사 34개도 모두 통과했다. Unity 6.6 공개 API 호환 패치와 기존 네이티브 배치 종료 진단의 한계는 동일하다. 최신 무음 아카이브 자체를 완전히 새 프로젝트에 설치하는 검증은 반복하지 않았다.
+
+[영어 무음 영상](modular-grid-inventory-demo-en.mp4)은 새 아이콘으로 실제 Unity 동작을 촬영했다. 수납 49단계와 기본 조작 27단계를 검증했으며, 최종 1,095프레임·36.5초·1080p·30fps 파일은 오디오 트랙 없이 전체 디코딩을 통과했다. [재현 방법](silent-demo.md).
+
+로컬 증거: `Captures/silent-export.json`, `silent-store-validator.json`, `silent-consumer-play.xml`, `silent-domain-reload-off.json`, `TestResults/container-showcase-silent.txt`, `TestResults/recording-silent.txt`. 아래 기록은 효과음이 포함된 이전 후보의 결과다.
 
 ## 제출 번들 검증
 

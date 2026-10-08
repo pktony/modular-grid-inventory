@@ -17,10 +17,11 @@ namespace Pktony.GridInventory.Editor
         private static string output, report;
         private static int frame, frameCount, framesPerStage, verifiedStages, previousCaptureRate;
         private static bool previouslyEnabled, recording;
+        private static bool captureSound;
         public static bool IsRecording => recording;
         public static int CapturedFrames => frame;
         public static void Begin(InventoryBootstrapper source, Action<float> update, Action<int> check, IDisposable lifetime,
-            int stages, int stageFrames, string folder, string reportName)
+            int stages, int stageFrames, string folder, string reportName, bool recordAudio = false)
         {
             if (!Application.isPlaying || source?.ReadModel == null || EditorApplication.isPaused)
                 throw new InvalidOperationException("Enter an unpaused, ready inventory Play mode first.");
@@ -30,7 +31,7 @@ namespace Pktony.GridInventory.Editor
             inventory = source; previouslyEnabled = inventory.enabled; inventory.enabled = false;
             try
             {
-                tick = update; verify = check; scenario = lifetime;
+                tick = update; verify = check; scenario = lifetime; captureSound = recordAudio;
                 frameCount = stages * stageFrames; framesPerStage = stageFrames; verifiedStages = 0;
                 output = Path.GetFullPath(Path.Combine(Application.dataPath, "../Recordings", folder)); Directory.CreateDirectory(output);
                 foreach (string path in Directory.GetFiles(output, "frame-*.png")) File.Delete(path);
@@ -48,7 +49,7 @@ namespace Pktony.GridInventory.Editor
         private static IEnumerator Capture()
         {
             yield return null;
-            if (!Try(() => audio = new InventoryAudioCapture(output, 30))) yield break;
+            if (captureSound && !Try(() => audio = new InventoryAudioCapture(output, 30))) yield break;
             var endOfFrame = new WaitForEndOfFrame();
             while (frame < frameCount)
             {
@@ -61,14 +62,14 @@ namespace Pktony.GridInventory.Editor
                     var texture = ScreenCapture.CaptureScreenshotAsTexture();
                     try { File.WriteAllBytes(Path.Combine(output, $"frame-{frame:D4}.png"), texture.EncodeToPNG()); }
                     finally { UnityEngine.Object.Destroy(texture); }
-                    audio.CaptureFrame(); frame++;
+                    audio?.CaptureFrame(); frame++;
                 })) yield break;
                 if (frame < frameCount) yield return null;
             }
             Try(() => {
-                var captured = audio.Complete(frameCount); Directory.CreateDirectory(Path.GetDirectoryName(report));
+                var captured = audio?.Complete(frameCount); Directory.CreateDirectory(Path.GetDirectoryName(report));
                 File.WriteAllText(report, $"{frameCount} frames / 30 fps / {(frameCount / 30f).ToString(CultureInfo.InvariantCulture)} seconds / Unity pointer events / click indicator / {verifiedStages} verified stages\n"
-                    + $"AudioRenderer / {captured.sampleRate} Hz / {captured.channels} channels / {captured.sampleFrames} sample frames / peak {captured.peak.ToString(CultureInfo.InvariantCulture)} / maximum drift {captured.maximumTimingErrorSamples} samples");
+                    + (captured == null ? "Silent capture / no audio track" : $"AudioRenderer / {captured.sampleRate} Hz / {captured.channels} channels / {captured.sampleFrames} sample frames / peak {captured.peak.ToString(CultureInfo.InvariantCulture)} / maximum drift {captured.maximumTimingErrorSamples} samples"));
             });
             Stop();
         }

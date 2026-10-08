@@ -144,7 +144,7 @@ namespace Pktony.GridInventory
             }
         }
         private static readonly string[] Captions = {
-            "01 / Ten definitions. Independent item instances.",
+            "01 / Nineteen definitions. Independent item instances.",
             "02 / Double-click a backpack to open its inventory.",
             "03 / Several containers stay open together.",
             "04 / Drag a title bar. The active window comes forward.",
@@ -161,7 +161,7 @@ namespace Pktony.GridInventory
             "15 / A weapon over the case icon shows a rejected preview.",
             "16 / Release is rejected. Open a rig beside the case.",
             "17 / Bring the rig forward and move its window.",
-            "18 / Ten separate compartments. Gaps cannot receive items.",
+            "18 / Independent pockets. Gaps cannot receive items.",
             "19 / Ammunition occupies one small pocket.",
             "20 / Merge twenty into forty, with a limit of fifty.",
             "21 / Fifty plus ten remain. Split five in the quantity dialog.",
