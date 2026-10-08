@@ -320,6 +320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: InventorySystem.Runtime::InventorySystem.ExpandedInventory
   catalog: {fileID: 11400000, guid: 4bc46703956a2e442b2185eb0e6a6a9d, type: 2}
   canvas: {fileID: 306808016}
+  audioSettings: {fileID: 11400000, guid: fa0a12f3c79949c41b1577dc54dc7ab8, type: 2}
 --- !u!4 &1203431920
 Transform:
   m_ObjectHideFlags: 0
@@ -345,6 +346,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1888294510}
   - component: {fileID: 1888294509}
+  - component: {fileID: 1888294511}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -418,6 +420,14 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &1888294511
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888294508}
+  m_Enabled: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ namespace InventorySystem.Presentation
         public IReadOnlyDictionary<ContainerId, ContainerWindowPresenter> Windows { get; }
         public event Action Closing;
         public event Action Changed;
+        public event Action<ItemInstanceId> Opened, Closed;
         public ContainerWindowPresenter Frontmost => windows.Values.Where(w => w.Panel.Root != null).OrderByDescending(w => w.Panel.Root.GetSiblingIndex()).FirstOrDefault();
         public IEnumerable<InventoryPanelBindings> FrontToBack => windows.Values.Where(w => w.Panel.Root != null).OrderByDescending(w => w.Panel.Root.GetSiblingIndex()).Select(w => w.Panel).Concat(new[] { stash });
         public ContainerWindowManager(ContainerWindowFactory factory, InventoryPanelBindings stash)
@@ -22,13 +23,14 @@ namespace InventorySystem.Presentation
         public bool Open(InventorySnapshot snapshot, ItemInstanceId id, ItemInstanceId selected, ItemInstanceId dragging)
         {
             if (!snapshot.Items.TryGetValue(id, out var item) || item.ChildContainerId.IsEmpty) return false;
-            if (!windows.TryGetValue(item.ChildContainerId, out var window))
+            bool created = !windows.TryGetValue(item.ChildContainerId, out var window);
+            if (created)
             {
                 var child = item.ChildContainerId;
                 window = factory.Create(snapshot, item, windows.Count, () => Focus(child), () => Close(child));
                 windows.Add(child, window); window.Render(snapshot, selected, dragging);
             }
-            Focus(item.ChildContainerId); Changed?.Invoke(); return true;
+            Focus(item.ChildContainerId); Changed?.Invoke(); if (created) Opened?.Invoke(id); return true;
         }
         public void Focus(ContainerId id)
         {
@@ -41,21 +43,22 @@ namespace InventorySystem.Presentation
             foreach (var panel in FrontToBack)
                 if (RectTransformUtility.RectangleContainsScreenPoint(panel.Root, point)) { Focus(panel.Container); return; }
         }
-        public void Close(ContainerId id)
+        public void Close(ContainerId id, bool notify = true)
         {
             if (!windows.TryGetValue(id, out var window)) return;
             Closing?.Invoke(); windows.Remove(id);
             if (window.Panel.Root != null) { window.Panel.Root.gameObject.SetActive(false); UnityEngine.Object.Destroy(window.Panel.Root.gameObject); }
             Changed?.Invoke();
+            if (notify) Closed?.Invoke(window.Owner);
             var front = Frontmost; if (front != null) Focus(front.Id);
         }
-        public void Release() { windows.Clear(); Closing = null; Changed = null; }
-        public void CloseAll() { foreach (var id in windows.Keys.ToArray()) Close(id); }
+        public void Release() { windows.Clear(); Closing = null; Changed = null; Opened = null; Closed = null; }
+        public void CloseAll() { foreach (var id in windows.Keys.ToArray()) Close(id, false); }
         public void Reconcile(InventorySnapshot snapshot, InventoryChangeBatch batch, ItemInstanceId selected, ItemInstanceId dragging)
         {
             foreach (var window in windows.Values.ToArray())
             {
-                if (!snapshot.Containers.ContainsKey(window.Id) || !snapshot.Items.ContainsKey(window.Owner)) Close(window.Id);
+                if (!snapshot.Containers.ContainsKey(window.Id) || !snapshot.Items.ContainsKey(window.Owner)) Close(window.Id, false);
                 else if (batch.Containers.Contains(window.Id)) window.Render(snapshot, selected, dragging);
             }
         }
