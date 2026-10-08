@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Linq;
-using InventorySystem.Domain;
-using InventorySystem.Presentation;
+using Pktony.GridInventory.Domain;
+using Pktony.GridInventory.Presentation;
 using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
-namespace InventorySystem.Tests
+namespace Pktony.GridInventory.Tests
 {
     public sealed class InventoryAudioSceneTests
     {
-        private ExpandedInventory inventory;
+        private InventoryBootstrapper inventory;
         private InventoryAudioSettings settings;
         private InventorySoundPresenter observer;
         private InventoryAudioProbe probe;
@@ -21,9 +21,11 @@ namespace InventorySystem.Tests
         [UnitySetUp] public IEnumerator LoadScene()
         {
             yield return SceneManager.LoadSceneAsync("Inventory"); yield return null;
-            inventory = Object.FindAnyObjectByType<ExpandedInventory>(); inventory.enabled = false;
-            settings = Resources.Load<InventoryAudioSettings>("InventoryAudioSettings"); probe = new InventoryAudioProbe();
-            var catalog = (InventoryCatalog)typeof(ExpandedInventory).GetField("definitions",
+            inventory = Object.FindAnyObjectByType<InventoryBootstrapper>(); inventory.enabled = false;
+            settings = (InventoryAudioSettings)typeof(InventoryBootstrapper).GetField("audioSettings",
+                System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).GetValue(inventory);
+            Assert.That(settings, Is.Not.Null); probe = new InventoryAudioProbe();
+            var catalog = (InventoryCatalog)typeof(InventoryBootstrapper).GetField("definitions",
                 System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).GetValue(inventory);
             observer = new InventorySoundPresenter(inventory.ReadModel, inventory.Interaction, inventory.Windows, inventory.Screen,
                 new InventorySoundResolver(settings, catalog), probe);
@@ -44,7 +46,7 @@ namespace InventorySystem.Tests
         private AudioClip Default(InventoryFeedbackAction action) => settings.defaults.Single(b => b.action == action).clips[0];
         [UnityTest] public IEnumerator PreviewIsSilentAndRejectedDropPlaysOnceWithoutCancelOrMutation()
         {
-            var ammo = Find("pst", 20); var before = State; var data = Begin(ammo); probe.Clips.Clear();
+            var ammo = Find("ammo-light", 20); var before = State; var data = Begin(ammo); probe.Clips.Clear();
             for (int i = 0; i < 20; i++) inventory.Interaction.UpdatePointer(new Vector2(-10, -10));
             Assert.That(probe.Clips, Is.Empty);
             Drop(ammo, data, new Vector2(-10, -10)); inventory.Interaction.Drop(new Vector2(-10, -10)); inventory.Interaction.Cancel();
@@ -53,7 +55,7 @@ namespace InventorySystem.Tests
         }
         [UnityTest] public IEnumerator SuccessfulPlacementAndExplicitRotateCancelHaveDistinctFeedback()
         {
-            var ammo = Find("pst", 20); var data = Begin(ammo); var pickup = probe.Clips.Single(); probe.Clips.Clear();
+            var ammo = Find("ammo-light", 20); var data = Begin(ammo); var pickup = probe.Clips.Single(); probe.Clips.Clear();
             Drop(ammo, data, Point(8, 13));
             Assert.That(probe.Clips.Count, Is.EqualTo(1)); Assert.That(probe.Clips[0], Is.Not.SameAs(pickup));
             Assert.That(probe.Clips.Contains(Default(InventoryFeedbackAction.Cancel)), Is.False);
@@ -63,24 +65,24 @@ namespace InventorySystem.Tests
         }
         [UnityTest] public IEnumerator ConsumedMergeSourceStillReportsExactlyOneMergeSound()
         {
-            var source = Find("pst", 40); Assert.That(inventory.Stack.Split(new SplitRequest(source, 5, new PlacementTarget(Root, new GridSectionId("main"), 8, 13))).Success, Is.True);
-            var split = Find("pst", 5); var destination = Find("pst", 20); var entry = State.Containers[Root].Entries[destination];
+            var source = Find("ammo-light", 40); Assert.That(inventory.Stack.Split(new SplitRequest(source, 5, new PlacementTarget(Root, new GridSectionId("main"), 8, 13))).Success, Is.True);
+            var split = Find("ammo-light", 5); var destination = Find("ammo-light", 20); var entry = State.Containers[Root].Entries[destination];
             var data = Begin(split); probe.Clips.Clear(); Drop(split, data, Point(entry.X, entry.Y));
             Assert.That(State.Items.ContainsKey(split), Is.False); Assert.That(State.Items[destination].Quantity, Is.EqualTo(25));
             Assert.That(probe.Clips, Is.EqualTo(new[] { Default(InventoryFeedbackAction.Merge) })); yield return null; LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator ExistingWindowFocusIsSilentAndResetDoesNotPlayMultipleCloseSounds()
         {
-            var bag = Find("berkut"); inventory.Interaction.Open(bag); inventory.Interaction.Open(bag);
+            var bag = Find("pack-large"); inventory.Interaction.Open(bag); inventory.Interaction.Open(bag);
             Assert.That(probe.Clips, Is.EqualTo(new[] { Default(InventoryFeedbackAction.Open) }));
             inventory.Interaction.Escape(); Assert.That(probe.Clips.Last(), Is.SameAs(Default(InventoryFeedbackAction.Close)));
-            inventory.Interaction.Open(bag); inventory.Interaction.Open(Find("ammo-case")); probe.Clips.Clear();
+            inventory.Interaction.Open(bag); inventory.Interaction.Open(Find("case-ammo")); probe.Clips.Clear();
             inventory.Screen.Reset.onClick.Invoke(); Assert.That(probe.Clips, Is.EqualTo(new[] { Default(InventoryFeedbackAction.Reset) }));
             yield return null; LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator SplitValidationAndPlacementHaveSeparateSoundsAndDisposeUnsubscribes()
         {
-            var source = Find("pst", 40); inventory.Interaction.Split(source); probe.Clips.Clear();
+            var source = Find("ammo-light", 40); inventory.Interaction.Split(source); probe.Clips.Clear();
             GameObject.Find("Input").GetComponent<TMP_InputField>().text = "40"; inventory.Screen.Quantity.Confirm();
             Assert.That(probe.Clips, Is.EqualTo(new[] { Default(InventoryFeedbackAction.Reject) })); Assert.That(inventory.Screen.Quantity.IsOpen, Is.True);
             GameObject.Find("Input").GetComponent<TMP_InputField>().text = "5"; inventory.Screen.Quantity.Confirm(); probe.Clips.Clear();

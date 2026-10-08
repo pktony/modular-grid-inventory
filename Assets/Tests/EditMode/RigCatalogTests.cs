@@ -1,25 +1,25 @@
 using System.Linq;
-using InventorySystem.Domain;
+using Pktony.GridInventory.Domain;
 using NUnit.Framework;
 using UnityEditor;
-namespace InventorySystem.Tests
+namespace Pktony.GridInventory.Tests
 {
     public sealed class RigCatalogTests
     {
         private InventoryCatalog Catalog() => new InventoryCatalogSnapshotFactory().Create(
-            AssetDatabase.LoadAssetAtPath<InventoryCatalogAsset>("Assets/Items/Expansion/Catalog.asset"));
+            AssetDatabase.LoadAssetAtPath<InventoryCatalogAsset>("Assets/ModularGridInventory/Samples/Catalog/Catalog.asset"));
 
-        [TestCase("rig-scav", 2, 3, 6, "0,0:1x1;1,0:1x2;2,0:1x2;3,0:1x1")]
+        [TestCase("rig-compact", 2, 3, 6, "0,0:1x1;1,0:1x2;2,0:1x2;3,0:1x1")]
         [TestCase("rig-micro", 2, 3, 8, "0,0:2x2;2,0:1x2;3,0:1x2")]
-        [TestCase("rig-wartech", 3, 3, 10, "0,0:2x2;2,0:1x2;3,0:1x2;4,0:1x1;4,1:1x1")]
+        [TestCase("rig-field", 3, 3, 10, "0,0:2x2;2,0:1x2;3,0:1x2;4,0:1x1;4,1:1x1")]
         [TestCase("rig-scout", 3, 4, 12, "0,0:1x2;1,0:1x2;2,0:1x2;3,0:1x2;0,2:1x1;1,2:1x1;2,2:1x1;3,2:1x1")]
-        [TestCase("rig-d3crx", 3, 3, 16, "0,0:1x2;1,0:1x2;2,0:1x2;3,0:1x2;0,2:1x2;1,2:1x1;1,3:1x1;2,2:1x1;2,3:1x1;3,2:1x2")]
+        [TestCase("rig-explorer", 3, 3, 16, "0,0:1x2;1,0:1x2;2,0:1x2;3,0:1x2;0,2:1x2;1,2:1x1;1,3:1x1;2,2:1x1;2,3:1x1;3,2:1x2")]
         [TestCase("rig", 3, 4, 20, "0,0:1x2;1,0:1x2;2,0:1x2;3,0:1x2;0,2:1x1;1,2:1x1;2,2:1x1;3,2:1x1;0,3:2x2;2,3:1x2;3,3:1x2")]
-        [TestCase("rig-mk3", 3, 4, 20, "0,0:1x2;1,0:1x2;2,0:1x2;3,0:1x2;0,2:1x2;1,2:1x2;2,2:1x2;3,2:1x2;0,4:1x1;1,4:1x1;2,4:2x1")]
-        [TestCase("rig-alpha", 4, 4, 20, "0,0:1x3;1,0:1x3;2,0:1x3;3,0:1x3;0,3:1x2;1,3:2x2;3,3:1x2")]
-        [TestCase("rig-mppv", 4, 3, 24, "0,0:1x2;1,0:1x2;2,0:1x2;3,0:1x2;0,2:1x2;1,2:1x2;2,2:1x2;3,2:1x2;0,4:1x2;1,4:1x1;2,4:1x1;1,5:1x1;2,5:1x1;3,4:1x2")]
+        [TestCase("rig-utility", 3, 4, 20, "0,0:1x2;1,0:1x2;2,0:1x2;3,0:1x2;0,2:1x2;1,2:1x2;2,2:1x2;3,2:1x2;0,4:1x1;1,4:1x1;2,4:2x1")]
+        [TestCase("rig-extended", 4, 4, 20, "0,0:1x3;1,0:1x3;2,0:1x3;3,0:1x3;0,3:1x2;1,3:2x2;3,3:1x2")]
+        [TestCase("rig-patrol", 4, 3, 24, "0,0:1x2;1,0:1x2;2,0:1x2;3,0:1x2;0,2:1x2;1,2:1x2;2,2:1x2;3,2:1x2;0,4:1x2;1,4:1x1;2,4:1x1;1,5:1x1;2,5:1x1;3,4:1x2")]
         [TestCase("rig-belt", 4, 4, 25, "0,0:1x1;1,0:1x2;2,0:1x2;3,0:1x2;4,0:1x1;0,1:1x1;4,1:1x1;0,2:1x1;1,2:1x2;2,2:1x2;3,2:1x2;4,2:1x1;0,3:1x1;4,3:1x1;0,4:1x1;1,4:1x1;2,4:1x1;3,4:1x1;4,4:1x1")]
-        public void PresetMatchesReferencePockets(string id, int width, int height, int capacity, string expected)
+        public void PresetMatchesConfiguredPockets(string id, int width, int height, int capacity, string expected)
         {
             Assert.That(Catalog().TryGet(new DefinitionId(id), out var rig), Is.True);
             Assert.That((rig.Width, rig.Height, rig.MaxStack), Is.EqualTo((width, height, 1)));
@@ -44,16 +44,16 @@ namespace InventorySystem.Tests
             Assert.That(instances.Length, Is.EqualTo(10)); Assert.That(instances.Select(i => i.ChildContainerId).Distinct().Count(), Is.EqualTo(10));
             Assert.That(state.Items.Count, Is.EqualTo(22));
         }
-        [Test] public void BlackRockCannotTreatTwoNeighborPocketsAsOneLargePocket()
+        [Test] public void CarrierCannotTreatTwoNeighborPocketsAsOneLargePocket()
         {
             using var runtime = new InventoryRuntime(Catalog(), ExpandedDemoSeed.StashDefinition());
             var root = runtime.ReadModel.Snapshot.RootContainerId;
             var rig = runtime.Edit.Add(new AddRequest(new DefinitionId("rig"), 1, new PlacementTarget(root, new GridSectionId("main"), 0, 0))).CreatedItemId;
             var child = runtime.ReadModel.Snapshot.Items[rig].ChildContainerId;
             var before = runtime.ReadModel.Snapshot;
-            var result = runtime.Edit.Add(new AddRequest(new DefinitionId("ammo-case"), 1, new PlacementTarget(child, new GridSectionId("tall-e"), 0, 0)));
+            var result = runtime.Edit.Add(new AddRequest(new DefinitionId("case-ammo"), 1, new PlacementTarget(child, new GridSectionId("tall-e"), 0, 0)));
             Assert.That(result.Success, Is.False); Assert.That(runtime.ReadModel.Snapshot, Is.SameAs(before));
-            Assert.That(runtime.Edit.Add(new AddRequest(new DefinitionId("ammo-case"), 1, new PlacementTarget(child, new GridSectionId("large-a"), 0, 0))).Success, Is.True);
+            Assert.That(runtime.Edit.Add(new AddRequest(new DefinitionId("case-ammo"), 1, new PlacementTarget(child, new GridSectionId("large-a"), 0, 0))).Success, Is.True);
         }
     }
 }

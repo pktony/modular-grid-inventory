@@ -5,7 +5,7 @@ Unity 격자 인벤토리를 다른 프로젝트에서 재사용할 수 있는 �
 흐름: [패키지 경계·6단계·배포 검증](./docs/asset-store-flow.html)
 
 - 작업 브랜치: `feature/asset-store-package`; 기준 구현: `4e08a36`.
-- 이번 산출물: 계획과 흐름도; 구현·게시·계정 설정은 후속 작업.
+- 산출물: 패키지 코드·중립 샘플·영문 안내·내보내기 도구·0.1.0 후보; Unity 실행 검증과 게시 준비는 진행 중.
 - 제품명은 `Modular Grid Inventory`를 임시 사용; 최초 배포 형식은 `.unitypackage`.
 
 ## 범위
@@ -17,23 +17,24 @@ Unity 격자 인벤토리를 다른 프로젝트에서 재사용할 수 있는 �
 - 제외: 전투·장착·소모 효과·경제·네트워크·저장/불러오기, UI Toolkit·모바일·콘솔 지원 보장, UPM 스토어 배포.
 - 개발 전용: Unity MCP, Windows 빌드·녹화·FFmpeg 도구, 원본 게임 자료, 테스트 실행 도구; 배포물에서 제외.
 
-## 확인한 현재 구조
+## 구현과 남은 검증
 
-| 위치 | 패키지화에 필요한 변경 |
-|---|---|
-| `Assets/Scripts/ExpandedInventory.cs` | 구성 루트가 `ExpandedDemoSeed`·RESET·UI·오디오 조립을 연결; 초기 상태와 시연을 본체에서 분리 |
-| `Assets/Scripts/Presentation/InventoryElementFactory.cs` | 고정 Resources 폰트 로드를 명시적 테마 참조로 교체 |
-| `Assets/Scripts/Presentation/InventoryInteractionInput.cs` | Legacy Input 직접 조회를 입력 어댑터로 분리 |
-| `Assets/Scripts/Presentation/InventoryScreenFactory.cs` | 1280×720·색상·문구·버튼 배치를 설정과 교체 가능한 뷰 구성으로 분리 |
-| `Assets/Editor/InventoryCatalogWindow.cs` 등 | `Assets/Items/Expansion` 고정 경로를 선택된 카탈로그와 사용자 저장 경로로 교체 |
-| `Assets/Editor/InventorySceneBuilder.cs` | Build Settings·Player Settings 수정과 현재 씬 덮어쓰기를 배포 도구에서 제거 |
-| `Assets/Editor/GameViewResolution.cs` | 내부 Editor API 리플렉션을 사용하는 개발용 도구; 배포 제외 |
-| `Assets/Resources/RigIcons/`, `docs/rig-presets.md` | 게임 원본 아이콘 10개를 중립 이미지로 교체; 원본 URL·게임 이름이 있는 샘플 데이터 제외 |
-| `Packages/manifest.json`, `Assets/TextMesh Pro/` | 개발 패키지·외부 Git 의존성·Unity 기본 리소스 복제를 배포 의존성과 분리 |
+- [x] 단일 배포 루트와 개발 도구 분리; 네임스페이스·에셋 참조 연결.
+- [x] 명시적 카탈로그·루트·초기 상태, 입력 어댑터, 인스턴스별 불변 테마.
+- [x] Canvas 프리팹·설치 검사·카탈로그 생성·범용 Inspector.
+- [x] 중립 아이콘 19종·아이템 19종·리그 10종·초기 인스턴스 22개·모델 전용 예제.
+- [x] 영문 설치/API/출처 문서·정적 검사·Core/입력 어댑터 분리 내보내기·후보 아카이브.
+- [x] 설치된 Unity DLL 기준 어셈블리 11개 컴파일; 배포 어셈블리 경고 0·정적 에셋 검사 오류 0.
+- [x] 개발 프로젝트 Unity 임포트·새 아이콘/폰트 표시·가방 창 조작; Edit 101/101·Play 24/24.
+- [ ] 새 리소스로 소개 영상 제작·깨끗한 소비자 프로젝트 임포트 검증.
+- [ ] 깨끗한 URP/HDRP·입력·수명·업그레이드 행렬과 Publisher Validator 검증.
+- [ ] 게시 정보 확정·최종 제출물 검토; 계정과 스토어는 변경하지 않음.
+
+검증 상세: [package-validation.md](./docs/package-validation.md). 후보 아카이브는 Unity 임포트 미검증 상태로 표기한다.
 
 ## 배포 구조와 책임
 
-모든 배포 파일은 `Assets/ModularGridInventory/` 아래에 둔다. 이동은 `.meta`의 GUID를 유지하고 씬·SO·프리팹 참조를 검사한다.
+모든 배포 파일은 `Assets/ModularGridInventory/` 아래에 둔다. 자체 에셋 이동은 GUID를 유지하며 공통 폰트 복사본은 독립 GUID를 사용한다. 씬·SO·프리팹 참조를 검사한다.
 
 | 경로 / 구성 | 단일 책임 |
 |---|---|
@@ -41,10 +42,10 @@ Unity 격자 인벤토리를 다른 프로젝트에서 재사용할 수 있는 �
 | `Runtime/Domain` | 조회 계약·소유권·규칙·이동/수납/스택·원자적 확정; UI·Editor·샘플 참조 금지 |
 | `Runtime/Presentation` | 입력 명령·MVP(Model–View–Presenter)·화면·창·사운드 연결; 데모 초기화 금지 |
 | `Runtime/Integration` | 구성 루트의 의존성 조립·해제, 기본 uGUI 연결 |
-| `Runtime/Input` | 입력 원천 계약과 Legacy 어댑터; Input System 어댑터는 선택 어셈블리 |
+| `Runtime/Input`, `Integrations/InputSystem` | Legacy 입력과 별도 선택 어댑터; 입력 계약은 Presentation에 유지 |
 | `Editor` | 카탈로그 선택·SO 편집·프리팹 설정 검증; Runtime에서 참조 금지 |
 | `Samples` | 초기 상태·중립 아이콘·포켓 10종·데모 장면·효과음 |
-| `Documentation`, `ThirdParty` | 영문 설치·확장 안내, 변경 기록·출처·라이선스 |
+| `Documentation`, `Samples/Fonts`, `Samples/Audio` | 영문 설치·확장 안내, 생성 기록·출처·라이선스 |
 | 저장소의 개발 도구·테스트 | 검증·녹화·배포 파일 생성; 고객 패키지에 자동 포함 금지 |
 
 - 네임스페이스·어셈블리는 `Pktony.GridInventory` 접두사로 통일; 이름 변경 시 직렬화 식별자·테스트 참조를 검증한다.
@@ -72,7 +73,7 @@ Unity 격자 인벤토리를 다른 프로젝트에서 재사용할 수 있는 �
 - SRP(단일 책임 원칙)는 예외 없이 적용: 생성·검증·상태 확정·입력·표시·오디오·샘플·배포를 분리한다.
 - 기존 Factory·MVP·Composition Root·Observer를 유지; 입력 원천 교체에 Adapter를 적용한다.
 - 실제 교체 지점에만 인터페이스를 둔다; 유형별 상속·전역 이벤트 버스·Service Locator·거대 Installer·SO/JSON 이중 원본은 도입하지 않는다.
-- 사용자 조작은 포인터를 즉시 따른다; 영상용 이징·클릭 강조·자동 시나리오는 개발 도구가 소유한다.
+- 사용자 조작은 포인터를 즉시 따른다; 클릭 강조는 기본 꺼진 테마 옵션이며 영상용 이징·자동 시나리오는 개발 도구가 소유한다.
 - 임포트 시 씬 전환·설정 덮어쓰기·의존 패키지 자동 설치를 하지 않는다; 데이터 복원은 대상과 덮어쓰기 범위를 확인하는 명시적 명령이다.
 
 ## 검증 행렬
@@ -105,7 +106,7 @@ Unity 격자 인벤토리를 다른 프로젝트에서 재사용할 수 있는 �
 | 위험 | 심각도 | 완화 |
 |---|---|---|
 | 게임 원본 이미지·브랜드가 배포물에 남음 | 높음 | 중립 샘플 교체, 파일·참조·소개 문구 포함 목록 검사 |
-| 이동·어셈블리 변경으로 GUID/직렬화 참조 손실 | 높음 | GUID 유지, Missing Script/참조와 업그레이드 검증 |
+| 이동·어셈블리 변경으로 GUID/직렬화 참조 손실 | 높음 | 자체 에셋 GUID 유지·공통 폰트 GUID 분리, Missing Script/참조와 업그레이드 검증 |
 | 기본 폰트·샘플 ID·입력·프로젝트 설정 의존 | 높음 | 명시적 주입, 샘플 없는 실행과 새 호스트 프로젝트 검사 |
 | Domain Reload 비활성에서 구독·정적 상태 누적 | 높음 | 인스턴스 소유·Dispose·필요한 초기화, 반복 Play 검증 |
 | 최소 버전·렌더링 지원을 검증 없이 광고 | 높음 | 버전별 빌드·동작 결과 확보 후 지원 표기 |
@@ -123,4 +124,4 @@ Unity 격자 인벤토리를 다른 프로젝트에서 재사용할 수 있는 �
 - [ ] 무료 공개 또는 유료 가격·지원 범위; 결정 전 유료 판매 문구를 작성하지 않는다.
 - [ ] Unity `6000.0` 지원 가능 여부와 최종 버전·렌더링 행렬은 실제 검사 결과로 확정.
 - [ ] 소스 저장소 공개 정책과 Asset Store 배포 조건의 연결.
-- [ ] 최종 제출·공개 시점과 Publisher 계정 설정; 이번 계획 단계에서는 계정·스토어를 변경하지 않는다.
+- [ ] 최종 제출·공개 시점과 Publisher 계정 설정; 사용자 검토 전 계정·스토어를 변경하지 않는다.

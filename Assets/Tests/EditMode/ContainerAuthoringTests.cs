@@ -1,10 +1,10 @@
 using System;
-using InventorySystem.Editor;
+using Pktony.GridInventory.Editor;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 
-namespace InventorySystem.Tests
+namespace Pktony.GridInventory.Tests
 {
     public sealed class ContainerAuthoringTests
     {
@@ -52,7 +52,7 @@ namespace InventorySystem.Tests
             {
                 var rules = data.FindProperty("sections").GetArrayElementAtIndex(1).FindPropertyRelative("policy");
                 rules.FindPropertyRelative("mode").enumValueIndex = 1;
-                var denied = rules.FindPropertyRelative("deniedItemIds"); denied.arraySize = 1; denied.GetArrayElementAtIndex(0).stringValue = "pst";
+                var denied = rules.FindPropertyRelative("deniedItemIds"); denied.arraySize = 1; denied.GetArrayElementAtIndex(0).stringValue = "ammo-light";
                 data.ApplyModifiedPropertiesWithoutUndo();
             }
             int index = session.Add(); var added = session.Read()[index]; Assert.That(added.Id, Is.EqualTo("pocket-2"));
@@ -93,9 +93,9 @@ namespace InventorySystem.Tests
 
         [Test] public void NextCatalogSnapshotReadsDirectAssetEditsWithoutGenerator()
         {
-            var source = AssetDatabase.LoadAssetAtPath<InventoryCatalogAsset>("Assets/Items/Expansion/Catalog.asset");
+            var source = AssetDatabase.LoadAssetAtPath<InventoryCatalogAsset>("Assets/ModularGridInventory/Samples/Catalog/Catalog.asset");
             var catalog = UnityEngine.Object.Instantiate(source);
-            var rig = UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<ItemDefinition>("Assets/Items/Expansion/item-rig.asset"));
+            var rig = UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<ItemDefinition>("Assets/ModularGridInventory/Samples/Catalog/item-rig.asset"));
             try
             {
                 using (var data = new SerializedObject(rig)) { data.FindProperty("container").objectReferenceValue = container; data.ApplyModifiedPropertiesWithoutUndo(); }

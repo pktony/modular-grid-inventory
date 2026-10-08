@@ -1,1 +1,18 @@
-{"name": "InventorySystem.Tests", "references": ["InventorySystem.Runtime", "InventorySystem.Catalog", "InventorySystem.Domain", "InventorySystem.Presentation", "InventorySystem.Editor"], "includePlatforms": ["Editor"], "optionalUnityReferences": ["TestAssemblies"]}
+{
+  "name": "Pktony.GridInventory.Tests",
+  "references": [
+    "Pktony.GridInventory.Runtime",
+    "Pktony.GridInventory.Catalog",
+    "Pktony.GridInventory.Domain",
+    "Pktony.GridInventory.Presentation",
+    "Pktony.GridInventory.Editor",
+    "Pktony.GridInventory.Development",
+    "Pktony.GridInventory.Development.Editor"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

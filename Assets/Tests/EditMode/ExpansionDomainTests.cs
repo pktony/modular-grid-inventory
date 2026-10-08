@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using InventorySystem.Domain;
+using Pktony.GridInventory.Domain;
 using NUnit.Framework;
 using UnityEngine;
-using Entry = InventorySystem.Domain.InventoryEntry;
-namespace InventorySystem.Tests
+using Entry = Pktony.GridInventory.Domain.InventoryEntry;
+namespace Pktony.GridInventory.Tests
 {
     public sealed class ExpansionDomainTests
     {
@@ -20,7 +20,7 @@ namespace InventorySystem.Tests
         {
             texture = new Texture2D(1, 1); icon = Sprite.Create(texture, new Rect(0, 0, 1, 1), Vector2.zero);
             var bag = new ContainerDefinitionView("bag", new[] { new GridSectionDefinitionView("main", 6, 6) });
-            var ammoCase = new ContainerDefinitionView("ammo-case", new[] { new GridSectionDefinitionView("main", 4, 4) },
+            var ammoCase = new ContainerDefinitionView("case-ammo", new[] { new GridSectionDefinitionView("main", 4, 4) },
                 new AcceptancePolicyView(AcceptanceMode.AllowListed, new[] { "Ammo" }));
             var rig = new ContainerDefinitionView("rig", new[] { new GridSectionDefinitionView("pocket", 1, 2), new GridSectionDefinitionView("large", 2, 2) });
             catalog = new InventoryCatalog(new[] { new CategoryDefinitionView("Ammo", "Ammo"), new CategoryDefinitionView("9mm", "9mm", "Ammo"),
