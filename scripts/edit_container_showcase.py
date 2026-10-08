@@ -9,6 +9,7 @@ import uuid
 from pathlib import Path
 
 import imageio_ffmpeg
+from capture_audio import cut_capture
 
 
 def edit_plan():
@@ -89,6 +90,8 @@ def render(source, output, font):
     work = source.parent / "container-showcase-edit" / uuid.uuid4().hex
     work.mkdir(parents=True)
     manifest = stage_frames(source, work)
+    manifest["audio"] = cut_capture(source, work / "audio.wav", manifest["source_frames"], 1764)
+    (work / "edit.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
     filters = ["scale=1728:972:flags=lanczos", "pad=1920:1080:96:108:color=0x07110f"]
     for index, (start, end, number, title) in enumerate(manifest["chapters"]):
         filters.append(text_filter(work, font, title, f"title-{index}", start, end, 36, 96, 13, "0xeeeade"))
@@ -98,10 +101,11 @@ def render(source, output, font):
         filters.append(text_filter(work, font, detail, f"detail-{index}", start, end, 25, 96, 65, "0xc1c9bf"))
     output.parent.mkdir(parents=True, exist_ok=True)
     subprocess.run([imageio_ffmpeg.get_ffmpeg_exe(), "-hide_banner", "-loglevel", "error", "-y",
-                    "-framerate", "30", "-i", str(work / "frame-%04d.png"), "-vf", ",".join(filters),
-                    "-frames:v", str(len(manifest["source_frames"])), "-an", "-c:v", "libx264",
+                    "-framerate", "30", "-i", str(work / "frame-%04d.png"), "-i", str(work / "audio.wav"),
+                    "-map", "0:v:0", "-map", "1:a:0", "-vf", ",".join(filters),
+                    "-t", str(len(manifest["source_frames"]) / 30), "-c:a", "aac", "-b:a", "192k", "-c:v", "libx264",
                     "-crf", "18", "-preset", "fast", "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(output)], check=True)
-    print(f"{output.resolve()} / {len(manifest['source_frames'])} frames / {len(manifest['source_frames']) / 30:g}s / 1x gestures")
+    print(f"{output.resolve()} / {len(manifest['source_frames'])} frames / {len(manifest['source_frames']) / 30:g}s / 1x gestures / Unity audio")
     print(f"Edit manifest: {work / 'edit.json'}")
 
 
