@@ -71,7 +71,7 @@ namespace InventorySystem
         }
         private void End()
         { data.position = destination; ExecuteEvents.Execute(dragged, data, ExecuteEvents.dragHandler); ExecuteEvents.Execute(dragged, data, ExecuteEvents.endDragHandler); pointer = destination; holding = false; }
-        private void Scroll(float value = 0.65f) { inventory.Screen.Stash.Scroll.verticalNormalizedPosition = value; Canvas.ForceUpdateCanvases(); }
+        private void Scroll(float value = 0.86f) { inventory.Screen.Stash.Scroll.verticalNormalizedPosition = value; Canvas.ForceUpdateCanvases(); }
         public void Tick(float time)
         {
             int next = Mathf.Min(StageCount - 1, Mathf.FloorToInt(time / StageDuration));
@@ -131,8 +131,8 @@ namespace InventorySystem
                     holding = true; start = pointer; destination = Point(Root, main, 8, 11); data = Event(pointer); dragStarted = time; break;
                 case 22:
                     pointer = destination; holding = false; ExecuteEvents.Execute(inventory.Screen.Stash.Viewport.gameObject, Event(pointer), ExecuteEvents.pointerClickHandler);
-                    Scroll(0.3f); rifle = Find("aks74u", Root); Begin(rifle, Point(Root, main, 1, 14), time); inventory.Interaction.Rotate(); break;
-                case 23: End(); Scroll(0.1f); break;
+                    Scroll(0.78f); rifle = Find("aks74u", Root); Begin(rifle, Point(Root, main, 1, 14), time); inventory.Interaction.Rotate(); break;
+                case 23: End(); Scroll(0.7f); break;
                 case 24:
                     inventory.Interaction.Cancel(); holding = false;
                     ClickItem(Find("rk0", Root), time); Click(inventory.Screen.Delete, time); break;

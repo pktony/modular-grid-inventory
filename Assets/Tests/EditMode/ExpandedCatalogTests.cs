@@ -84,13 +84,13 @@ namespace InventorySystem.Tests
             Assert.That(runtime.Edit.Add(new AddRequest(new DefinitionId("sample"), 1,
                 new PlacementTarget(before.RootContainerId, new GridSectionId("main"), 0, 0))).Success, Is.True);
         }
-        [Test] public void PresetCatalogHasTenDefinitionsAndTwentyRigCells()
+        [Test] public void PresetCatalogHasNineteenDefinitionsAndTwentyBlackRockCells()
         {
             var asset = AssetDatabase.LoadAssetAtPath<InventoryCatalogAsset>("Assets/Items/Expansion/Catalog.asset");
             var catalog = new InventoryCatalogSnapshotFactory().Create(asset);
-            Assert.That(catalog.Definitions.Count, Is.EqualTo(10));
+            Assert.That(catalog.Definitions.Count, Is.EqualTo(19));
             catalog.TryGet(new DefinitionId("rig"), out var rig); Assert.That(rig.Container.Sections.Sum(s => s.Width * s.Height), Is.EqualTo(20));
-            Assert.That(rig.Container.Sections.Count, Is.EqualTo(10));
+            Assert.That(rig.Container.Sections.Count, Is.EqualTo(11));
         }
         [Test] public void SourceContainerEditsDoNotChangeLiveSession()
         {

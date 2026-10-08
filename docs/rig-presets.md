@@ -1,5 +1,7 @@
 # 실재 리그 10종
 
+![Unity에서 열린 10종의 실제 컨테이너 창](rig-gallery.png)
+
 포켓 가로·세로·개수·상대 행/열은 원본과 일치한다. 셀은 기존 UI의 50px 피치를 사용하며 포켓 표시 좌표는 `column × 1.06`, `row × 1.06`이다. 원본 게임의 화면 해상도별 픽셀 간격이나 텍스처까지 복제한 것은 아니다.
 
 | 리그 | 외부 크기 | 내부 칸 | 독립 포켓 | 에셋 ID |
@@ -22,6 +24,7 @@
 - JSON 수정 후 `Inventory > Build Expanded Catalog`를 실행한다. 이 메뉴는 프리셋 크기·이름·아이콘·표시 좌표를 SO에 다시 쓰므로 해당 SO의 직접 편집값을 덮어쓴다. JSON은 실행 중에 읽지 않는다.
 - 기존 BlackRock의 `rig`, `tall-a`, `small-a` ID와 에셋 GUID는 유지했다. 2×2는 하나이며 아래 오른쪽은 서로 독립적인 1×2 두 포켓이다.
 - 데모 시작 보관함에 BlackRock이 있고 아래쪽 20행부터 나머지 9종이 있다. 더블클릭하면 실제 드래그 가능한 컨테이너 창을 연다. 각 인스턴스는 독립 ContainerId를 갖는다.
+- Play에서 `Inventory > Show All Rig Windows (Play Mode)`를 실행하면 10종의 실제 컨테이너 창을 두 줄로 배치해 비교할 수 있다. 기존 창 배치만 바꾸며 내용물을 변경하지 않는다.
 - 테이블 파싱, 프리셋 에셋 생성, 시연 인스턴스 추가는 각각 `RigPresetLoader`, `RigCatalogBuilder`, `RigDemoSeed`가 담당한다.
 
 ## 조사 및 이미지 출처

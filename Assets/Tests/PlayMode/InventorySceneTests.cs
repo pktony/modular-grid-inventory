@@ -36,7 +36,7 @@ namespace InventorySystem.Tests
             { position = point, pressPosition = point, button = PointerEventData.InputButton.Left, clickCount = clicks };
         private void Open(ItemInstanceId id)
         { var data = Data(RectTransformUtility.WorldToScreenPoint(null, View(id).transform.position), 2); ExecuteEvents.Execute(View(id), data, ExecuteEvents.pointerClickHandler); Canvas.ForceUpdateCanvases(); }
-        private void RevealLower() { inventory.Screen.Stash.Scroll.verticalNormalizedPosition = 0.3f; Canvas.ForceUpdateCanvases(); }
+        private void RevealLower() { inventory.Screen.Stash.Scroll.verticalNormalizedPosition = 0.78f; Canvas.ForceUpdateCanvases(); }
         private PointerEventData Begin(ItemInstanceId id)
         {
             State.Registry.TryGetOwner(id, out var owner); var entry = State.Containers[owner].Entries[id];
@@ -48,10 +48,11 @@ namespace InventorySystem.Tests
         { data.position = point; ExecuteEvents.Execute(View(id), data, ExecuteEvents.dragHandler); ExecuteEvents.Execute(View(id), data, ExecuteEvents.endDragHandler); }
         [UnityTest] public IEnumerator SceneHasFrozenDefinitionsAndOneScreen()
         {
-            Assert.That(State.Items.Count, Is.EqualTo(13)); Assert.That(State.Containers[Root].Entries.Count, Is.EqualTo(11));
+            Assert.That(State.Items.Count, Is.EqualTo(22)); Assert.That(State.Containers[Root].Entries.Count, Is.EqualTo(20));
             Assert.That(Object.FindObjectsByType<ExpandedInventory>().Length, Is.EqualTo(1));
             Assert.That(GameObject.Find("InventoryScreen"), Is.Not.Null);
-            Assert.That(Object.FindObjectsByType<InventoryPointerHandler>().Length, Is.EqualTo(11));
+            Assert.That(inventory.Screen.Stash.Policy.text, Does.Contain("9 x 48"));
+            Assert.That(Object.FindObjectsByType<InventoryPointerHandler>().Length, Is.EqualTo(20));
             foreach (var item in State.Items.Values) Assert.That(item.Definition.Icon, Is.Not.Null);
             LogAssert.NoUnexpectedReceived(); yield return null;
         }
@@ -108,12 +109,12 @@ namespace InventorySystem.Tests
             Assert.That(inventory.Screen.Quantity.IsOpen, Is.True); Assert.That(State, Is.SameAs(before));
             inventory.Interaction.Cancel(); yield return null; LogAssert.NoUnexpectedReceived();
         }
-        [UnityTest] public IEnumerator RigHasTenSectionsAndGapIsNotDropTarget()
+        [UnityTest] public IEnumerator BlackRockHasElevenSectionsAndGapIsNotDropTarget()
         {
-            Open(Find("rig", Root)); RevealLower(); Assert.That(inventory.Windows.Frontmost.Panel.Sections.Count, Is.EqualTo(10));
+            Open(Find("rig", Root)); RevealLower(); Assert.That(inventory.Windows.Frontmost.Panel.Sections.Count, Is.EqualTo(11));
             var ammo = Find("pst", Root, 20); var before = State; var data = Begin(ammo);
             var tall = inventory.Windows.Frontmost.Panel.Sections[new GridSectionId("tall-a")];
-            var gap = tall.Geometry.ScreenPoint(1, 0, new Vector2(25, 25)); Drop(ammo, data, gap);
+            var gap = tall.Geometry.ScreenPoint(1, 0, new Vector2(1.5f, 25)); Drop(ammo, data, gap);
             Assert.That(State, Is.SameAs(before));
             data = Begin(ammo); Drop(ammo, data, Point(inventory.Windows.Frontmost.Panel.Container, new GridSectionId("small-a"), 0, 0)); yield return null;
             Assert.That(State.Registry.TryGetOwner(ammo, out var owner), Is.True); Assert.That(owner, Is.EqualTo(inventory.Windows.Frontmost.Panel.Container)); LogAssert.NoUnexpectedReceived();
@@ -123,8 +124,26 @@ namespace InventorySystem.Tests
             var berkut = Find("berkut", Root); Open(berkut); Begin(Find("mbss"));
             inventory.Windows.Frontmost.Close.onClick.Invoke(); Assert.That(inventory.Interaction.Drag, Is.Null);
             inventory.Screen.Reset.onClick.Invoke(); inventory.Screen.Reset.onClick.Invoke(); yield return null;
-            Assert.That(State.Items.Count, Is.EqualTo(13)); Assert.That(Object.FindObjectsByType<InventoryPointerHandler>().Length, Is.EqualTo(11));
+            Assert.That(State.Items.Count, Is.EqualTo(22)); Assert.That(Object.FindObjectsByType<InventoryPointerHandler>().Length, Is.EqualTo(20));
             Assert.That(inventory.Windows.Windows.Count, Is.Zero); LogAssert.NoUnexpectedReceived();
+        }
+        [UnityTest] public IEnumerator AllTenRigsOpenDistinctWindowsAndReuseTheirOwnWindow()
+        {
+            var rigs = State.Items.Values.Where(i => i.Definition.CategoryId == "Container/Rig").ToArray();
+            Assert.That(rigs.Length, Is.EqualTo(10));
+            foreach (var rig in rigs)
+            {
+                Open(rig.Id); var window = inventory.Windows.Find(rig.ChildContainerId);
+                Assert.That(window.Panel.Sections.Count, Is.EqualTo(rig.Definition.Container.Sections.Count));
+                foreach (var section in window.Panel.Sections.Values)
+                    Assert.That(section.Geometry.Rect.Find("PocketOutline").GetComponentsInChildren<Image>().All(i => !i.raycastTarget), Is.True);
+                Assert.That(window.Panel.Sections.Values.Sum(s => s.Geometry.Definition.Width * s.Geometry.Definition.Height),
+                    Is.EqualTo(rig.Definition.Container.Sections.Sum(s => s.Width * s.Height)));
+            }
+            Assert.That(inventory.Windows.Windows.Count, Is.EqualTo(10));
+            var original = inventory.Windows.Find(rigs[0].ChildContainerId); Open(rigs[0].Id);
+            Assert.That(inventory.Windows.Frontmost, Is.SameAs(original)); Assert.That(inventory.Windows.Windows.Count, Is.EqualTo(10));
+            yield return null; LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator ClickIndicatorIsHiddenWhenReleased()
         {
@@ -148,7 +167,8 @@ namespace InventorySystem.Tests
             var data = Data(RectTransformUtility.WorldToScreenPoint(null, window.Header.TransformPoint(new Vector3(30, -10))));
             ExecuteEvents.Execute(window.Header.gameObject, data, ExecuteEvents.beginDragHandler); data.position += new Vector2(100, -50);
             ExecuteEvents.Execute(window.Header.gameObject, data, ExecuteEvents.dragHandler); ExecuteEvents.Execute(window.Header.gameObject, data, ExecuteEvents.endDragHandler);
-            Assert.That(window.Panel.Root.anchoredPosition, Is.EqualTo(previous + new Vector2(100, -50))); Assert.That(inventory.Windows.Frontmost, Is.SameAs(window));
+            var scale = window.Panel.Root.GetComponentInParent<Canvas>().scaleFactor;
+            Assert.That(window.Panel.Root.anchoredPosition, Is.EqualTo(previous + new Vector2(100, -50) / scale)); Assert.That(inventory.Windows.Frontmost, Is.SameAs(window));
             Assert.That(State, Is.SameAs(before)); yield return null; LogAssert.NoUnexpectedReceived();
         }
         [UnityTest] public IEnumerator FrontWindowHeaderAndEmptySpaceBlockGridBehindIt()
@@ -164,7 +184,7 @@ namespace InventorySystem.Tests
         }
         [UnityTest] public IEnumerator DropOnClosedBagItemStoresInsideIt()
         {
-            inventory.Screen.Stash.Scroll.verticalNormalizedPosition = 0.65f; Canvas.ForceUpdateCanvases();
+            inventory.Screen.Stash.Scroll.verticalNormalizedPosition = 0.86f; Canvas.ForceUpdateCanvases();
             var ammo = Find("pst", Root, 20); var box = Find("ammo-case", Root);
             var data = Begin(ammo); Drop(ammo, data, Point(Root, main, 0, 6)); yield return null;
             Assert.That(State.Registry.TryGetOwner(ammo, out var owner), Is.True); Assert.That(owner, Is.EqualTo(State.Items[box].ChildContainerId));

@@ -50,7 +50,9 @@ namespace InventorySystem.Presentation
         {
             stash.Render(model.Snapshot, model.Snapshot.RootContainerId, Selected, Dragging);
             screen.Stash.Title.text = "STASH";
-            screen.Stash.Policy.text = $"9 x 20   |   {model.Snapshot.Containers[model.Snapshot.RootContainerId].Entries.Count} items";
+            var state = model.Snapshot.Containers[model.Snapshot.RootContainerId];
+            var size = string.Join(" / ", state.Definition.Sections.Select(s => $"{s.Width} x {s.Height}"));
+            screen.Stash.Policy.text = $"{size}   |   {state.Entries.Count} items";
         }
         private void UpdateWindowHint() => screen.EmptyWindows.gameObject.SetActive(windows.Windows.Count == 0);
         private void UpdateActions()

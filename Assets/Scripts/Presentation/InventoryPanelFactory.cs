@@ -42,6 +42,7 @@ namespace InventorySystem.Presentation
                 var position = new Vector2(layout.X * InventorySectionGeometry.Pitch, -layout.Y * InventorySectionGeometry.Pitch);
                 var rect = InventoryElementFactory.Rect("Section-" + layout.SectionId, panel.Content, position,
                     new Vector2(definition.Width, definition.Height) * InventorySectionGeometry.Pitch);
+                InventoryPocketOutline.Create(rect, definition.Width, definition.Height);
                 var cells = new Image[definition.Width * definition.Height];
                 for (int y = 0; y < definition.Height; y++) for (int x = 0; x < definition.Width; x++)
                 {
