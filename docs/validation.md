@@ -2,6 +2,22 @@
 
 2026-10-05, Windows, Unity `6000.6.4f1`, `Assets/Scenes/Inventory.unity`, `feature/inventory-expansion`.
 
+## 커스텀 Inspector 추가 검증
+
+Edit Mode **84/84** 통과: `TestResults/inspector-editmode-final.xml`. 기존 73개에 포켓 이름·크기·위치의 묶음 Undo/Redo, 추가 시 정책 초기화, 삭제와 레이아웃 연결 복원, 잘못된 편집의 무변경, 레이아웃 자동 생성/복원, 생성 메뉴 없이 다음 카탈로그 스냅샷에 직접 SO 편집 반영, 커스텀 Editor 선택을 검증하는 11개를 추가했다. 변경은 Editor에 한정되며 아래 플레이어 빌드와 영상은 리그 10종 추가 시점의 기록이다.
+
+실제 Unity UI에서 Micro Rig 아이템을 선택하고 미리보기의 세 번째 포켓을 클릭했다. Y를 `0 → 1.06`으로 편집해 위치 갱신을 확인한 뒤 Ctrl+Z로 `0`과 원래 배치를 복원했다. JSON 편집이나 생성 메뉴는 사용하지 않았다. [편집 화면](rig-inspector.png)은 복원 후의 원본 Unity 캡처다.
+
+## Inspector 편집 영상 검증
+
+2026-10-05 [새 편집·실행 영상](inventory-inspector-walkthrough.mp4)을 제작했다. 실제 Unity 창 녹화에서 포켓 선택, Y `0 → 1.06`, 높이 `2 → 3`, 용량 `8 → 9`, 포켓 추가 `10칸`, Ctrl+Z `9칸`을 확인했다. 다음 Play에서 Micro Rig 창에 수정한 위치와 1×3 포켓이 적용되는 장면 및 리그 10종을 담았다. 촬영 후 Play를 종료하고 샘플 SO를 원래 8칸으로 복원했으며 에셋 변경이 남지 않았음을 Git으로 확인했다.
+
+뒤의 Game View 시연은 현재 프로젝트에서 새로 캡처한 실제 Unity 입력 이벤트 27단계다. 연속 번호의 원본 PNG 1,215개와 각 1280×720 크기를 검사했다. Inspector 장면은 실제 마우스 클릭·키 입력 녹화이며, Game View 이동은 포인터 이벤트 핸들러와 공유 명령을 사용하는 자동 시연이다. 대기 구간을 잘라내고 확대·한국어 자막을 적용했으며 Game View는 3배 재생했다.
+
+완성 MP4 전체 디코딩 통과: **895프레임·30fps·29.83초·1280×720**, H.264/yuv420p, 1,010,007 bytes. 대표 프레임으로 필드 입력·미리보기 변화·추가/Undo·Play 반영·수납 장면과 자막의 버튼 비가림을 확인했다. 이 작업은 영상·문서만 추가하며 기존 테스트와 빌드를 다시 실행하지 않았다.
+
+## 리그 10종 구현 검증
+
 | 검증 | 결과 | 범위 |
 |---|---|---|
 | Edit Mode | 73/73 통과 | 불변 카탈로그·분류·정책·레이아웃·소유권·순환·구획·원자적 반영·예외/재진입·스택·초기화·실재 리그 10종의 모든 포켓 좌표/크기·인스턴스 독립성 |
@@ -39,6 +55,7 @@ Windows 검증은 `-inventory-smoke-test` 옵션으로 실제 플레이어를 �
 - 배포 묶음: `Builds/TacticalInventory-Windows.zip`, 41,331,618 bytes.
 - ZIP SHA-256: `6df6287b0bbb0f84dd84cdb5a6bcca1105fd293ea094bbb161da85d80e8b42b2`.
 - [13.5초 영상](inventory-walkthrough.mp4) · [중첩 화면](inventory.png) · [분할 리그](inventory-rig.png) · [수량 입력](inventory-split.png).
+- [29.8초 Inspector 편집·Play·수납 영상](inventory-inspector-walkthrough.mp4).
 - [리그 10종 원본·설정](rig-presets.md) · [생성 아이콘 프롬프트와 경로](item-icons.md) · [실행·SO 편집 안내](../README.md).
 
 빌드·테스트 원시 결과·캡처 프레임은 Git에서 제외된 `Build/`, `Builds/`, `TestResults/`, `Captures/`, `Recordings/frames/`에 있다. 공유하는 README·PNG·MP4·계획·검증 문서는 저장소에 포함한다.

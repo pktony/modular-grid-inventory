@@ -11,6 +11,7 @@ Escape from Tarkov에서 영감을 받은 Unity 인벤토리 포트폴리오입�
 - 로컬 배포 묶음: `Builds/TacticalInventory-Windows.zip`을 풀고 실행합니다. 빌드 산출물은 Git에서 제외됩니다.
 - 생성 메뉴: `Inventory > Build Windows Demo`.
 - [13.5초 실제 Game View 영상](docs/inventory-walkthrough.mp4) · [검증 결과](docs/validation.md) · [계획](PLAN.md) · [전체 흐름](docs/inventory-flow.html).
+- [29.8초 Inspector 편집 → Play → 수납 시연](docs/inventory-inspector-walkthrough.mp4): 실제 Unity Inspector 입력·즉시 미리보기·포켓 추가/Undo와 현재 프로젝트의 빠른 Game View 시연을 연결했습니다.
 
 ## 조작
 
@@ -46,7 +47,7 @@ Play에서 `Inventory > Show All Rig Windows (Play Mode)`를 실행하면 위 �
 원본은 `Assets/Items/Expansion/`의 ScriptableObject(SO)입니다. 실행 시작 시 검증된 불변 정의로 복사합니다. SO 변경은 다음 Play에서 반영되며 RESET은 현재 정의로 인스턴스만 다시 만듭니다.
 
 1. `Inventory > Catalog Table`에서 아이템 ID·이름·분류·가로·세로·최대 스택·컨테이너·아이콘을 편집합니다.
-2. `Inspect`로 상세 정의를, `Rules`로 연결된 컨테이너를 열고 공통 수납 정책·구획 크기·구획 정책을 설정합니다.
+2. `Inspect` 또는 Project의 `item-*.asset`을 선택하면 커스텀 Inspector에서 외부 크기·스택·연결된 컨테이너를 편집합니다. 포켓 미리보기를 클릭하고 크기·X/Y·수납 규칙을 변경하거나 포켓을 추가·삭제합니다. 변경은 SO에 직접 반영되고 Undo/Redo를 지원합니다.
 3. 허용/금지 분류는 자손까지 적용됩니다. 개별 아이템 예외도 설정할 수 있으며 금지 조건이 우선합니다. 공통 정책과 구획 정책을 모두 만족해야 합니다.
 4. `ContainerLayoutDefinition`에서 구획 ID별 표시 위치를 설정합니다. 레이아웃은 배치 규칙과 분리되며 겹침·누락·잘못된 좌표를 검증합니다.
 5. 표의 저장·검증을 실행하고 Play를 다시 시작합니다. 중복 ID·분류 순환·누락 참조·잘못된 크기/스택/이미지로는 시작할 수 없습니다.
@@ -64,7 +65,7 @@ Play에서 `Inventory > Show All Rig Windows (Play Mode)`를 실행하면 위 �
 
 리그 10종의 외부 크기·포켓 배치는 [고정 원본 데이터 및 위키 이미지](docs/rig-presets.md)와 대조했습니다. 포켓 간격은 이 프로젝트의 UI 피치에 맞췄습니다. 나머지 아이템의 크기·수납·스택은 포트폴리오용 설정값입니다.
 
-리그 프리셋을 일괄 수정하려면 `Assets/Items/Expansion/RigPresets.json`을 편집한 뒤 `Inventory > Build Expanded Catalog`로 SO를 재생성합니다. 이 메뉴는 SO의 직접 편집값을 프리셋 값으로 덮어씁니다. 실행 시에는 SO만 사용합니다.
+리그 편집에는 JSON 수정이나 별도 생성 작업이 필요하지 않습니다. 커스텀 Inspector의 미리보기는 즉시 갱신되며 다음 Play부터 변경된 SO를 사용합니다. 포켓 X/Y는 표시 셀 단위이고 왼쪽 위가 원점입니다. 겹침·누락은 Inspector에서 표시합니다. `Assets/Items/Expansion/RigPresets.json`은 샘플 초기값이며 `Inventory > Samples > Restore Catalog Defaults...`는 확인 후 모든 샘플 SO 편집값을 초기값으로 덮어씁니다.
 
 ## 구조와 설계
 
