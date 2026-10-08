@@ -19,6 +19,9 @@ namespace InventorySystem.Editor
             Stop(); inventory = Object.FindAnyObjectByType<ExpandedInventory>(); inventory.enabled = false;
             scenario = new InventoryWalkthroughScenario(inventory); verifier = new InventoryScenarioVerifier();
             output = Path.GetFullPath(Path.Combine(Application.dataPath, "../Recordings/frames")); Directory.CreateDirectory(output);
+            foreach (string path in Directory.GetFiles(output, "frame-*.png")) File.Delete(path);
+            string report = Path.GetFullPath(Path.Combine(Application.dataPath, "../TestResults/recording.txt"));
+            if (File.Exists(report)) File.Delete(report);
             frame = 0; nextCapture = EditorApplication.timeSinceStartup;
             EditorApplication.update += Capture;
             EditorApplication.playModeStateChanged += OnPlayModeChanged;
@@ -26,6 +29,7 @@ namespace InventorySystem.Editor
         private static void Capture()
         {
             if (EditorApplication.timeSinceStartup < nextCapture) return;
+            if (frame > 0 && !File.Exists(Path.Combine(output, $"frame-{frame - 1:D4}.png"))) return;
             if (frame >= InventoryWalkthroughScenario.Duration * 30)
             {
                 if (!File.Exists(Path.Combine(output, $"frame-{InventoryWalkthroughScenario.Duration * 30 - 1:D4}.png"))) return;

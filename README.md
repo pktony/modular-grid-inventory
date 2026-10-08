@@ -1,96 +1,93 @@
 # Tactical Inventory
 
-Escape from Tarkov의 격자형 인벤토리에서 영감을 받은 Unity 포트폴리오 프로젝트입니다. 크기가 다른 아이템을 배치하고 이동·회전하는 단일 기능에 집중했습니다.
+Escape from Tarkov에서 영감을 받은 Unity 인벤토리 포트폴리오입니다. 아이템 이동·회전, 가방 중첩, 유형별 수납 정책, 떨어진 구획과 스택을 하나의 안전한 변경 경로로 처리합니다.
 
-![인벤토리 화면](docs/inventory.png)
+![중첩 인벤토리 화면](docs/inventory.png)
 
 ## 실행
 
 - Unity `6000.6.4f1`에서 `Assets/Scenes/Inventory.unity`를 열고 Play를 누릅니다.
-- 로컬 Windows 빌드: `Build/TacticalInventory.exe`; 실행 파일과 `_Data` 폴더를 함께 유지합니다.
-- 로컬 배포 묶음: `Builds/TacticalInventory-Windows.zip`을 풀고 실행합니다.
-- 빌드 생성: Unity 메뉴 `Inventory > Build Windows Demo`.
-- 시연: [60초 단계별 영상](docs/inventory-walkthrough.mp4).
+- Windows: `Build/TacticalInventory.exe`. 실행 파일과 `_Data`, Unity DLL 파일을 함께 유지합니다.
+- 로컬 배포 묶음: `Builds/TacticalInventory-Windows.zip`을 풀고 실행합니다. 빌드 산출물은 Git에서 제외됩니다.
+- 생성 메뉴: `Inventory > Build Windows Demo`.
+- [72초 실제 Game View 영상](docs/inventory-walkthrough.mp4) · [검증 결과](docs/validation.md) · [계획](PLAN.md) · [전체 흐름](docs/inventory-flow.html).
 
 ## 조작
 
 | 입력 | 동작 |
 |---|---|
-| 좌클릭 | 아이템 선택·정보 확인 |
-| 드래그 | 잡은 칸을 기준으로 아이템 이동 |
+| 좌클릭 / 드래그 | 선택·정보 확인 / 잡은 칸을 유지하며 이동 |
 | 드래그 중 R | 미리보기 회전 |
-| Esc | 이동 취소 |
-| Delete / REMOVE | 선택 아이템 삭제 |
-| 마우스 휠 | 인벤토리 스크롤 |
-| ADD ITEM | 다음 종류의 아이템을 빈 공간에 추가 |
-| RESET DEMO | 초기 7개 아이템 복원 |
+| Esc | 드래그·분할·메뉴 취소 |
+| 가방 더블클릭 / OPEN | 오른쪽 패널에서 내용물 열기 |
+| 경로 클릭 / UP / X | 상위 컨테이너 탐색 / 한 단계 위 / 닫기 |
+| 우클릭 | 열기·분할·삭제 메뉴 |
+| SPLIT | 수량 입력 → 확인 → 빈 칸 클릭으로 확정 |
+| 같은 탄약 위 드롭 | 최대 스택까지 합치고 잔량은 원래 칸 유지 |
+| Delete / DELETE | 선택 아이템 삭제; 내용물이 있는 가방은 거절 |
+| 휠 / 스크롤바 | 각 패널 스크롤 |
+| RESET | 가방 트리와 수량을 초기 13개 인스턴스로 복원 |
 
-초록 영역은 배치 가능, 빨강 영역은 배치 불가입니다. 겹침·경계 초과·뷰포트 밖 드롭은 거절되며 원래 위치와 방향을 유지합니다.
+초록 미리보기는 배치 가능, 빨강은 불가이며 실패 이유를 함께 표시합니다. 구획 경계·빈 여백·뷰포트 밖 드롭, 가방의 자기/자손 수납은 거절됩니다. 클릭 중에만 흰 원이 보입니다.
 
-## 구조
+시작 상태는 보관함의 두 Berkut, 전용 케이스와 리그, 무기·탄약·부품입니다. 첫 Berkut 안의 MBSS 안에 AI-2가 있습니다. 같은 가방 정의를 사용하는 두 인스턴스의 내용은 독립적입니다.
 
-```mermaid
-flowchart LR
-    Pump[InputPump / PointerHandler] --> Events[PointerEvents]
-    Events --> Controller[InventoryController]
-    Pump --> Controller
-    Controller --> Model[IInventoryModel]
-    Model --> Store[InventoryCellData]
-    Store --> Rules[InventoryPlacementRules]
-    Store -->|Changed| UI[InventoryUI]
-    Controller --> View[IInventoryView]
-    View --> UI
-    UI --> Presenter[Item / Preview / HUD / Tooltip]
-```
+## 데이터 편집
 
-| 담당 | 코드 | 책임 |
-|---|---|---|
-| 조립 | `Inventory` | 의존성 연결과 수명 관리 |
-| 배치 상태 | `InventoryCellData`, `InventoryEntry` | 아이템 위치·점유 상태 변경 |
-| 배치 규칙 | `InventoryPlacementRules` | 경계·충돌·자기 점유 검증 |
-| 정의·조회 | `ItemDefinitionView`, `IItemCatalog`, `ItemCatalogSnapshot` | 불변 정의 공유와 ID 조회 |
-| 에셋 읽기 | `ItemCatalogSnapshotFactory` | SO를 검증된 불변 카탈로그로 변환 |
-| 인스턴스 | `ItemData` | 개별 아이템 데이터와 공유 정의 뷰 참조 |
-| 입력 수신 | `InventoryInputPump`, `InventoryItemPointerHandler` | 키보드·마우스 입력 전달 |
-| 조작 | `InventoryController`, `InventoryDragSession` | 선택·드래그·확정·취소 상태 전환 |
-| 표시 | `InventoryUI`와 `UI/`의 Presenter·View | 화면 갱신, 미리보기, 정보 표시 |
-| 좌표 | `InventoryGridGeometry` | 화면 좌표와 격자 좌표 변환 |
-| 데모 | `DemoInventoryFactory`, `DemoInventoryActions` | 초기 데이터와 추가·초기화 명령 |
+원본은 `Assets/Items/Expansion/`의 ScriptableObject(SO)입니다. 실행 시작 시 검증된 불변 정의로 복사합니다. SO 변경은 다음 Play에서 반영되며 RESET은 현재 정의로 인스턴스만 다시 만듭니다.
 
-## 설계
+1. `Inventory > Catalog Table`에서 아이템 ID·이름·분류·가로·세로·최대 스택·컨테이너·아이콘을 편집합니다.
+2. `Inspect`로 상세 정의를, `Rules`로 연결된 컨테이너를 열고 공통 수납 정책·구획 크기·구획 정책을 설정합니다.
+3. 허용/금지 분류는 자손까지 적용됩니다. 개별 아이템 예외도 설정할 수 있으며 금지 조건이 우선합니다. 공통 정책과 구획 정책을 모두 만족해야 합니다.
+4. `ContainerLayoutDefinition`에서 구획 ID별 표시 위치를 설정합니다. 레이아웃은 배치 규칙과 분리되며 겹침·누락·잘못된 좌표를 검증합니다.
+5. 표의 저장·검증을 실행하고 Play를 다시 시작합니다. 중복 ID·분류 순환·누락 참조·잘못된 크기/스택/이미지로는 시작할 수 없습니다.
 
-- 단일 책임 원칙(SRP): 입력 수신, 조작 상태, 배치 규칙, 모델 상태, 화면 표시, 화면 생성을 별도 타입으로 분리했습니다.
-- 의존성 역전 원칙(DIP): 조작 로직은 `IInventoryModel`·`IInventoryView`, 데모 명령은 전용 인터페이스에 의존합니다.
-- 인터페이스 분리 원칙(ISP): 데모 초기화·추가 명령과 일반 이동·삭제 계약을 분리했습니다.
-- 개방 폐쇄 원칙(OCP): 아이템 종류는 코드 변경 없이 정의 에셋으로 추가하고, 입력·표시 구현은 인터페이스로 교체할 수 있습니다.
-- 리스코프 치환 원칙(LSP): 테스트용 뷰가 같은 계약으로 동작하며 실제 UI 없이 조작 로직을 검증합니다.
-- Factory: 아이템 뷰 생성과 데모 데이터 생성을 캡슐화했습니다.
-- Observer: 모델 변경 이벤트와 포인터 이벤트로 입력·표시를 연결했습니다.
-- 카탈로그는 세션 시작 시 검증하고 불변 정의 뷰로 복사합니다. 실행 중 SO의 이름·크기·ID·스택 상한을 편집해도 현재 아이템은 유지되며 다음 세션에서 반영됩니다.
-- 중복 ID·빈 카탈로그·누락 참조·잘못된 크기/스택 상한·누락 이미지로는 데모를 시작할 수 없습니다. SO 작성 API는 에디터 어셈블리에만 있습니다.
-- 드래그 미리보기는 원본을 변경하지 않으며 검증된 드롭만 모델에 반영합니다.
+| 샘플 | 외부 크기 | 내부 / 수납 | 최대 스택 |
+|---|---|---|---|
+| MBSS / Berkut | 4×4 / 4×5 | 4×4 / 4×5, 전체 허용 | 1 |
+| Ammunition case | 2×2 | 7×7, Ammo 하위 유형 | 1 |
+| Medicine case | 3×3 | 7×7, Medical 하위 유형 | 1 |
+| Pst gzh / PS gs | 1×1 | 탄약 | 50 / 60 |
+| AI-2 / RK-0 | 1×1 | 의료품 / 무기 부품 | 1 |
+| AKS-74U | 4×2 | 무기 | 1 |
+| 분할 리그 | 3×4 | 10개 구획, 20칸 | 1 |
 
-## 검증
+이름과 분류는 실재 아이템을 참고했으며 크기·수납·스택은 포트폴리오용 설정값입니다. 최신 게임 수치를 복제한 데이터가 아닙니다. 조사 링크는 [계획의 샘플 표](PLAN.md)에 있습니다.
 
-Unity Test Runner에서 `InventorySystem.Tests`(Edit Mode), `InventorySystem.PlayModeTests`(Play Mode)를 실행합니다.
+## 구조와 설계
 
-`ItemCatalogTests`는 SO 편집·카탈로그 교체 후 기존 정의 유지, 입력 배열과 공개 컬렉션의 변경 차단, ID 조회, 잘못된 정의의 전체 거절을 검증합니다.
+| 어셈블리 / 경로 | 책임 |
+|---|---|
+| `Catalog` | SO 원본, 불변 정의·카탈로그, 분류·정책·레이아웃 검증 |
+| `Domain` | 인스턴스·배치·점유 스냅샷, 순수 규칙, 이동·스택·편집·초기화 서비스 |
+| `Presentation` | 입력 이벤트, 좌표 판별, 드래그 임시 상태, 패널·경로·정보 Presenter와 화면 Factory |
+| `Runtime` | `ExpandedInventory` 구성 루트, 초기 데이터와 시연 시나리오 |
+| `Editor` | SO 편집·표, 씬·Windows 빌드, 프레임 녹화 |
 
-[검증 결과](docs/validation.md) · [계획](PLAN.md) · [흐름 문서](docs/inventory-flow.html)
+SRP에 따라 생성·검증·확정·알림·입력·표시를 별도 타입으로 분리합니다. 입력은 `IInventoryReadModel`과 이동·스택·편집 서비스만 사용하고, 가변 상태와 확정 API는 Domain 내부에 제한됩니다. Presentation은 Runtime을 참조하지 않습니다.
 
-범위는 단일 인벤토리와 사각형 아이템입니다. 저장·불러오기, 스택, 가방 중첩, 다중 인벤토리는 후속 확장입니다.
+- Factory: 아이템/뷰 생성. MVP: 입력·표시와 모델 분리. Composition Root: 의존성 조립. Observer: 확정 완료 알림.
+- 정의·인스턴스·컨테이너·구획 ID를 구분하고, 소속·좌표·회전은 배치가 단독 소유합니다. 가방 이동은 내부 ID와 내용물을 유지합니다.
+- 변경은 다음 상태 전체를 준비·검증한 뒤 한 번 교체합니다. 실패·취소 시 원본은 유지됩니다. 콜백 예외를 격리하고 확정/알림 중 재진입을 거절합니다.
+- 초기화는 같은 세션과 구독을 유지하며 전체 트리만 교체합니다. 종료 시 구독을 해제합니다.
+- 미리보기는 확정 스냅샷별 캐시와 오버레이를 사용합니다. 포인터 이동마다 전체 아이템 목록을 다시 만들지 않습니다.
+- 분류별 상속 계층, 전역 가변 저장소, 전역 이벤트 버스, 모든 규칙의 인터페이스화는 사용하지 않습니다.
 
-## 시연 재생성
+## 검증과 시연 재생성
 
-1. `InventorySceneBuilder`로 데모 씬을 재생성하려면 변경된 씬을 먼저 저장합니다.
-2. Play 모드에서 `Inventory > Set Capture Resolution 1280x720`을 선택합니다.
-3. `Inventory > Record Walkthrough (Play Mode)`로 1,800개 프레임을 캡처합니다. `TestResults/recording.txt`가 갱신되면 Play를 종료합니다.
+Unity Test Runner의 `InventorySystem.Tests`(Edit Mode 55개), `InventorySystem.PlayModeTests`(Play Mode 10개)를 실행합니다. Windows 실행 파일의 `-inventory-smoke-test` 옵션은 실제 플레이어에서 18단계 Unity 입력 이벤트 시나리오를 검증하고 종료합니다.
+
+1. Play에서 `Inventory > Set Capture Resolution 1280x720`을 선택합니다.
+2. `Inventory > Record Walkthrough (Play Mode)`를 실행합니다.
+3. `TestResults/recording.txt`가 `2160 frames / 30 fps / 72 seconds`로 갱신되면 캡처가 완료됩니다.
 4. 프로젝트 루트에서 `uv run --with imageio-ffmpeg python scripts/encode_walkthrough.py`를 실행합니다.
 
-영상은 실행 중인 Game View를 30fps로 캡처한 60초 자동 조작 시연입니다. 클릭·드래그 중에만 얇은 원으로 입력 위치를 표시합니다. 이동은 실제 아이템의 Unity 포인터 핸들러를 통해 처리합니다. 원은 시연용 오버레이이며 생성기는 에디터 전용입니다. 캡처 속도에 따라 생성에는 60초보다 오래 걸릴 수 있습니다.
+영상은 실행 중인 Game View 캡처입니다. 이동은 실제 Unity 포인터 핸들러를, 회전·취소는 키보드 입력과 공유하는 명령을 사용합니다. 물리 마우스·키보드 수동 시연은 아닙니다. 클릭 위치 원은 누르는 동안만 표시되며 녹화는 PC 성능에 따라 72초보다 오래 걸릴 수 있습니다.
 
-## 에셋
+## 에셋과 범위
 
-- 무기·탄약 이미지: 기존 저장소의 `Assets/Resources/Sprites`; 원출처와 공개 배포 조건은 확인이 필요합니다.
-- 폰트: 기존 TextMesh Pro의 Liberation Sans; 동봉된 `Assets/TextMesh Pro/Fonts` 라이선스를 유지합니다.
-- 게임명은 구현의 참고 대상으로 사용했습니다.
+10개 아이콘은 내장 imagegen으로 만든 투명 PNG이며 `Assets/Resources/ExpansionIcons/`에 있습니다. [생성 프롬프트·저장 경로](docs/item-icons.md)를 기록했습니다. 기존 `Sprites` 이미지는 새 데모에서 사용하지 않습니다.
+
+폰트는 Liberation Sans이며 동봉된 `Assets/TextMesh Pro/Fonts` 라이선스를 유지합니다. TMP 셰이더는 설치된 uGUI 패키지의 Essential Resources에 맞췄습니다.
+
+전투·경제·네트워크·저장/불러오기·무기 부착·소모품 효과는 범위 밖입니다. 아이템 분류와 수납·스택 기능을 보여주는 단일 인벤토리 데모입니다.
