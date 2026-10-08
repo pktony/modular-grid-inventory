@@ -9,6 +9,7 @@ namespace InventorySystem.Presentation
         private readonly RectTransform root, overlay;
         private readonly Button open, split, delete;
         private ItemInstanceId item;
+        public bool IsOpen => root.gameObject.activeSelf;
         public event Action<ItemInstanceId> OpenRequested, SplitRequested, DeleteRequested;
         public InventoryContextMenu(RectTransform root, RectTransform overlay, Button open, Button split, Button delete)
         {

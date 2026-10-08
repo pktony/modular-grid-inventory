@@ -11,37 +11,36 @@ namespace InventorySystem.Presentation
         {
             var root = InventoryElementFactory.Panel("InventoryScreen", parent, Vector2.zero, new Vector2(1280, 720), InventoryPalette.Background).rectTransform;
             var events = new InventoryInputEvents();
-            var pathViewport = InventoryElementFactory.Rect("BreadcrumbViewport", root, new Vector2(716, -90), new Vector2(472, 32));
-            pathViewport.gameObject.AddComponent<RectMask2D>();
-            var pathContent = InventoryElementFactory.Rect("Breadcrumb", pathViewport, Vector2.zero, new Vector2(472, 32));
-            var pathScroll = pathViewport.gameObject.AddComponent<ScrollRect>();
-            pathScroll.viewport = pathViewport; pathScroll.content = pathContent; pathScroll.vertical = false; pathScroll.horizontal = true;
-            pathScroll.movementType = ScrollRect.MovementType.Clamped;
-            InventoryElementFactory.Label("Heading", root, new Vector2(24, -16), new Vector2(420, 35), "TACTICAL / INVENTORY", 26, InventoryPalette.Text);
-            InventoryElementFactory.Label("Controls", root, new Vector2(24, -56), new Vector2(900, 22), "DRAG to move   /   R rotate   /   ESC cancel   /   Double-click bags   /   Right-click actions", 14, InventoryPalette.Muted);
+            InventoryElementFactory.Label("Heading", root, new Vector2(24, -18), new Vector2(500, 32), "CHARACTER / INVENTORY", 24, InventoryPalette.Text);
+            InventoryElementFactory.Label("Session", root, new Vector2(995, -24), new Vector2(260, 22), "LOCAL INVENTORY SESSION", 12, InventoryPalette.Muted);
+            InventoryElementFactory.Panel("HeaderLine", root, new Vector2(24, -64), new Vector2(1232, 1), InventoryPalette.Border);
+            InventoryElementFactory.Label("ContainersLabel", root, new Vector2(24, -80), new Vector2(320, 22), "CONTAINERS", 16, InventoryPalette.Text);
+            InventoryElementFactory.Label("Controls", root, new Vector2(24, -642), new Vector2(730, 18), "DRAG   |   R ROTATE   |   ESC CANCEL / CLOSE   |   DOUBLE-CLICK OPEN", 11, InventoryPalette.Muted);
             var bindings = new InventoryScreenBindings { Root = root, Events = events,
-                Stash = panels.Create(root, "STASH", new Vector2(24, -130), events), Bag = panels.Create(root, "CONTAINER", new Vector2(648, -130), events),
-                Open = InventoryElementFactory.Button("Open", root, new Vector2(676, -20), new Vector2(104, 34), "OPEN"),
-                Split = InventoryElementFactory.Button("Split", root, new Vector2(788, -20), new Vector2(104, 34), "SPLIT"),
-                Delete = InventoryElementFactory.Button("Delete", root, new Vector2(900, -20), new Vector2(104, 34), "DELETE"),
-                Reset = InventoryElementFactory.Button("Reset", root, new Vector2(1012, -20), new Vector2(104, 34), "RESET"),
-                Back = InventoryElementFactory.Button("Back", root, new Vector2(648, -90), new Vector2(60, 32), "UP"),
-                Close = InventoryElementFactory.Button("Close", root, new Vector2(1196, -90), new Vector2(60, 32), "X"),
-                Breadcrumb = pathContent, BreadcrumbScroll = pathScroll,
-                EmptyBag = InventoryElementFactory.Label("EmptyBag", root, new Vector2(672, -300), new Vector2(550, 90), "OPEN A CONTAINER\nDouble-click a backpack, case or rig.", 22, InventoryPalette.Muted),
-                Status = InventoryElementFactory.Label("Status", root, new Vector2(24, -679), new Vector2(1232, 30), "Ready", 16, InventoryPalette.Accent),
-                Inspector = new InventoryInspectorPresenter(InventoryElementFactory.Label("Inspector", root, new Vector2(24, -636), new Vector2(1232, 38), "", 14, InventoryPalette.Text)) };
-            var ghost = InventoryElementFactory.Panel("DragGhost", root, Vector2.zero, Vector2.one, InventoryPalette.Valid).rectTransform;
+                Stash = panels.Create(root, "STASH", new Vector2(782, -80), events),
+                Open = InventoryElementFactory.Button("Open", root, new Vector2(24, -602), new Vector2(110, 28), "OPEN"),
+                Split = InventoryElementFactory.Button("Split", root, new Vector2(142, -602), new Vector2(110, 28), "SPLIT"),
+                Delete = InventoryElementFactory.Button("Delete", root, new Vector2(260, -602), new Vector2(110, 28), "DELETE"),
+                Reset = InventoryElementFactory.Button("Reset", root, new Vector2(650, -602), new Vector2(104, 28), "RESET"),
+                EmptyWindows = InventoryElementFactory.Label("EmptyWindows", root, new Vector2(60, -260), new Vector2(650, 100), "OPEN A CONTAINER\nDouble-click a bag, case or rig.\nDrag its title bar to arrange your workspace.", 18, InventoryPalette.Muted),
+                Status = InventoryElementFactory.Label("Status", root, new Vector2(24, -688), new Vector2(1232, 25), "Ready", 14, InventoryPalette.Accent),
+                Inspector = new InventoryInspectorPresenter(InventoryElementFactory.Label("Inspector", root, new Vector2(24, -662), new Vector2(1232, 24), "", 12, InventoryPalette.Text)) };
+            InventoryElementFactory.Panel("FooterLine", root, new Vector2(24, -656), new Vector2(1232, 1), InventoryPalette.Border);
+            bindings.WindowLayer = InventoryElementFactory.Rect("ContainerWindows", root, Vector2.zero, new Vector2(1280, 720));
+            bindings.Overlay = InventoryElementFactory.Rect("InteractionOverlay", root, Vector2.zero, new Vector2(1280, 720));
+            var overlay = bindings.Overlay;
+            var ghost = InventoryElementFactory.Panel("DragGhost", overlay, Vector2.zero, Vector2.one, InventoryPalette.Valid).rectTransform;
             var icon = InventoryElementFactory.Panel("Icon", ghost, Vector2.zero, Vector2.one, Color.white);
             icon.rectTransform.anchorMin = icon.rectTransform.anchorMax = icon.rectTransform.pivot = new Vector2(0.5f, 0.5f);
             var count = InventoryElementFactory.Label("Quantity", ghost, Vector2.zero, new Vector2(50, 24), "", 18, Color.white);
-            bindings.Drag = new InventoryDragPresenter(root, ghost, ghost.GetComponent<Image>(), icon, count);
-            var menu = InventoryElementFactory.Panel("ContextMenu", root, Vector2.zero, new Vector2(180, 144), InventoryPalette.Panel, true).rectTransform;
-            bindings.Context = new InventoryContextMenu(menu, root,
+            bindings.Drag = new InventoryDragPresenter(overlay, ghost, ghost.GetComponent<Image>(), icon, count,
+                InventoryElementFactory.Panel("ContainerDropHighlight", overlay, Vector2.zero, Vector2.one, InventoryPalette.Valid));
+            var menu = InventoryElementFactory.Panel("ContextMenu", overlay, Vector2.zero, new Vector2(180, 144), InventoryPalette.Panel, true).rectTransform;
+            bindings.Context = new InventoryContextMenu(menu, overlay,
                 InventoryElementFactory.Button("OpenBag", menu, new Vector2(4, -4), new Vector2(172, 42), "OPEN CONTAINER"),
                 InventoryElementFactory.Button("SplitStack", menu, new Vector2(4, -51), new Vector2(172, 42), "SPLIT STACK"),
                 InventoryElementFactory.Button("DeleteItem", menu, new Vector2(4, -98), new Vector2(172, 42), "DELETE"));
-            bindings.Quantity = CreateQuantity(root);
+            bindings.Quantity = CreateQuantity(overlay);
             return bindings;
         }
         private static StackQuantityDialog CreateQuantity(RectTransform root)

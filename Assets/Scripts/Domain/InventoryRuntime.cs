@@ -8,6 +8,7 @@ namespace InventorySystem.Domain
         public IInventoryReadModel ReadModel { get; }
         public IInventoryTransferService Transfer { get; }
         public IInventoryStackService Stack { get; }
+        public IInventoryStorageService Storage { get; }
         public IInventoryEditService Edit { get; }
         public InventoryResetService Reset { get; }
         private readonly InventorySession session;
@@ -26,7 +27,9 @@ namespace InventorySystem.Domain
             var factory = new ItemInstanceFactory();
             ReadModel = session;
             Transfer = new InventoryTransferService(session, pipeline, placement);
-            Stack = new InventoryStackService(session, pipeline, new StackRules(), placement, factory);
+            var stacks = new StackRules(); var split = new InventorySplitOperation(factory);
+            Stack = new InventoryStackService(session, pipeline, stacks, placement, split);
+            Storage = new InventoryStorageService(session, pipeline, new InventoryContainerPlacementFinder(placement), split, stacks);
             Edit = new InventoryEditService(catalog, pipeline, placement, factory);
             Reset = new InventoryResetService(pipeline);
         }

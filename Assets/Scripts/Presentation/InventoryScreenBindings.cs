@@ -7,11 +7,10 @@ namespace InventorySystem.Presentation
     {
         public RectTransform Root;
         public InventoryInputEvents Events;
-        public InventoryPanelBindings Stash, Bag;
-        public TextMeshProUGUI Status, EmptyBag;
-        public Button Open, Split, Delete, Reset, Back, Close;
-        public RectTransform Breadcrumb;
-        public ScrollRect BreadcrumbScroll;
+        public InventoryPanelBindings Stash;
+        public RectTransform WindowLayer, Overlay;
+        public TextMeshProUGUI Status, EmptyWindows;
+        public Button Open, Split, Delete, Reset;
         public InventoryInspectorPresenter Inspector;
         public InventoryDragPresenter Drag;
         public StackQuantityDialog Quantity;

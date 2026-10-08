@@ -13,12 +13,7 @@ namespace InventorySystem.Domain
         {
             var result = Validate(draft, request);
             if (!result.Success) return result;
-            draft.FindOwner(request.Item, out var owner, out _);
-            draft.Containers[owner].Entries.Remove(request.Item);
-            var t = request.Target;
-            draft.Containers[t.Container].Entries.Add(request.Item, new InventoryEntry(request.Item, t.Section, t.X, t.Y, t.Rotated));
-            draft.Touch(owner, request.Item); draft.Touch(t.Container, request.Item);
-            return result;
+            return InventoryTransferOperation.Apply(draft, request);
         });
         private MutationResult Validate(InventoryDraft draft, TransferRequest request)
         {

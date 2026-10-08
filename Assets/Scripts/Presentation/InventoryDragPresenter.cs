@@ -7,12 +7,12 @@ namespace InventorySystem.Presentation
     public sealed class InventoryDragPresenter
     {
         private readonly RectTransform overlay, root;
-        private readonly Image background, icon;
+        private readonly Image background, icon, containerHighlight;
         private readonly TextMeshProUGUI count;
         private InventorySectionView highlighted;
         private string highlightKey;
-        public InventoryDragPresenter(RectTransform overlay, RectTransform root, Image background, Image icon, TextMeshProUGUI count)
-        { this.overlay = overlay; this.root = root; this.background = background; this.icon = icon; this.count = count; root.gameObject.SetActive(false); }
+        public InventoryDragPresenter(RectTransform overlay, RectTransform root, Image background, Image icon, TextMeshProUGUI count, Image containerHighlight)
+        { this.overlay = overlay; this.root = root; this.background = background; this.icon = icon; this.count = count; this.containerHighlight = containerHighlight; root.gameObject.SetActive(false); containerHighlight.gameObject.SetActive(false); }
         public void Show(ItemInstance item, InventoryDragState drag, Vector2 point, bool valid)
         {
             root.gameObject.SetActive(true); root.SetAsLastSibling();
@@ -32,6 +32,17 @@ namespace InventorySystem.Presentation
             highlighted?.Clear(); highlighted = section; highlightKey = key;
             highlighted?.Highlight(target.X, target.Y, width, height, valid);
         }
-        public void Clear() { highlighted?.Clear(); highlighted = null; highlightKey = null; root.gameObject.SetActive(false); }
+        public void HighlightContainer(RectTransform item, bool valid)
+        {
+            containerHighlight.gameObject.SetActive(item != null);
+            if (item == null) return;
+            var point = RectTransformUtility.WorldToScreenPoint(null, item.position);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(overlay, point, null, out var local);
+            containerHighlight.rectTransform.anchoredPosition = local;
+            containerHighlight.rectTransform.sizeDelta = item.rect.size;
+            var color = valid ? InventoryPalette.Valid : InventoryPalette.Invalid; color.a = 0.35f;
+            containerHighlight.color = color; containerHighlight.transform.SetAsLastSibling(); root.SetAsLastSibling();
+        }
+        public void Clear() { highlighted?.Clear(); highlighted = null; highlightKey = null; root.gameObject.SetActive(false); containerHighlight.gameObject.SetActive(false); }
     }
 }
