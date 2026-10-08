@@ -1,6 +1,6 @@
 # Modular Grid Inventory
 
-Unity용 격자형 인벤토리 프로젝트입니다. 크기가 다른 아이템을 배치하고 이동·회전하는 기능에 집중했으며, 다른 Unity 프로젝트에 설치할 수 있는 패키지로 확장하고 있습니다.
+중첩 가방, 독립 포켓, 유형별 수납 정책과 스택을 지원하는 Unity 인벤토리 소스 패키지입니다. 포트폴리오 데모를 다른 프로젝트에 설치할 수 있는 형태로 구성했습니다.
 
 저장소: [pktony/modular-grid-inventory](https://github.com/pktony/modular-grid-inventory)
 
@@ -8,91 +8,57 @@ Unity용 격자형 인벤토리 프로젝트입니다. 크기가 다른 아이�
 git clone https://github.com/pktony/modular-grid-inventory.git
 ```
 
-기본 브랜치는 초기 데모입니다. 중첩 컨테이너·스택·편집 도구·중립 리소스를 포함한 최신 패키지 구성은 [패키지 작업 브랜치](https://github.com/pktony/modular-grid-inventory/tree/feature/asset-store-package)에서 확인할 수 있습니다. 변경 사항은 [작업별 PR](https://github.com/pktony/modular-grid-inventory/pulls)로 나누어 관리합니다.
+현재는 **0.1.0 제출 후보**입니다. Unity 6000.6.4f1에서 Edit 101/101·Play 24/24, 별도 URP 소비자 프로젝트의 Play 24/24와 Asset Store 검증 규칙 34/34를 통과했습니다. 지원 범위와 검증의 제한은 [현재 검증 결과](docs/package-validation.md)를 참고하세요.
 
-![인벤토리 화면](docs/inventory.png)
+## 실행과 설정
 
-## 실행
+- 개발 버전: Unity `6000.6.4f1`, uGUI `2.6.0` 및 TMP Essential Resources.
+- 샘플 씬: `Assets/ModularGridInventory/Samples/Scenes/Inventory.unity`.
+- 기본 프리팹: `Assets/ModularGridInventory/Samples/Prefabs/ModularInventory.prefab`.
+- 아이템 크기·스택·유형: `Samples/Catalog/item-*.asset`.
+- 가방·리그 포켓과 수납 정책: `Samples/Catalog/container-*.asset`; Inspector에서 편집·미리보기·Undo.
+- 초기 배치·중첩 부모: `Samples/Settings/InitialState.asset`.
+- 폰트·색·칸 크기·클릭 표시: `Samples/Settings/InventoryTheme.asset`.
+- 예제는 무음이며 효과음 파일을 포함하지 않습니다. 소리를 추가하려면 Audio Settings를 생성해 자신의 클립을 연결합니다.
+- 메뉴: `Tools → Modular Grid Inventory → Catalog Table / Export Package`.
 
-- Unity `6000.6.4f1`에서 `Assets/Scenes/Inventory.unity`를 열고 Play를 누릅니다.
-- 로컬 Windows 빌드: `Build/TacticalInventory.exe`; 실행 파일과 `_Data` 폴더를 함께 유지합니다.
-- 로컬 배포 묶음: `Builds/TacticalInventory-Windows.zip`을 풀고 실행합니다.
-- 빌드 생성: Unity 메뉴 `Inventory > Build Windows Demo`.
-- 시연: [60초 단계별 영상](docs/inventory-walkthrough.mp4).
+아이템 정의 19종, 초기 인스턴스 22개, 리그 포켓 10종을 제공합니다. 아이콘 19종은 새 중립 디자인으로 생성했습니다.
+
+## 안내
+
+- [영문 설치 안내](Assets/ModularGridInventory/Documentation/QuickStart.md)
+- [공개 API·소유권·확장](Assets/ModularGridInventory/Documentation/API.md)
+- [새 아이콘 미리보기](Assets/ModularGridInventory/Documentation/Icons.html)
+- [리소스 출처와 라이선스](Assets/ModularGridInventory/Documentation/Third-Party_Notices.txt)
+- [현재 검증 결과](docs/package-validation.md)
+- [계획](PLAN.md) · [전체 흐름](docs/asset-store-flow.html)
 
 ## 조작
 
 | 입력 | 동작 |
 |---|---|
-| 좌클릭 | 아이템 선택·정보 확인 |
-| 드래그 | 잡은 칸을 기준으로 아이템 이동 |
-| 드래그 중 R | 미리보기 회전 |
-| Esc | 이동 취소 |
-| Delete / REMOVE | 선택 아이템 삭제 |
-| 마우스 휠 | 인벤토리 스크롤 |
-| ADD ITEM | 다음 종류의 아이템을 빈 공간에 추가 |
-| RESET DEMO | 초기 7개 아이템 복원 |
+| 좌클릭 / 드래그 | 선택 / 이동 |
+| R / Esc | 회전 / 취소·앞 창 닫기 |
+| 더블클릭 / OPEN | 컨테이너 창 열기; 같은 인스턴스는 기존 창 재사용 |
+| 제목 드래그 / X | 창 이동·맨 앞으로 표시 / 닫기 |
+| 격자 / 가방 아이콘에 드롭 | 지정 칸 배치 / 내부 빈 칸 자동 수납 |
+| 우클릭 / SPLIT | 메뉴 / 수량 분할 |
+| 같은 탄약에 드롭 | 최대 스택까지 합치기 |
+| Delete / RESET | 삭제 / 초기 상태 재생성 |
 
-초록 영역은 배치 가능, 빨강 영역은 배치 불가입니다. 겹침·경계 초과·뷰포트 밖 드롭은 거절되며 원래 위치와 방향을 유지합니다.
+회전·수납 거절 사유를 표시하고, 실패 시 상태와 수량을 유지합니다. 자기 자신이나 자손 가방에 넣는 순환 중첩은 거절됩니다. UI 창 상태는 모델의 아이템 배치와 분리됩니다.
 
-## 구조
+## 배포와 개발 도구
 
-```mermaid
-flowchart LR
-    Pump[InputPump / PointerHandler] --> Events[PointerEvents]
-    Events --> Controller[InventoryController]
-    Pump --> Controller
-    Controller --> Model[IInventoryModel]
-    Model --> Store[InventoryCellData]
-    Store --> Rules[InventoryPlacementRules]
-    Store -->|Changed| UI[InventoryUI]
-    Controller --> View[IInventoryView]
-    View --> UI
-    UI --> Presenter[Item / Preview / HUD / Tooltip]
+배포 루트는 `Assets/ModularGridInventory`입니다. Core와 선택 Input System 어댑터를 별도 `.unitypackage`로 내보냅니다. 호스트의 EventSystem·AudioListener를 사용하며 프로젝트 설정·패키지를 자동 변경하지 않습니다.
+
+`Assets/Development`, Unity MCP, 녹화·빌드·FFmpeg 도구, 기존 게임 참고 이미지·영상은 배포에서 제외됩니다. [YouTube 영어 무음 데모](https://youtu.be/cyUhx101tj8) · [영상 파일](docs/modular-grid-inventory-demo-en.mp4)은 현재의 새 리소스로 촬영한 36.5초 시연입니다. [영상 구성과 재촬영 방법](docs/silent-demo.md)을 참고하세요. 기존 시연 영상은 아이콘 교체 전 버전의 참고 자료입니다.
+
+개발용 정적 검사와 후보 아카이브 생성:
+
+```powershell
+uv run --with pyyaml --with pillow python tools/validate_package.py
+uv run --with pyyaml --with pillow python tools/build_candidate.py
 ```
 
-| 담당 | 코드 | 책임 |
-|---|---|---|
-| 조립 | `Inventory` | 의존성 연결과 수명 관리 |
-| 배치 상태 | `InventoryCellData`, `InventoryEntry` | 아이템 위치·점유 상태 변경 |
-| 배치 규칙 | `InventoryPlacementRules` | 경계·충돌·자기 점유 검증 |
-| 정의·인스턴스 | `ItemDefinition`, `ItemCatalog`, `ItemData` | 공유 에셋과 개별 아이템 데이터 |
-| 입력 수신 | `InventoryInputPump`, `InventoryItemPointerHandler` | 키보드·마우스 입력 전달 |
-| 조작 | `InventoryController`, `InventoryDragSession` | 선택·드래그·확정·취소 상태 전환 |
-| 표시 | `InventoryUI`와 `UI/`의 Presenter·View | 화면 갱신, 미리보기, 정보 표시 |
-| 좌표 | `InventoryGridGeometry` | 화면 좌표와 격자 좌표 변환 |
-| 데모 | `DemoInventoryFactory`, `DemoInventoryActions` | 초기 데이터와 추가·초기화 명령 |
-
-## 설계
-
-- 단일 책임 원칙(SRP): 입력 수신, 조작 상태, 배치 규칙, 모델 상태, 화면 표시, 화면 생성을 별도 타입으로 분리했습니다.
-- 의존성 역전 원칙(DIP): 조작 로직은 `IInventoryModel`·`IInventoryView`, 데모 명령은 전용 인터페이스에 의존합니다.
-- 인터페이스 분리 원칙(ISP): 데모 초기화·추가 명령과 일반 이동·삭제 계약을 분리했습니다.
-- 개방 폐쇄 원칙(OCP): 아이템 종류는 코드 변경 없이 정의 에셋으로 추가하고, 입력·표시 구현은 인터페이스로 교체할 수 있습니다.
-- 리스코프 치환 원칙(LSP): 테스트용 뷰가 같은 계약으로 동작하며 실제 UI 없이 조작 로직을 검증합니다.
-- Factory: 아이템 뷰 생성과 데모 데이터 생성을 캡슐화했습니다.
-- Observer: 모델 변경 이벤트와 포인터 이벤트로 입력·표시를 연결했습니다.
-- 드래그 미리보기는 원본을 변경하지 않으며 검증된 드롭만 모델에 반영합니다.
-
-## 검증
-
-Unity Test Runner에서 `InventorySystem.Tests`(Edit Mode), `InventorySystem.PlayModeTests`(Play Mode)를 실행합니다.
-
-[검증 결과](docs/validation.md) · [계획](PLAN.md) · [흐름 문서](docs/inventory-flow.html)
-
-범위는 단일 인벤토리와 사각형 아이템입니다. 저장·불러오기, 스택, 가방 중첩, 다중 인벤토리는 후속 확장입니다.
-
-## 시연 재생성
-
-1. `InventorySceneBuilder`로 데모 씬을 재생성하려면 변경된 씬을 먼저 저장합니다.
-2. Play 모드에서 `Inventory > Set Capture Resolution 1280x720`을 선택합니다.
-3. `Inventory > Record Walkthrough (Play Mode)`로 1,800개 프레임을 캡처합니다. `TestResults/recording.txt`가 갱신되면 Play를 종료합니다.
-4. 프로젝트 루트에서 `uv run --with imageio-ffmpeg python scripts/encode_walkthrough.py`를 실행합니다.
-
-영상은 실행 중인 Game View를 30fps로 캡처한 60초 자동 조작 시연입니다. 클릭·드래그 중에만 얇은 원으로 입력 위치를 표시합니다. 이동은 실제 아이템의 Unity 포인터 핸들러를 통해 처리합니다. 원은 시연용 오버레이이며 생성기는 에디터 전용입니다. 캡처 속도에 따라 생성에는 60초보다 오래 걸릴 수 있습니다.
-
-## 에셋
-
-- 무기·탄약 이미지: 기존 저장소의 `Assets/Resources/Sprites`; 원출처와 공개 배포 조건은 확인이 필요합니다.
-- 폰트: 기존 TextMesh Pro의 Liberation Sans; 동봉된 `Assets/TextMesh Pro/Fonts` 라이선스를 유지합니다.
-- 게임명은 구현의 참고 대상으로 사용했습니다.
+생성 위치는 Git에서 제외된 `Builds/Package`입니다. 후보 아카이브는 실제 Unity 임포트를 검증한 릴리스가 아닙니다. 지원 버전·렌더링 환경과 게시 조건은 검사 결과를 확보한 후 확정합니다.

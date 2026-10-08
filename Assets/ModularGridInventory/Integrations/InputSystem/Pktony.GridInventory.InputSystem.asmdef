@@ -1,0 +1,19 @@
+{
+  "name": "Pktony.GridInventory.InputSystem",
+  "rootNamespace": "Pktony.GridInventory.InputSystem",
+  "references": [
+    "Pktony.GridInventory.Presentation",
+    "Unity.InputSystem"
+  ],
+  "defineConstraints": [
+    "MGI_INPUT_SYSTEM",
+    "ENABLE_INPUT_SYSTEM"
+  ],
+  "versionDefines": [
+    {
+      "name": "com.unity.inputsystem",
+      "expression": "1.0.0",
+      "define": "MGI_INPUT_SYSTEM"
+    }
+  ]
+}

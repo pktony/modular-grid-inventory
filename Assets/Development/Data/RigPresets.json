@@ -1,0 +1,729 @@
+{
+  "displayStride": 1.06,
+  "rigs": [
+    {
+      "id": "rig-compact",
+      "title": "Compact Carrier",
+      "width": 2,
+      "height": 3,
+      "pockets": [
+        {
+          "id": "small-a",
+          "width": 1,
+          "height": 1,
+          "column": 0,
+          "row": 0
+        },
+        {
+          "id": "tall-a",
+          "width": 1,
+          "height": 2,
+          "column": 1,
+          "row": 0
+        },
+        {
+          "id": "tall-b",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 0
+        },
+        {
+          "id": "small-b",
+          "width": 1,
+          "height": 1,
+          "column": 3,
+          "row": 0
+        }
+      ]
+    },
+    {
+      "id": "rig-micro",
+      "title": "Micro Carrier",
+      "width": 2,
+      "height": 3,
+      "pockets": [
+        {
+          "id": "large-a",
+          "width": 2,
+          "height": 2,
+          "column": 0,
+          "row": 0
+        },
+        {
+          "id": "tall-a",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 0
+        },
+        {
+          "id": "tall-b",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 0
+        }
+      ]
+    },
+    {
+      "id": "rig-field",
+      "title": "Field Carrier",
+      "width": 3,
+      "height": 3,
+      "pockets": [
+        {
+          "id": "large-a",
+          "width": 2,
+          "height": 2,
+          "column": 0,
+          "row": 0
+        },
+        {
+          "id": "tall-a",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 0
+        },
+        {
+          "id": "tall-b",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 0
+        },
+        {
+          "id": "small-a",
+          "width": 1,
+          "height": 1,
+          "column": 4,
+          "row": 0
+        },
+        {
+          "id": "small-b",
+          "width": 1,
+          "height": 1,
+          "column": 4,
+          "row": 1
+        }
+      ]
+    },
+    {
+      "id": "rig-scout",
+      "title": "Scout Carrier",
+      "width": 3,
+      "height": 4,
+      "pockets": [
+        {
+          "id": "tall-a",
+          "width": 1,
+          "height": 2,
+          "column": 0,
+          "row": 0
+        },
+        {
+          "id": "tall-b",
+          "width": 1,
+          "height": 2,
+          "column": 1,
+          "row": 0
+        },
+        {
+          "id": "tall-c",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 0
+        },
+        {
+          "id": "tall-d",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 0
+        },
+        {
+          "id": "small-a",
+          "width": 1,
+          "height": 1,
+          "column": 0,
+          "row": 2
+        },
+        {
+          "id": "small-b",
+          "width": 1,
+          "height": 1,
+          "column": 1,
+          "row": 2
+        },
+        {
+          "id": "small-c",
+          "width": 1,
+          "height": 1,
+          "column": 2,
+          "row": 2
+        },
+        {
+          "id": "small-d",
+          "width": 1,
+          "height": 1,
+          "column": 3,
+          "row": 2
+        }
+      ]
+    },
+    {
+      "id": "rig-explorer",
+      "title": "Explorer Carrier",
+      "width": 3,
+      "height": 3,
+      "pockets": [
+        {
+          "id": "tall-a",
+          "width": 1,
+          "height": 2,
+          "column": 0,
+          "row": 0
+        },
+        {
+          "id": "tall-b",
+          "width": 1,
+          "height": 2,
+          "column": 1,
+          "row": 0
+        },
+        {
+          "id": "tall-c",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 0
+        },
+        {
+          "id": "tall-d",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 0
+        },
+        {
+          "id": "tall-e",
+          "width": 1,
+          "height": 2,
+          "column": 0,
+          "row": 2
+        },
+        {
+          "id": "small-a",
+          "width": 1,
+          "height": 1,
+          "column": 1,
+          "row": 2
+        },
+        {
+          "id": "small-b",
+          "width": 1,
+          "height": 1,
+          "column": 1,
+          "row": 3
+        },
+        {
+          "id": "small-c",
+          "width": 1,
+          "height": 1,
+          "column": 2,
+          "row": 2
+        },
+        {
+          "id": "small-d",
+          "width": 1,
+          "height": 1,
+          "column": 2,
+          "row": 3
+        },
+        {
+          "id": "tall-f",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 2
+        }
+      ]
+    },
+    {
+      "id": "rig",
+      "title": "Modular Carrier",
+      "width": 3,
+      "height": 4,
+      "pockets": [
+        {
+          "id": "tall-a",
+          "width": 1,
+          "height": 2,
+          "column": 0,
+          "row": 0
+        },
+        {
+          "id": "tall-b",
+          "width": 1,
+          "height": 2,
+          "column": 1,
+          "row": 0
+        },
+        {
+          "id": "tall-c",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 0
+        },
+        {
+          "id": "tall-d",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 0
+        },
+        {
+          "id": "small-a",
+          "width": 1,
+          "height": 1,
+          "column": 0,
+          "row": 2
+        },
+        {
+          "id": "small-b",
+          "width": 1,
+          "height": 1,
+          "column": 1,
+          "row": 2
+        },
+        {
+          "id": "small-c",
+          "width": 1,
+          "height": 1,
+          "column": 2,
+          "row": 2
+        },
+        {
+          "id": "small-d",
+          "width": 1,
+          "height": 1,
+          "column": 3,
+          "row": 2
+        },
+        {
+          "id": "large-a",
+          "width": 2,
+          "height": 2,
+          "column": 0,
+          "row": 3
+        },
+        {
+          "id": "tall-e",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 3
+        },
+        {
+          "id": "tall-f",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 3
+        }
+      ]
+    },
+    {
+      "id": "rig-utility",
+      "title": "Utility Carrier",
+      "width": 3,
+      "height": 4,
+      "pockets": [
+        {
+          "id": "tall-a",
+          "width": 1,
+          "height": 2,
+          "column": 0,
+          "row": 0
+        },
+        {
+          "id": "tall-b",
+          "width": 1,
+          "height": 2,
+          "column": 1,
+          "row": 0
+        },
+        {
+          "id": "tall-c",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 0
+        },
+        {
+          "id": "tall-d",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 0
+        },
+        {
+          "id": "tall-e",
+          "width": 1,
+          "height": 2,
+          "column": 0,
+          "row": 2
+        },
+        {
+          "id": "tall-f",
+          "width": 1,
+          "height": 2,
+          "column": 1,
+          "row": 2
+        },
+        {
+          "id": "tall-g",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 2
+        },
+        {
+          "id": "tall-h",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 2
+        },
+        {
+          "id": "small-a",
+          "width": 1,
+          "height": 1,
+          "column": 0,
+          "row": 4
+        },
+        {
+          "id": "small-b",
+          "width": 1,
+          "height": 1,
+          "column": 1,
+          "row": 4
+        },
+        {
+          "id": "wide-a",
+          "width": 2,
+          "height": 1,
+          "column": 2,
+          "row": 4
+        }
+      ]
+    },
+    {
+      "id": "rig-extended",
+      "title": "Extended Carrier",
+      "width": 4,
+      "height": 4,
+      "pockets": [
+        {
+          "id": "tall-a",
+          "width": 1,
+          "height": 3,
+          "column": 0,
+          "row": 0
+        },
+        {
+          "id": "tall-b",
+          "width": 1,
+          "height": 3,
+          "column": 1,
+          "row": 0
+        },
+        {
+          "id": "tall-c",
+          "width": 1,
+          "height": 3,
+          "column": 2,
+          "row": 0
+        },
+        {
+          "id": "tall-d",
+          "width": 1,
+          "height": 3,
+          "column": 3,
+          "row": 0
+        },
+        {
+          "id": "tall-e",
+          "width": 1,
+          "height": 2,
+          "column": 0,
+          "row": 3
+        },
+        {
+          "id": "large-a",
+          "width": 2,
+          "height": 2,
+          "column": 1,
+          "row": 3
+        },
+        {
+          "id": "tall-f",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 3
+        }
+      ]
+    },
+    {
+      "id": "rig-patrol",
+      "title": "Patrol Carrier",
+      "width": 4,
+      "height": 3,
+      "pockets": [
+        {
+          "id": "tall-a",
+          "width": 1,
+          "height": 2,
+          "column": 0,
+          "row": 0
+        },
+        {
+          "id": "tall-b",
+          "width": 1,
+          "height": 2,
+          "column": 1,
+          "row": 0
+        },
+        {
+          "id": "tall-c",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 0
+        },
+        {
+          "id": "tall-d",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 0
+        },
+        {
+          "id": "tall-e",
+          "width": 1,
+          "height": 2,
+          "column": 0,
+          "row": 2
+        },
+        {
+          "id": "tall-f",
+          "width": 1,
+          "height": 2,
+          "column": 1,
+          "row": 2
+        },
+        {
+          "id": "tall-g",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 2
+        },
+        {
+          "id": "tall-h",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 2
+        },
+        {
+          "id": "tall-i",
+          "width": 1,
+          "height": 2,
+          "column": 0,
+          "row": 4
+        },
+        {
+          "id": "small-a",
+          "width": 1,
+          "height": 1,
+          "column": 1,
+          "row": 4
+        },
+        {
+          "id": "small-b",
+          "width": 1,
+          "height": 1,
+          "column": 2,
+          "row": 4
+        },
+        {
+          "id": "small-c",
+          "width": 1,
+          "height": 1,
+          "column": 1,
+          "row": 5
+        },
+        {
+          "id": "small-d",
+          "width": 1,
+          "height": 1,
+          "column": 2,
+          "row": 5
+        },
+        {
+          "id": "tall-j",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 4
+        }
+      ]
+    },
+    {
+      "id": "rig-belt",
+      "title": "Utility Belt",
+      "width": 4,
+      "height": 4,
+      "pockets": [
+        {
+          "id": "small-a",
+          "width": 1,
+          "height": 1,
+          "column": 0,
+          "row": 0
+        },
+        {
+          "id": "tall-a",
+          "width": 1,
+          "height": 2,
+          "column": 1,
+          "row": 0
+        },
+        {
+          "id": "tall-b",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 0
+        },
+        {
+          "id": "tall-c",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 0
+        },
+        {
+          "id": "small-b",
+          "width": 1,
+          "height": 1,
+          "column": 4,
+          "row": 0
+        },
+        {
+          "id": "small-c",
+          "width": 1,
+          "height": 1,
+          "column": 0,
+          "row": 1
+        },
+        {
+          "id": "small-d",
+          "width": 1,
+          "height": 1,
+          "column": 4,
+          "row": 1
+        },
+        {
+          "id": "small-e",
+          "width": 1,
+          "height": 1,
+          "column": 0,
+          "row": 2
+        },
+        {
+          "id": "tall-d",
+          "width": 1,
+          "height": 2,
+          "column": 1,
+          "row": 2
+        },
+        {
+          "id": "tall-e",
+          "width": 1,
+          "height": 2,
+          "column": 2,
+          "row": 2
+        },
+        {
+          "id": "tall-f",
+          "width": 1,
+          "height": 2,
+          "column": 3,
+          "row": 2
+        },
+        {
+          "id": "small-f",
+          "width": 1,
+          "height": 1,
+          "column": 4,
+          "row": 2
+        },
+        {
+          "id": "small-g",
+          "width": 1,
+          "height": 1,
+          "column": 0,
+          "row": 3
+        },
+        {
+          "id": "small-h",
+          "width": 1,
+          "height": 1,
+          "column": 4,
+          "row": 3
+        },
+        {
+          "id": "small-i",
+          "width": 1,
+          "height": 1,
+          "column": 0,
+          "row": 4
+        },
+        {
+          "id": "small-j",
+          "width": 1,
+          "height": 1,
+          "column": 1,
+          "row": 4
+        },
+        {
+          "id": "small-k",
+          "width": 1,
+          "height": 1,
+          "column": 2,
+          "row": 4
+        },
+        {
+          "id": "small-l",
+          "width": 1,
+          "height": 1,
+          "column": 3,
+          "row": 4
+        },
+        {
+          "id": "small-m",
+          "width": 1,
+          "height": 1,
+          "column": 4,
+          "row": 4
+        }
+      ]
+    }
+  ]
+}

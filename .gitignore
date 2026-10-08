@@ -75,3 +75,7 @@ crashlytics-build.properties
 /TestResults/
 
 /Screenshots/
+
+/Captures/
+
+__pycache__/

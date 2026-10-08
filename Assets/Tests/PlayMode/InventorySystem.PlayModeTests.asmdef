@@ -1,1 +1,15 @@
-{"name":"InventorySystem.PlayModeTests","references":["InventorySystem.Runtime","Unity.ugui"],"optionalUnityReferences":["TestAssemblies"]}
+{
+  "name": "Pktony.GridInventory.PlayModeTests",
+  "references": [
+    "Pktony.GridInventory.Runtime",
+    "Pktony.GridInventory.Catalog",
+    "Unity.ugui",
+    "Pktony.GridInventory.Domain",
+    "Pktony.GridInventory.Presentation",
+    "Unity.TextMeshPro",
+    "Pktony.GridInventory.Development"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

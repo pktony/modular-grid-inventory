@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!-- pattern: 16 implementation-plan -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Modular Grid Inventory — 패키지화 계획</title>
+<style>
+:root{--ivory:#FAF9F5;--white:#fff;--slate:#141413;--clay:#D97757;--olive:#788C5D;--rust:#B04A3F;--oat:#E3DACC;--gray-150:#F0EEE6;--gray-300:#D1CFC5;--gray-500:#87867F;--gray-700:#3D3D3A;--serif:ui-serif,Georgia,'Times New Roman',serif;--sans:system-ui,-apple-system,'Segoe UI',sans-serif;--mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box}body{margin:0;padding:56px 32px 96px;background:var(--ivory);color:var(--gray-700);font-family:var(--sans);line-height:1.6}.page{max-width:1120px;margin:auto}h1,h2,h3{font-family:var(--serif);font-weight:500;color:var(--slate);line-height:1.25}h1{font-size:38px;margin:12px 0 18px}h2{font-size:27px;margin:0}h3{font-size:21px;margin:0 0 10px}p{margin:8px 0 16px}a{color:var(--rust);text-underline-offset:3px}code,.mono,.eyebrow,.tag,.num{font-family:var(--mono)}code{font-size:.88em;overflow-wrap:anywhere}.eyebrow{font-size:12px;color:var(--gray-700);letter-spacing:.08em}.prompt-box{border-left:4px solid var(--clay);padding:14px 20px;background:var(--white);margin:20px 0}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:26px 0 54px}.card{background:var(--white);border:1.5px solid var(--gray-300);border-radius:12px;padding:20px}.k{font:12px var(--mono);margin-bottom:8px}.v{color:var(--slate);font-weight:600;font-size:19px}.accent{color:var(--rust)}section{margin-bottom:58px}.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:18px}.num,.tag{background:var(--oat);color:var(--slate);border-radius:7px;font-size:12px;padding:4px 8px}.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.list{padding-left:20px;margin:12px 0}.list li{margin:8px 0}.note{font-size:14px;color:var(--gray-700)}.bound{border-left:3px solid var(--olive);margin:14px 0;padding:8px 12px}.bound.development{border-color:var(--rust)}.bound strong{display:block}.milestone{display:grid;grid-template-columns:120px 28px 1fr;gap:0 18px;min-height:140px}.when{font:13px var(--mono);text-align:right;padding-top:2px}.dot-col{display:flex;flex-direction:column;align-items:center}.dot{width:14px;height:14px;flex-shrink:0;border-radius:50%;background:var(--white);border:3px solid var(--clay)}.line{width:2px;flex:1;background:var(--gray-300);margin:4px 0}.milestone:last-child .line{display:none}.milestone .body{padding-bottom:28px}.body h3{display:inline-block;margin-right:8px}.body p{margin:8px 0}.accept{border-left:3px solid var(--olive);padding-left:12px;font-size:14px}.flow{width:100%;height:auto;display:block}.flow text{font-family:var(--sans);fill:var(--slate);font-size:18px}.flow .meta{font-family:var(--mono);font-size:13px}.flow rect{fill:var(--white);stroke:var(--gray-300);stroke-width:1.5}.edge{fill:none;stroke:var(--olive);stroke-width:2;marker-end:url(#arrow)}.edge.async{stroke-dasharray:6 4}.legend{font-size:13px;display:flex;gap:18px;flex-wrap:wrap}.legend span:before{content:'';display:inline-block;width:26px;border-top:2px solid var(--olive);margin-right:7px;vertical-align:middle}.legend .async:before{border-top-style:dashed}table{width:100%;border-collapse:collapse}th,td{padding:12px 10px;text-align:left;border-bottom:1px solid var(--gray-300);vertical-align:top;font-size:14px;overflow-wrap:anywhere}th{font-weight:600;color:var(--slate);background:var(--gray-150)}.gate{border:1.5px solid var(--gray-300);background:var(--white);padding:18px;border-radius:12px;margin-top:16px}.fail{color:var(--rust)}.success{color:#536440}.status{font:12px var(--mono);border:1px solid var(--gray-300);padding:6px 10px;display:inline-block;margin-bottom:12px}.footer{border-top:1.5px solid var(--gray-300);padding-top:20px;font-size:13px}
+@media(max-width:900px){.summary,.two,.three{grid-template-columns:1fr}body{padding:28px 18px 64px}h1{font-size:30px}.summary{gap:10px;margin-bottom:38px}.summary .card{display:flex;align-items:center;justify-content:space-between;gap:12px}.k{margin-bottom:0}.v{font-size:17px}.milestone{grid-template-columns:42px 18px 1fr;gap:0 10px}.when{text-align:left;font-size:12px}.body h3{display:block}section{margin-bottom:40px}th,td{padding:9px 6px;font-size:12px}.flow{max-width:510px;margin:auto}.sec-head{gap:10px}h2{font-size:24px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style>
+</head>
+<body><main class="page">
+<header><div class="eyebrow">IMPLEMENTATION PLAN / 2026-10-07</div><h1>Modular Grid Inventory<br>데모에서 배포 가능한 패키지로</h1>
+<div class="status">후보 구현·회귀 통과 · 소비자 검증 대기</div>
+<div class="prompt-box">다른 Unity 프로젝트에 설치하고 확장할 수 있는 인벤토리 제품을 만든다. 중첩 가방·독립 포켓·스택·Inspector를 Asset Store 배포용으로 정리한다.</div>
+<p>본문: <a href="../PLAN.md">PLAN.md</a> · 작업: <code>feature/asset-store-package</code> · 기준: <code>4e08a36</code></p></header>
+<div class="summary"><div class="card"><div class="k">FORMAT</div><div class="v accent">.unitypackage</div></div><div class="card"><div class="k">SURFACE</div><div class="v">본체 · 편집기 · 샘플</div></div><div class="card"><div class="k">REVIEW</div><div class="v">6단계 / 책임별 PR</div></div><div class="card"><div class="k">GATE</div><div class="v">소비자 호환성 검증 대기</div></div></div>
+
+<section><div class="sec-head"><span class="num">01</span><h2>제품 경계</h2></div>
+<div class="two"><div class="card"><h3>고객에게 제공</h3><ul class="list"><li>격자 이동·회전, 독립 포켓, 유형별 수납 정책.</li><li>가방 중첩, 창 이동·재사용·전면 순서, 스택 합치기·분할.</li><li>SO 편집·즉시 미리보기·Undo/Redo, 효과음 설정.</li><li>테마 설정·입력·초기 상태 주입, 공개 API·영문 안내.</li></ul></div>
+<div class="card"><h3>개발 환경이 소유</h3><ul class="list"><li>Unity MCP, 빌드·녹화·FFmpeg·자동 시연 도구.</li><li>게임 원본 리그 이미지·이름·원본 URL 기록.</li><li>테스트 실행 도구와 원시 결과.</li><li>저장·전투·UI Toolkit·모바일·콘솔 확장은 이번 범위 밖.</li></ul></div></div>
+<p class="note">현재 구현: <code>InventoryBootstrapper</code>·초기 상태 빌더·입력 어댑터·불변 테마·프리팹·범용 편집기. 중립 아이콘 19종과 후보 아카이브 준비. <a href="package-validation.md">컴파일·정적 검사 통과 / 소비자 호환성 검증 대기</a>.</p></section>
+
+<section><div class="sec-head"><span class="num">02</span><h2>소유권과 데이터 흐름</h2></div>
+<div class="two"><div class="card"><h3>단일 배포 루트</h3><code>Assets/ModularGridInventory/</code>
+<div class="bound"><strong>Runtime / Catalog · Domain</strong>정의 → 불변 스냅샷 → 소유권·규칙·원자적 확정. UI·Editor·샘플 참조 금지.</div>
+<div class="bound"><strong>Runtime / Presentation · Input · Integration</strong>입력 어댑터 → 공개 명령. UI 설치기는 표시, 구성 루트는 조립·수명만 담당.</div>
+<div class="bound"><strong>Editor · Samples</strong>사용자가 선택한 카탈로그 편집. 중립 샘플은 공개 API만 사용.</div>
+<div class="bound"><strong>Documentation · ThirdParty</strong>설치·확장·API·변경 기록과 포함 항목별 출처.</div>
+<div class="bound development"><strong>배포 외부</strong>개발 도구·원본 게임 자료·실행 파일·MP4. 내보내기는 명시적 포함 목록 사용.</div>
+<p class="note">GUID 유지 · 명시적 폰트/오디오/카탈로그 주입 · 수정 가능한 모델 객체 비공개.</p></div>
+<div class="card"><svg class="flow" viewBox="0 0 510 625" role="img" aria-label="에디터와 샘플이 정의와 명령을 제공하고 도메인 확정 알림을 UI와 오디오가 받는 데이터 흐름">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#788C5D"/></marker></defs>
+<path class="edge" d="M255 94V130M255 195V230M255 295V330M255 395V442M255 506V552"/>
+<rect x="80" y="25" width="350" height="69" rx="10"/><text x="255" y="54" text-anchor="middle">Editor: 선택한 SO 편집</text><text class="meta" x="255" y="77" text-anchor="middle">Validate · Undo / Redo</text>
+<rect x="80" y="130" width="350" height="65" rx="10"/><text x="255" y="158" text-anchor="middle">Catalog: 불변 정의 복사</text><text class="meta" x="255" y="181" text-anchor="middle">IDs · Sections · Acceptance</text>
+<rect x="80" y="230" width="350" height="65" rx="10"/><text x="255" y="258" text-anchor="middle">Bootstrapper: 조립·수명</text><text class="meta" x="255" y="281" text-anchor="middle">Seed / Input / Theme / Audio</text>
+<rect x="80" y="330" width="350" height="65" rx="10"/><text x="255" y="358" text-anchor="middle">입력·샘플 → 공개 명령</text><text class="meta" x="255" y="381" text-anchor="middle">Transfer · Storage · Stack · Edit</text>
+<rect x="80" y="442" width="350" height="64" rx="10"/><text x="255" y="470" text-anchor="middle">Domain: 검증 후 한 번 확정</text><text class="meta" x="255" y="493" text-anchor="middle">Snapshot · Ownership · Quantity</text>
+<rect x="80" y="552" width="350" height="64" rx="10"/><text x="255" y="580" text-anchor="middle">Presenter · 창 · 효과음</text><text class="meta" x="255" y="603" text-anchor="middle">Read-only Model + Observer</text>
+</svg><div class="legend"><span>동기 호출·확정 뒤 이벤트 알림</span></div><p class="note">실패·취소 시 원본 상태 유지. 미리보기는 확정과 별도이며 입력은 샘플 데이터에 의존하지 않는다.</p></div></div></section>
+
+<section><div class="sec-head"><span class="num">03</span><h2>독립적으로 리뷰할 6단계</h2></div>
+<div class="milestone"><div class="when">STEP 1</div><div class="dot-col"><span class="dot"></span><span class="line"></span></div><div class="body"><h3>배포 경계 확정</h3><span class="tag">layout / export</span><p>PR: 폴더·GUID 이동 / 의존성·내보내기.</p><div class="accept">참조 누락 0 · 개발 도구·게임 원본 미포함 · 경로 150자 미만.</div></div></div>
+<div class="milestone"><div class="when">STEP 2</div><div class="dot-col"><span class="dot"></span><span class="line"></span></div><div class="body"><h3>본체 통합 계약</h3><span class="tag">api / input</span><p>PR: 구성·초기 상태 / 입력 어댑터.</p><div class="accept">샘플 없이 시작 · 사용자 상태 주입 · Legacy / Both / Input System 대응.</div></div></div>
+<div class="milestone"><div class="when">STEP 3</div><div class="dot-col"><span class="dot"></span><span class="line"></span></div><div class="body"><h3>교체 가능한 UI·편집기</h3><span class="tag">ui / editor</span><p>PR: 테마·프리팹 / 범용 Inspector.</p><div class="accept">두 인벤토리 독립 실행 · 임의 저장 경로 · Undo/Redo · 1280/1920 대응.</div></div></div>
+<div class="milestone"><div class="when">STEP 4</div><div class="dot-col"><span class="dot"></span><span class="line"></span></div><div class="body"><h3>배포용 샘플·출처</h3><span class="tag">samples / notices</span><p>PR: 중립 샘플 / 음원·폰트·고지.</p><div class="accept">포켓 10종 · 게임 원본 참조 0 · 포함 파일별 출처·배포 조건 확인.</div></div></div>
+<div class="milestone"><div class="when">STEP 5</div><div class="dot-col"><span class="dot"></span><span class="line"></span></div><div class="body"><h3>소비자 환경 검증·문서</h3><span class="tag">tests / docs</span><p>PR: 깨끗한 프로젝트 검증 / 영문 문서.</p><div class="accept">버전·렌더링·입력·수명 검증 · 설치 후 실행 · 오류/경고 0 · 호스트 설정 보존.</div></div></div>
+<div class="milestone"><div class="when">STEP 6</div><div class="dot-col"><span class="dot"></span><span class="line"></span></div><div class="body"><h3>제출물 준비</h3><span class="tag">release / listing</span><p>PR: 릴리스 생성 / 소개·심사 자료.</p><div class="accept">Validator 지적 해결·재검사 · 실제 지원과 소개 일치 · 검토 가능한 제출물.</div></div></div>
+<div class="gate"><strong>검증 게이트</strong><p><span class="fail">실패 → 원인 단계 수정 → 같은 릴리스 재검증.</span><br><span class="success">통과 → 사용자에게 제출물 검토 → 계정·가격·게시 시점 확정 → 제출.</span></p><p class="note">계획 단계에서는 계정·스토어를 변경하지 않는다. 준비 완료와 심사 승인·게시 완료는 서로 다른 상태다.</p></div></section>
+
+<section><div class="sec-head"><span class="num">04</span><h2>검증 행렬</h2></div><div class="three">
+<div class="card"><h3>호환성</h3><ul class="list"><li>Unity <code>6000.0</code> LTS / <code>6000.6.4f1</code> 후보.</li><li>두 버전 URP 필수; Built-in은 별도 통과 후 표기.</li><li>Legacy · Both · Input System only.</li></ul><p class="note">현재 설치: 6000.6.4f1만. 검증 전 지원 버전을 광고하지 않는다.</p></div>
+<div class="card"><h3>수명과 설치</h3><ul class="list"><li>Domain Reload 켬/끔, Play 반복 10회.</li><li>최초·재임포트·업그레이드·경로 이동.</li><li>사용자 SO·ProjectSettings·기존 씬 보존.</li></ul><p class="note">Missing 참조와 리스너·창·AudioSource 누적 0.</p></div>
+<div class="card"><h3>기능과 공개 API</h3><ul class="list"><li>중첩·순환·독립 포켓·스택·실패 불변.</li><li>다중 창·회전·수납 두 경로·오디오.</li><li>모델 전용 예제·범용 Inspector·Undo/Redo.</li></ul><p class="note">현재 기준: Edit 91 / Play 24 / Windows 27 / 녹화 49. 패키지 이동 후 재검증.</p></div></div></section>
+
+<section><div class="sec-head"><span class="num">05</span><h2>위험과 책임 분리</h2></div>
+<table><thead><tr><th>위험</th><th>심각도</th><th>완화</th></tr></thead><tbody>
+<tr><td>게임 원본·브랜드 잔존</td><td>높음</td><td>중립 이미지·이름, 배포 포함 목록·소개 문구 검사.</td></tr>
+<tr><td>GUID·직렬화 참조 손실</td><td>높음</td><td>GUID 유지, Missing 참조와 업그레이드 검증.</td></tr>
+<tr><td>고정 Resources·입력·설정 의존</td><td>높음</td><td>명시적 주입, 샘플 없는 시작·새 호스트 검사.</td></tr>
+<tr><td>Domain Reload 비활성 상태 누적</td><td>높음</td><td>인스턴스 소유·Dispose·초기화, 반복 Play.</td></tr>
+<tr><td>미검증 지원 광고</td><td>높음</td><td>버전별 검증 결과 후 지원 범위 확정.</td></tr>
+<tr><td>거대 Installer에 책임 재집중</td><td>중간</td><td>생성·검증·확정·입력·표시·오디오·배포별 클래스/PR.</td></tr>
+</tbody></table><p class="note">Factory · MVP · Composition Root · Observer 유지, 입력 교체에 Adapter. 전역 이벤트 버스·Service Locator·유형별 상속·SO/JSON 이중 원본 제외.</p></section>
+
+<section><div class="sec-head"><span class="num">06</span><h2>제출 전에 확정할 것</h2></div><div class="two">
+<div class="card"><h3>제출물</h3><ul class="list"><li>버전별 패키지와 Validator·깨끗한 프로젝트 결과.</li><li>영문 설치·API·확장 안내와 Third-Party Notices.</li><li>검증된 지원 범위·AI description·영상 외부 링크.</li><li>설정·씬·패키지 자동 변경과 내부 Editor 리플렉션 미포함.</li></ul></div>
+<div class="card"><h3>열린 질문</h3><ul class="list"><li>최종 제품명·Publisher명·지원 연락처.</li><li>무료/유료 가격과 지원 범위.</li><li>6000.0·렌더링 지원의 실제 검사 결과.</li><li>소스 공개 정책, 계정 설정과 제출·공개 시점.</li></ul></div></div></section>
+<footer class="footer">본문이 기준이며 이 문서는 <strong>16 implementation-plan</strong> 형식의 흐름 시각화다.<br>2026-10-07 확인: <a href="https://assetstore.unity.com/publishing/submission-guidelines">Unity 제출 가이드</a> · <a href="https://docs.unity.com/en-us/asset-store/publishing/asset-packages/upload">Validator·업로드 절차</a> · <a href="https://docs.unity.com/en-us/asset-store/publishing">배포 형식</a>.</footer>
+</main></body></html>
