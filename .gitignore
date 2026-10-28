@@ -79,3 +79,4 @@ crashlytics-build.properties
 /Captures/
 
 __pycache__/
+/Data/Plugins/lib_burst_generated*
