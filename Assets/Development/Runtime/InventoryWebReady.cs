@@ -18,7 +18,6 @@ namespace Pktony.GridInventory.Development
 
         private IEnumerator Start()
         {
-            WebGLInput.captureAllKeyboardInput = false;
             var inventory = FindFirstObjectByType<InventoryBootstrapper>();
             while (inventory != null && inventory.Screen == null) yield return null;
             if (inventory != null && inventory.ReadModel != null) InventoryReady();

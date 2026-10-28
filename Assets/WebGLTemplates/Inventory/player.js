@@ -37,12 +37,12 @@
     if (event.origin !== location.origin || event.source !== window.parent || event.data?.channel !== channel) return;
     if (event.data.type === "quit") quit().catch(() => send("stopped"));
     if (event.data.type === "fullscreen" && instance && !stopped) instance.SetFullscreen(1);
-    if (event.data.type === "focus" && !stopped) canvas.focus();
+    if (event.data.type === "focus" && !stopped) canvas.focus({ preventScroll: true });
   });
   window.addEventListener("error", fail);
   window.addEventListener("unhandledrejection", fail);
   canvas.addEventListener("contextmenu", event => event.preventDefault());
-  canvas.addEventListener("pointerdown", () => canvas.focus());
+  canvas.addEventListener("pointerdown", () => canvas.focus({ preventScroll: true }));
   config.showBanner = (text, type) => { if (type === "error") fail(); else console.warn(text); };
   const loader = document.createElement("script");
   loader.src = config.loader;

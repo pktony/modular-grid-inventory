@@ -19,6 +19,7 @@ Output: `Builds/WebGL/inventory`. Set `INVENTORY_WEB_OUTPUT` to use another dire
 - Single thread, Gzip with decompression fallback, 64–512 MB WASM heap.
 - Build settings are restored after success or failure.
 - The custom template preserves the 16:9 canvas, suppresses the browser context menu and captures keyboard input only when focused.
+- Web runtime settings keep rendering active when the browser toolbar has focus, so resizing and fullscreen do not leave a cleared canvas.
 - `InventoryWebReady` signals when the actual sample UI and read model exist. The parent waits for this signal and `createUnityInstance`.
 - Same-origin messages use channel `modular-grid-inventory`: progress, ready, error, stopped; commands: focus, fullscreen, quit.
 - `node --test scripts/test-web-template.cjs` checks startup ordering, exit during startup and foreign-message rejection.
